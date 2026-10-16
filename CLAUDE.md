@@ -20,7 +20,9 @@ Trabalhe sempre num branch próprio (`resumo/<tema>`), nunca direto na `main`.
 3. **polidor-texto** → transforma em `rascunho.md`: linguagem didática, português correto, ordem lógica.
 4. **designer** → no Paper, desenha 3 opções de layout, ESPERA o aluno escolher, desenha o resumo completo e, aprovado, gera `resumo.html`. Requer o app Paper Desktop aberto.
 
-Ao fim de cada etapa: commit pequeno com mensagem clara (ex.: `pesquisa: conversão de bases`).
+Ao fim de cada etapa: commit pequeno com mensagem clara (ex.: `pesquisa: conversão de bases`)
+e **push imediato do branch para o GitHub** (`git push -u origin <branch>`), para o trabalho ficar salvo na nuvem.
+Ao pausar o trabalho, também faça commit e push do que estiver pronto.
 Pare e mostre o resultado ao aluno antes de passar para a próxima etapa.
 
 ## Regras gerais
