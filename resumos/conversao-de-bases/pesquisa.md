@@ -14,7 +14,8 @@ Ao final deste resumo, o aluno deve saber:
 2. Converter **binário, octal ou hexadecimal → decimal** (soma de potências) e **decimal → binário, octal ou hexadecimal** (divisões sucessivas).
 3. Converter **binário ↔ octal** e **binário ↔ hexadecimal** por agrupamento direto de bits (3 e 4 bits).
 4. Converter **octal ↔ hexadecimal** usando **sempre o binário como pivô**.
-5. **Conferir** qualquer resultado convertendo de volta, e evitar os erros mais comuns de prova.
+5. Converter números **com parte fracionária** (com vírgula) do decimal para binário, octal ou hexadecimal (multiplicações sucessivas), e entender o valor das posições depois da vírgula (expoentes negativos).
+6. **Conferir** qualquer resultado convertendo de volta, e evitar os erros mais comuns de prova.
 
 ---
 
@@ -420,7 +421,29 @@ Resultado: **10,375₁₀ = 1010,011₂**.
 
 **Verificação:** 1010,011₂ = 8 + 0 + 2 + 0 + 0×0,5 + 1×0,25 + 1×0,125 = 10 + 0,375 = 10,375. ✔
 
-#### Exemplo 12 — Decimal → hexadecimal: 0,75₁₀
+#### Exemplo 12 — Decimal → octal: 25,6875₁₀
+
+Parte inteira (25):
+
+```
+25 ÷ 8 = 3, resto 1    (3 × 8 = 24; 25 − 24 = 1)
+ 3 ÷ 8 = 0, resto 3     → de baixo para cima: 31
+```
+
+Parte fracionária (0,6875):
+
+```
+0,6875 × 8 = 5,5  → dígito 5, sobra 0,5
+0,5    × 8 = 4,0  → dígito 4, sobra 0     ← para
+```
+
+De cima para baixo: 5 4 → 0,54.
+
+Resultado: **25,6875₁₀ = 31,54₈**.
+
+**Verificação:** 31,54₈ = 3×8 + 1×1 + 5×8⁻¹ + 4×8⁻² = 24 + 1 + 5/8 + 4/64 = 25 + 0,625 + 0,0625 = 25,6875. ✔
+
+#### Exemplo 13 — Decimal → hexadecimal: 0,75₁₀
 
 ```
 0,75 × 16 = 12,0 → dígito 12 = C, sobra 0  ← para
@@ -562,7 +585,7 @@ Todos os exemplos e exercícios deste arquivo são próprios e foram conferidos 
 
 ## Revisão QA
 
-Não há nenhum erro numérico. Todas as contas dos Exemplos 1 a 12, das seções 2.4, 2.7 e 4 e do gabarito dos exercícios 1 a 7 foram refeitas de forma independente e conferidas com Python (`int(..., base)`, `format`, `hex`, `oct` e `fractions` para 0,1₁₀ em binário).
+Não há nenhum erro numérico. Todas as contas dos Exemplos 1 a 13, das seções 2.4, 2.7 e 4 e do gabarito dos exercícios 1 a 7 foram refeitas de forma independente e conferidas com Python (`int(..., base)`, `format`, `hex`, `oct` e `fractions` para 0,1₁₀ em binário).
 
 Ajustes de clareza e lacunas:
 
@@ -573,6 +596,6 @@ Ajustes de clareza e lacunas:
 
 O texto segue as regras do aluno. A tabela §2.8 e as seções 3.3 a 3.5 usam o agrupamento de 3 ou 4 bits entre binário e octal ou hexadecimal. Octal ↔ hexadecimal passa sempre pelo binário (Exemplos 9 e 10, exercícios 6 e 7).
 
-Mudança de escopo (pedido do aluno, após a revisão): o resumo passou a cobrir só as bases 2, 8, 10 e 16. Saíram: as linhas das bases 3, 5, 7 e 12 nas tabelas §2.2 e §2.5, a linha "Todas as outras" da §2.8 e seu exemplo, o antigo Exemplo 5 (decimal → base 12), a antiga §3.6 (outras bases pelo decimal, Exemplos 12 e 13) e o exercício 8 com seu gabarito. Exemplos e seções foram renumerados; nenhum exemplo restante depende do conteúdo removido.
+Mudança de escopo (pedido do aluno, após a revisão): o resumo passou a cobrir só as bases 2, 8, 10 e 16. Saíram: as linhas das bases 3, 5, 7 e 12 nas tabelas §2.2 e §2.5, a linha "Todas as outras" da §2.8 e seu exemplo, o antigo Exemplo 5 (decimal → base 12), a antiga §3.6 (outras bases pelo decimal, então numerada com os Exemplos 12 e 13 — não confundir com os Exemplos 12 e 13 atuais) e o exercício 8 com seu gabarito. Exemplos e seções foram renumerados; nenhum exemplo restante depende do conteúdo removido.
 
 Fontes: as 4 URLs foram abertas e existem. O conteúdo citado também foi confirmado: o exemplo 764₈ = 500₁₀ na Wikipédia "Sistema octal" e o erro 3C₁₆ → 00111010₂ no artigo da DIO. O correto é 00111100₂.

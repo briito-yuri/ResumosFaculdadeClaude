@@ -14,7 +14,8 @@ Ao terminar este resumo, você vai saber:
 2. Converter **binário, octal ou hexadecimal → decimal** (soma de potências) e **decimal → binário, octal ou hexadecimal** (divisões sucessivas).
 3. Converter **binário ↔ octal** e **binário ↔ hexadecimal** agrupando os bits de 3 em 3 ou de 4 em 4.
 4. Converter **octal ↔ hexadecimal** passando **sempre pelo binário**.
-5. **Conferir** qualquer resultado fazendo a conversão de volta, e fugir dos erros mais comuns de prova.
+5. Converter números **com parte fracionária** (com vírgula) do decimal para binário, octal ou hexadecimal (multiplicações sucessivas), e entender quanto vale cada posição depois da vírgula (expoentes negativos).
+6. **Conferir** qualquer resultado fazendo a conversão de volta, e fugir dos erros mais comuns de prova.
 
 ---
 
@@ -424,7 +425,29 @@ Resultado: **10,375₁₀ = 1010,011₂**.
 
 **Conferência:** 1010,011₂ = 8 + 0 + 2 + 0 + 0×0,5 + 1×0,25 + 1×0,125 = 10 + 0,375 = 10,375. ✔
 
-#### Exemplo 12 — Decimal → hexadecimal: 0,75₁₀
+#### Exemplo 12 — Decimal → octal: 25,6875₁₀
+
+Parte inteira (25):
+
+```
+25 ÷ 8 = 3, resto 1    (3 × 8 = 24; 25 − 24 = 1)
+ 3 ÷ 8 = 0, resto 3     → de baixo para cima: 31
+```
+
+Parte fracionária (0,6875):
+
+```
+0,6875 × 8 = 5,5  → dígito 5, sobra 0,5
+0,5    × 8 = 4,0  → dígito 4, sobra 0     ← para
+```
+
+De cima para baixo: 5 4 → 0,54.
+
+Resultado: **25,6875₁₀ = 31,54₈**.
+
+**Conferência:** 31,54₈ = 3×8 + 1×1 + 5×8⁻¹ + 4×8⁻² = 24 + 1 + 5/8 + 4/64 = 25 + 0,625 + 0,0625 = 25,6875. ✔
+
+#### Exemplo 13 — Decimal → hexadecimal: 0,75₁₀
 
 ```
 0,75 × 16 = 12,0 → dígito 12 = C, sobra 0  ← para
