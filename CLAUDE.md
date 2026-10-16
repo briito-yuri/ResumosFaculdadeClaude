@@ -9,7 +9,7 @@ Cada resumo é produzido por uma squad de subagentes em `.claude/agents/`.
   - `pesquisa.md` — saída do pesquisador
   - `rascunho.md` — conteúdo revisado (QA + polimento)
   - `resumo.html` — versão final diagramada
-- `templates/layout-escolhido.md` — layout aprovado no Paper (o designer reutiliza nos próximos resumos)
+- `templates/<nome>.md` — coleção de layouts aprovados no Paper (um arquivo por estilo; o designer pergunta qual usar)
 
 ## Fluxo de um resumo
 
@@ -18,7 +18,7 @@ Trabalhe sempre num branch próprio (`resumo/<tema>`), nunca direto na `main`.
 1. **pesquisador** → cria `pesquisa.md` com conceitos, exemplos resolvidos e fontes.
 2. **revisor-qa** → confere cada conceito, conta e exemplo; corrige erros em `pesquisa.md` e lista o que mudou.
 3. **polidor-texto** → transforma em `rascunho.md`: linguagem didática, português correto, ordem lógica.
-4. **designer** → no Paper, desenha 3 opções de layout, ESPERA o aluno escolher, desenha o resumo completo e, aprovado, gera `resumo.html`. Requer o app Paper Desktop aberto.
+4. **designer** → pergunta se o aluno quer reusar um layout salvo em `templates/` ou ver 3 opções novas no Paper; ESPERA a escolha, desenha o resumo completo e, aprovado, gera `resumo.html`. Requer o app Paper Desktop aberto, com um arquivo próprio para cada resumo.
 
 Ao fim de cada etapa: commit pequeno com mensagem clara (ex.: `pesquisa: conversão de bases`)
 e **push imediato do branch para o GitHub** (`git push -u origin <branch>`), para o trabalho ficar salvo na nuvem.
