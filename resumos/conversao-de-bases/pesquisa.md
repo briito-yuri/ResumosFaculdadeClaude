@@ -358,6 +358,8 @@ Resultado: **B7₁₆ = 10110111₂**.
 
 Atenção: **não** dá para trocar dígito por dígito entre octal e hexadecimal (17₈ é 15₁₀ = F₁₆, e não 17₁₆). O binário é a "ponte" porque 8 e 16 são potências de 2.
 
+Observação: nos exemplos abaixo, a "Verificação (pelo decimal)" é **só uma conferência** do resultado. A conversão em si **nunca** passa pelo decimal: o caminho é sempre octal → binário → hexadecimal (ou o inverso).
+
 #### Exemplo 10 — Octal → hexadecimal: 765₈
 
 Passo 1 — octal → binário (3 bits por dígito):
@@ -445,6 +447,11 @@ Restos de baixo para cima: 3 6 5 → **1234₅ = 365₇**.
 
 Passo 1 — 2101₃ → decimal:
 
+```
+dígitos:   2   1   0   1
+posições:  3   2   1   0
+```
+
 | Dígito | Potência | Conta | Valor |
 |---|---|---|---|
 | 2 | 3³ = 27 | 2 × 27 | 54 |
@@ -516,7 +523,7 @@ Observação: nem toda fração decimal "fecha" em binário. Ex.: 0,1₁₀:
 0,6 × 2 = 1,2 → 1 (sobra 0,2)  ← 0,2 já apareceu: o ciclo se repete
 ```
 
-0,1₁₀ = 0,0001100110011...₂ (dízima periódica). Nesses casos, para depois do número de dígitos pedido no enunciado.
+0,1₁₀ = 0,0001100110011...₂ (dízima periódica). Nesses casos, pare depois do número de dígitos pedido no enunciado.
 
 ---
 
@@ -525,7 +532,7 @@ Observação: nem toda fração decimal "fecha" em binário. Ex.: 0,1₁₀:
 1. **Ler os restos na ordem errada.** Nas divisões sucessivas, leia **de baixo para cima**. Ex.: 13₁₀ dá restos 1, 0, 1, 1 (nessa ordem); o correto é **1101₂** (= 13). Ler de cima para baixo dá 1011₂, que vale 11 — errado.
 2. **Parar a divisão antes da hora.** Continue até o **quociente ser 0**; o último resto (o primeiro dígito do resultado) costuma ser esquecido.
 3. **Inverter a regra na parte fracionária.** Nas multiplicações sucessivas, a leitura é **de cima para baixo** (o contrário das divisões).
-4. **Agrupar bits a partir da esquerda.** Os grupos de 3 ou 4 bits começam **pela direita** (na parte inteira). Ex.: 1101011110₂ agrupado errado pela esquerda dá 1101 | 0111 | 10 → "D72" (errado); o certo é 0011 | 0101 | 1110 → **35E₁₆**.
+4. **Agrupar bits a partir da esquerda.** Os grupos de 3 ou 4 bits começam **pela direita** (na parte inteira). Ex.: 1101011110₂ agrupado errado pela esquerda dá 1101 | 0111 | 10 → "D72" (errado); o certo é 0011 | 0101 | 1110 → **35E₁₆**. (Se houver parte fracionária, ela é agrupada a partir da vírgula **para a direita**, completando com zeros **à direita**: 0,11₂ → 0,110₂ → 0,6₈.)
 5. **Esquecer de completar com zeros à esquerda** e, por exemplo, ler o grupo "11" como se fosse "110". Complete sempre com zeros **à esquerda** do grupo mais à esquerda: 11 → 0011.
 6. **Escrever menos bits por dígito.** Na conversão octal/hexa → binário, cada dígito vira **exatamente** 3 (octal) ou 4 (hexa) bits. Ex.: 72₈ = 111 **010**, e não 111 10.
 7. **Converter octal ↔ hexadecimal dígito a dígito.** 17₈ ≠ 17₁₆. 17₈ = 15₁₀ = F₁₆. Use o binário como pivô.
@@ -536,7 +543,7 @@ Observação: nem toda fração decimal "fecha" em binário. Ex.: 0,1₁₀:
 12. **Confundir o valor das letras.** A=10, B=11, C=12, D=13, E=14, F=15. Truque: F é o maior (15); conte para trás.
 
 **Atalhos:**
-- **Conferência rápida de paridade:** um número binário é par se e só se termina em 0. Em hexadecimal/octal/decimal, o número é par se o último dígito for par (vale porque as bases 16, 8 e 10 são pares).
+- **Conferência rápida de paridade:** um número binário é par se e só se termina em 0. Em hexadecimal/octal/decimal, o número é par se e só se o último dígito for par (vale porque as bases 16, 8 e 10 são pares). Em hexadecimal, considere o **valor** da letra: A (10), C (12) e E (14) são pares; B, D e F são ímpares.
 - **Pesos 8-4-2-1:** decore para converter qualquer grupo de 4 bits de cabeça (pesos 4-2-1 para 3 bits).
 - **Decimal → binário por subtração de potências:** pegue a maior potência de 2 que cabe, subtraia e repita. Ex.: 45 = 32 + 8 + 4 + 1 → posições 5, 3, 2, 0 → 101101₂.
 - **Decimal → octal/hexa grandes:** é mais rápido dividir direto por 8 ou 16 do que passar pelo binário.
@@ -651,3 +658,21 @@ De baixo para cima: 10121. Conferência: 1×81 + 0×27 + 1×9 + 2×3 + 1×1 = 81
 - LOPES, Evelin. "Conversão de bases numéricas". Evelin DEV (Substack), 9 mar. 2022. Disponível em: https://evelindev.substack.com/p/conversao-de-bases-numericas — algoritmo de divisões sucessivas (restos invertidos ao final).
 
 Todos os exemplos e exercícios deste arquivo são próprios e foram conferidos pela conversão inversa.
+
+---
+
+## Revisão QA
+
+Não há nenhum erro numérico. Todas as contas dos Exemplos 1 a 15, das seções 2.4, 2.7 e 4 e do gabarito dos exercícios 1 a 8 foram refeitas de forma independente e conferidas com Python (`int(..., base)`, `format`, `hex`, `oct` e `fractions` para 0,1₁₀ em binário).
+
+Ajustes de clareza e lacunas:
+
+- **§3.5:** foi acrescentada uma observação explicando que a "Verificação (pelo decimal)" serve só para conferir o resultado. A conversão octal ↔ hexadecimal continua passando sempre pelo binário. Sem essa observação, o leitor poderia achar que a regra estava sendo quebrada.
+- **Exemplo 13:** foi incluído o bloco "dígitos/posições", como nos Exemplos 1, 2 e 12, para não pular passo.
+- **§4, pegadinha 4:** a nota sobre o agrupamento da parte fracionária foi completada. O agrupamento começa na vírgula e vai para a direita, completando com zeros à direita (ex.: 0,11₂ = 0,110₂ = 0,6₈ = 0,75₁₀).
+- **§4, atalho de paridade:** antes estava escrito "par se o último dígito for par". Agora está "par se e só se o último dígito for par", com a explicação de que A, C e E são pares e B, D e F são ímpares.
+- **§3.7, observação sobre 0,1₁₀:** "para depois do número de dígitos" virou "pare depois do número de dígitos".
+
+O texto segue as regras do aluno. A tabela §2.8 e as seções 3.3 a 3.6 usam o agrupamento de 3 ou 4 bits entre binário e octal ou hexadecimal. Octal ↔ hexadecimal passa sempre pelo binário (Exemplos 10 e 11, exercícios 6 e 7). As outras bases passam pelo decimal: base 5 → base 7 (Ex. 12), base 3 → base 16 (Ex. 13) e base 5 → base 3 (exercício 8).
+
+Fontes: as 4 URLs foram abertas e existem. O conteúdo citado também foi confirmado: o exemplo 764₈ = 500₁₀ na Wikipédia "Sistema octal" e o erro 3C₁₆ → 00111010₂ no artigo da DIO. O correto é 00111100₂.
