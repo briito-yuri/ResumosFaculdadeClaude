@@ -593,3 +593,21 @@ Conferência pelo decimal (só para checar): 4B₁₆ = 4×16 + 11 = 75; 113₈ 
 - LOPES, Evelin. "Conversão de bases numéricas". Evelin DEV (Substack), 9 mar. 2022. Disponível em: https://evelindev.substack.com/p/conversao-de-bases-numericas — algoritmo de divisões sucessivas (restos invertidos no final).
 
 Todos os exemplos e exercícios deste resumo são próprios e foram conferidos pela conversão inversa.
+
+---
+
+<!-- STATUS DO FLUXO: nota de trabalho, NÃO faz parte do resumo. Remover antes de gerar o resumo.html. -->
+
+## Status do fluxo (nota de trabalho — não entra no resumo final)
+
+Pausado em 16/10/2026, na **etapa 4 (designer), Etapa 2 do `designer.md`: desenhar o resumo completo no Paper**.
+
+- Concluído: pesquisa, revisão QA, rascunho, exemplo de fração em octal, 3 opções de layout no Paper.
+- Layout escolhido pelo aluno: **Opção 3 — Sinalização**, especificado em `templates/layout-escolhido.md`.
+- No Paper (arquivo "Resumos Faculdade", Page 1), páginas A4 "Resumo · p. N":
+  - p. 1 a 12 desenhadas (p. 1 a 11 conferidas por screenshot; p. 12 ainda não);
+  - p. 13 incompleta: só tem o Exemplo 11 — faltam os Exemplos 12 e 13 e o rodapé.
+- Falta desenhar: "Quando a fração não fecha", seção 4 (Erros comuns), 5 (Atalhos), 6 (Exercícios), 7 (Gabarito) e 8 (Fontes) — cerca de 5 páginas.
+- Motivo da pausa: limite semanal de uso do Paper (MCP) atingido.
+- Próximos passos: terminar as páginas no Paper → aluno revisa e aprova → gerar `resumo.html` (arquivo único, CSS embutido, `@media print`) → commit.
+- Lembrete: no Paper o negrito dentro de frases não aparece (limitação da ferramenta); no `resumo.html` ele deve voltar.
