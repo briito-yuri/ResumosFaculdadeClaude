@@ -18,4 +18,4 @@ Tarefa: dado um tema da faculdade, produza `resumos/<tema>/pesquisa.md` com:
 Regras:
 - Confira toda conta antes de escrever (refaça no sentido inverso).
 - Não se preocupe com visual; só conteúdo em Markdown.
-- Ao terminar, faça commit e devolva um resumo de 3 linhas do que foi produzido.
+- Ao terminar, devolva (o commit fica com o orquestrador) um resumo de 3 linhas do que foi produzido.
