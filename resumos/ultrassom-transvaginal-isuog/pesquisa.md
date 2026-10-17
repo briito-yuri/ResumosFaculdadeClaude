@@ -10,7 +10,7 @@ Escopo: roteiro de um USG TV ginecológico de rotina (útero, colo, ovários, an
 |---|---|
 | **[ISUOG]** | Recomendação ou texto explícito de documento da ISUOG (diretriz, consenso, declaração de segurança ou material ISUOG Basic Training) que foi lido. |
 | **[Consenso ISUOG/UOG]** | Consenso de grupos internacionais (IETA, IOTA, MUSA, IDEA) publicado na revista oficial da ISUOG (*Ultrasound in Obstetrics & Gynecology*, UOG). |
-| **[Outra fonte]** | Fonte externa à ISUOG (WFUMB, artigo, Radiopaedia), indicada na seção Fontes. |
+| **[Outra fonte]** | Fonte externa à ISUOG (WFUMB, AIUM, painel SRU/NEJM, livro-texto, artigo), indicada na seção Fontes. |
 | **[Prática/ensino]** | Prática comum de serviço ou de ensino; **não** encontrada como recomendação explícita nas fontes ISUOG consultadas. Siga o protocolo local. |
 
 Todo número citado vem com a fonte. Onde a fonte não dá número, este resumo também não dá.
@@ -126,9 +126,11 @@ Para o endométrio: o útero deve **ocupar mais da metade da tela**, mostrando t
 - **Período fetal (11+0 a 13+6 semanas; CCN ≥ 45 mm):** pode ser usado de rotina para algumas indicações (ex.: rastreio de trissomias e cardiopatias), com **TI exibido ≤ 1,0** e exposição a mais curta possível (**geralmente ≤ 5–10 min**).
 - **Artérias uterinas maternas:** implicações fetais improváveis **desde que o embrião/feto esteja fora do feixe**.
 
+A diretriz ISUOG 2023 (11–14 semanas) repete as mesmas regras: modos B e M sem indicação de dano, **ALARA**, Doppler com mais bioefeitos potenciais **antes de 11 semanas**, e entre 11 e 14 semanas **TI exibido de 1,0** com exposição **geralmente ≤ 5–10 min**. **[ISUOG]**
+
 ### 2.8 Limpeza e desinfecção da sonda
 
-Classificação de **Spaulding** (declaração do Comitê de Segurança da ISUOG, 2020) **[ISUOG]**:
+Classificação de **Spaulding** — descrita tanto na diretriz de rotina da **WFUMB 2024** para sondas endocavitárias **[Outra fonte]** quanto na declaração do Comitê de Segurança da ISUOG (2020) **[ISUOG]**:
 
 | Classe | Contato | Exemplo | O que fazer |
 |---|---|---|---|
@@ -136,7 +138,15 @@ Classificação de **Spaulding** (declaração do Comitê de Segurança da ISUOG
 | **Semicrítico** | mucosa ou pele não íntegra | **sonda TV** | **desinfecção de alto nível (DAN)** |
 | Crítico | procedimento invasivo | sonda em punção | esterilização (com ou sem capa) |
 
-O consenso ISUOG de endométrio reforça: sonda TV é semicrítica — usar **capa com gel** e fazer **DAN após o uso**; em alguns países sachês individuais de gel são obrigatórios. **[ISUOG]** O Basic Training: **capa sempre**, perguntar sobre **alergia ao látex** e ter capa sem látex disponível. **[ISUOG]** Uma fonte europeia (ESR) lembra que **a capa não substitui a DAN**. **[Outra fonte]**
+O consenso ISUOG de endométrio reforça: sonda TV é semicrítica — usar **capa com gel** e fazer **DAN após o uso**; em alguns países sachês individuais de gel são obrigatórios. **[ISUOG]** O Basic Training: **capa sempre**, perguntar sobre **alergia ao látex** e ter capa sem látex disponível. **[ISUOG]**
+
+**Por que a capa não basta (WFUMB 2024, rotina, fora do contexto COVID) [Outra fonte]:**
+- Estudo citado pela WFUMB (Basseal 2019) encontrou **vazamento de 0,4% a 13% em preservativos** e **0% a 5% em capas comerciais**; outro (Masood 2007) relatou **9% de perfuração de preservativo** em biópsia transretal. Por isso a **DAN da sonda é obrigatória** mesmo com capa.
+- Recomenda capas com **poros < 30 nm**, **capa nova a cada paciente**, de preferência **embaladas individualmente**; se usar preservativo, **sem lubrificante e sem medicamento**. Preservativos e a maioria das capas de TV **não são estéreis**.
+- **Lenços de detergente doméstico e lenços com álcool não são DAN.**
+- Teclado, cabo, cabo/empunhadura da sonda, suporte da sonda e frasco de gel também precisam de limpeza regular (detergente ou desinfecção de baixo nível).
+
+**AIUM (revisão 2025) [Outra fonte]:** sondas internas exigem **DAN de rotina obrigatória** e **capa descartável de boa qualidade em cada exame**; o operador deve usar **luvas durante todo o exame interno**; considerar **gel estéril ou bacteriostático** em exames endocavitários; frascos multidose **não devem ser reabastecidos**; gel só deve ser aquecido a **calor seco**; uma ruptura visível da capa **não muda** o protocolo (a DAN já é feita sempre).
 
 ### 2.9 Terminologia padronizada (só o que foi lido)
 
@@ -148,11 +158,11 @@ O consenso ISUOG de endométrio reforça: sonda TV é semicrítica — usar **ca
   - **Líquido intracavitário:** presença e ecogenicidade.
 - **MUSA** (miométrio) — Van den Bosch 2015 **[Consenso ISUOG/UOG]**: medida do corpo uterino, simetria das paredes, ecogenicidade homogênea/heterogênea, lesão bem ou mal definida, localização FIGO 0–8 de miomas, sombras, cistos, ilhas hiperecogênicas, zona juncional regular/mal definida, escore de cor 1–4.
 - **IOTA** (anexos) — Timmerman 2000 **[Consenso ISUOG/UOG]**: ovários e lesões medidos pelos **três maiores diâmetros em dois planos perpendiculares (em mm)**; **líquido no fundo de saco** medido no **plano sagital** pelo **maior diâmetro anteroposterior (mm)**; classificação de lesões em 6 categorias (unilocular, unilocular-sólido, multilocular, multilocular-sólido, sólido, não classificável). Existe uma atualização de 2026 (DOI 10.1002/uog.70191), da qual só foi lida a página-resumo da ISUOG.
-- **IDEA** (endometriose) — Guerriero 2016 **[Consenso ISUOG/UOG]**: 4 passos — (1) útero e anexos de rotina; (2) "marcadores leves": dor localizada e mobilidade ovariana; (3) **sinal de deslizamento** ("sliding sign") para o fundo de saco; (4) nódulos nos compartimentos anterior e posterior.
+- **IDEA** (endometriose) — Guerriero 2016 **[Consenso ISUOG/UOG]**: 4 passos — (1) útero e anexos de rotina (sinais de adenomiose, endometrioma); (2) "marcadores leves": **dor localizada** e **mobilidade ovariana**; (3) **sinal de deslizamento** ("sliding sign") para o fundo de saco; (4) nódulos de endometriose profunda nos compartimentos anterior e posterior. **Atenção:** o texto completo do IDEA 2016 **não é de acesso aberto** e não foi lido; os 4 passos foram conferidos em dois artigos de acesso aberto da própria UOG que o citam (McClenahan 2026; Alcázar 2022 — ver Fontes).
 
 ### 2.10 Consentimento e acompanhante (chaperone)
 
-- **Consentimento:** informar plenamente e obter consentimento **antes** do exame. **[ISUOG]**
+- **Consentimento:** informar plenamente e obter consentimento **antes** do exame. **[ISUOG]** As recomendações ISUOG de formação básica (2014) acrescentam: o consentimento deve ser **verbal ou, de preferência, por escrito**, o que é "particularmente importante" na via **transvaginal**; e "é obrigatório em muitos países" haver **acompanhante na sala** no exame transvaginal. **[ISUOG]**
 - **Acompanhante/chaperone:** aconselhável para adolescentes, pacientes ansiosas, idosas e mulheres com experiência ginecológica negativa prévia; **obrigatório no Reino Unido** para crianças, adolescentes e mulheres incapazes de consentir. **[ISUOG]** (No Brasil, siga a norma da instituição. **[Prática/ensino]**)
 - Na gestação, um médico deve aconselhar a gestante sobre **benefícios e limitações** do exame de 1º trimestre antes de começar. **[ISUOG]**
 
@@ -190,7 +200,7 @@ O consenso ISUOG de endométrio reforça: sonda TV é semicrítica — usar **ca
 4. **Explicar o exame** em linguagem simples, checar se a via TV é adequada (ver contraindicações em 2.3) e **obter o consentimento**. **[ISUOG]**
 5. **Oferecer acompanhante (chaperone)**. **[ISUOG]**
 6. **Bexiga vazia:** pedir que urine antes. **[ISUOG]** (Exceção: se a parede vesical precisar ser avaliada — ex.: suspeita de endometriose — basta enchimento **mínimo**; se estiver vazia, repetir após ~30 min. **[ISUOG]**)
-7. **Posição de litotomia** (deitada de costas, joelhos fletidos e afastados, pés apoiados). **[ISUOG]** Para melhorar o ângulo, pedir que deslize até a borda da maca e incline a pelve/flexione os quadris. **[ISUOG]** Se a maca não for ginecológica, uma **almofada sob o quadril** eleva a pelve e permite angular a sonda para baixo. **[Prática/ensino]**
+7. **Posição de litotomia** (deitada de costas, joelhos fletidos e afastados, pés apoiados). **[ISUOG]** Para melhorar o ângulo, pedir que deslize até a borda da maca e incline a pelve/flexione os quadris. **[ISUOG]** Se a maca não tiver parte retrátil e/ou perneiras, o livro-texto *Ultrasound in Obstetrics & Gynecology: A Practical Approach* (cap. 3, GLOWM) descreve **elevar as nádegas da paciente com travesseiros ou uma comadre invertida** (a figura do livro usa um **lençol dobrado**) para permitir o exame transvaginal. **[Outra fonte]** (Não foi encontrada recomendação ISUOG sobre isso.)
 8. **Inspecionar vulva e períneo** externamente antes de introduzir a sonda. **[ISUOG]**
 9. **Combinar a comunicação:** pedir que avise **ansiedade, dor ou desconforto** a qualquer momento; avisar antes de cada passo ("agora vou introduzir", "vou fazer uma pressão leve"). **[ISUOG]** (o pedido para avisar dor) / **[Prática/ensino]** (o anunciar cada passo)
 
@@ -258,52 +268,111 @@ O Basic Training resume: **orientar-se na imagem, otimizar a imagem e usar sempr
 
 **D9. Exame dinâmico: mobilidade, pontos de dor e "sinal de deslizamento"**
 - O USG TV é "**dinâmico e interativo**": checar a **mobilidade** dos órgãos (fixos = aderências) e **dor localizada** (quais órgãos participam do processo doloroso). **[ISUOG]**
-- **Sinal de deslizamento** (passo 3 do IDEA) **[Consenso ISUOG/UOG]**: avaliação em tempo real do fundo de saco. Técnica descrita na Radiopaedia (citando o IDEA) **[Outra fonte]**: com pressão da sonda, a parede posterior do útero e o reto anterior devem **deslizar livremente** um sobre o outro (retrocervical e fundo posterior); se **não** deslizam, o sinal é **negativo** = fundo de saco possivelmente obliterado (aderências/endometriose profunda). Também pode ser feito no espaço vesicouterino (sonda no fórnice anterior + mão livre suprapúbica).
-- **Cuidado com o nome:** em muitos textos, "sinal de deslizamento **positivo**" = **normal**. Escreva no laudo "deslizamento presente/ausente" para evitar confusão. **[Prática/ensino]**
+- **Sinal de deslizamento posterior** (passo 3 do IDEA) — definição como descrita na metanálise de Alcázar et al. (UOG 2022, acesso aberto), que cita o IDEA **[Outra fonte]** (artigo publicado na UOG, não é consenso):
+  - avalia se o **reto anterior desliza livremente** sobre a **face posterior do colo** e sobre a **parede vaginal posterior** (útero em anteversão) **ou sobre o fundo uterino** (útero em retroversão);
+  - **deslizamento presente** ("sinal positivo") = estruturas **completamente livres** uma da outra → **normal**;
+  - **deslizamento ausente** ("sinal negativo") = **sem deslizamento** entre o reto anterior e a serosa da face posterior do colo → fundo de saco **obliterado**; é considerado um **"marcador forte"** de infiltração do reto/sigmoide por endometriose profunda;
+  - desempenho agrupado na metanálise: obliteração do fundo de saco — **sensibilidade 88%, especificidade 94%**; acometimento intestinal — **sensibilidade 81%, especificidade 95%**.
+- **Sinal de deslizamento anterior (bexiga)** — técnica de Min et al. (UOG 2025, acesso aberto) **[Outra fonte]**: sonda no **fórnice vaginal anterior** e **mão livre no abdome inferior**; no plano sagital mediano, aplicar **pressão leve repetida** com a sonda e/ou a mão; **positivo (normal)** se a parede anterior do útero **desliza livremente** em relação à bexiga; **negativo** se a bexiga parece **fixa ao útero em mais de 1 cm** entre as pregas vesicovaginal e vesicouterina. (Os autores atribuem a técnica a Hudelist 2009, não ao IDEA.)
+- O artigo de McClenahan et al. (UOG 2026) confirma que, no IDEA, o **passo 2** é positivo quando há **fixação ovariana** uni ou bilateral, e o **passo 3** quando há **deslizamento posterior negativo**. **[Outra fonte]**
+- **Cuidado com o nome:** "sinal de deslizamento **positivo**" = **normal**. Escreva no laudo "deslizamento presente/ausente" para evitar confusão. **[Prática/ensino]**
 
 **D10. Bexiga e estruturas vizinhas**
 - Avaliar também bexiga e reto quando pertinente (ex.: sangramento uterino anormal, onde se pensa em causas não endometriais). **[ISUOG]**
 
-### Etapa E — Se houver gestação inicial (diretriz ISUOG de 1º trimestre, 2013, tradução oficial)
+### Etapa E — Se houver gestação inicial
 
-Aviso: a diretriz de 2013 foi **atualizada em 2023** ("performance of 11–14-week ultrasound scan", Bilardo et al., UOG 2023;61:127–143). Desta atualização, só foi possível consultar o resumo/introdução; os itens abaixo vêm do texto de **2013** e da **declaração de Doppler de 2021**.
+**Fontes desta etapa e o que cada uma cobre:**
+- **ISUOG 2023 (atualizada)** — Bilardo et al., UOG 2023;61:127–143, **lida na íntegra** na tradução oficial ISUOG para o português (Barmpas & Barmpas; revisão Rezende). Escopo: exame de **11+0 a 14+0 semanas**. **[ISUOG]**
+- **ISUOG 2013** — diretriz anterior de 1º trimestre, ainda útil para a fase **antes de 11 semanas** (definições de viabilidade, DMSG, CCN muito precoce), pois a de 2023 trata só de 11–14 semanas. **[ISUOG]**
+- **Painel SRU (Doubilet et al., NEJM 2013)** — critérios de perda gestacional por TV, lidos na íntegra (cópia de acesso aberto). **[Outra fonte]**
 
-1. **Objetivos no início da gravidez [ISUOG]:** confirmar **viabilidade**, estabelecer a **idade gestacional** com precisão, determinar o **número de fetos** e, se múltipla, avaliar **corionicidade e amnionicidade**.
-2. **Viabilidade [ISUOG]:** no jargão do ultrassom, = embrião com **atividade cardíaca** no momento do exame. Atividade cardíaca documentada a partir de **37 dias**; frequentemente evidente com embrião **≥ 2 mm**, mas pode não ser vista em **~5–10%** dos embriões viáveis de **2–4 mm**.
-3. **Localização intrauterina [ISUOG]:** um saco gestacional **intrauterino** indica gravidez intrauterina, mas o critério para definir "saco" não é claro; termos como "anel duplo decidual" ou "pseudossaco" **não** confirmam nem excluem. Em paciente **assintomática**, aconselha-se **esperar o embrião ficar visível** dentro do saco.
-4. **DMSG [ISUOG]:** média das 3 medidas ortogonais do espaço líquido; descrito a partir de **35 dias**. Com embrião presente, o **CCN é mais preciso** que o DMSG para datar.
-5. **CCN [ISUOG]:** técnica em 2.11. Entre 6–9 semanas o embrião é muito fletido (mede-se na prática o comprimento pescoço–nádega, ainda chamado CCN); bem no início, medir o **maior comprimento**. CCN data com erro de até **± 5 dias em 95%** dos casos; momento ideal para datar: **8 sem a 13+6 sem**; usar CCN até **84 mm**, depois a **circunferência cefálica**.
-6. **Vesícula vitelínica [ISUOG]:** a diretriz de 2013 consultada a cita apenas como estrutura a **não incluir no CCN**; **não** traz regra de medida ou valor de referência. Registrar presença é **[Prática/ensino]**.
-7. **Batimento cardíaco (BCF):** a diretriz exige documentar **atividade cardíaca**; **não** dá valor de frequência de referência. Usar **modo M** para registrar (modo M "parece seguro") e **não** usar Doppler de rotina antes de 10+6 sem. **[ISUOG]** (segurança) / **[Prática/ensino]** (modo M para BCF)
-8. **Número de embriões e corionicidade [ISUOG]:** a corionicidade deve ser determinada **no início da gravidez**, quando é mais confiável.
-9. **Outras estruturas [ISUOG]:** coleções subcoriônicas grandes (**> 5 cm**) devem ser registradas e acompanhadas; **não** diagnosticar placenta prévia nesta fase; em **cesárea prévia**, examinar a área entre bexiga e istmo (cicatriz) e, se suspeita de gestação na cicatriz/acretismo, **encaminhar a especialista**; descrever anomalias de forma uterina e massas anexiais.
-10. **Doppler [ISUOG]:** ver 2.7 — não de rotina no período embrionário.
+**O que a diretriz de 2023 mudou ou acrescentou em relação à de 2013 (comparação feita pelo pesquisador lendo as duas):**
+| Tema | 2013 | 2023 |
+|---|---|---|
+| Momento do 1º exame | 11+0 a 13+6 sem; não há motivo para exame de rotina só para confirmar gravidez sem indicação | Se não houve exame prévio, oferecer entre **11 e 14 semanas** |
+| Equipamento mínimo | 2D, sondas TA e TV, TI/MI, freeze/zoom, cursores, armazenar imagens | Acrescenta **Doppler colorido/power e espectral** e **modo M** |
+| Frequência cardíaca | só "atividade cardíaca" | FC **deve ser registrada**, medida por **modo M ou Doppler espectral**, de preferência em **vários ciclos**; visível normalmente a partir de **5–6 semanas**; sobe até **10 sem (média 171 bpm)** e cai até **14 sem (média 156 bpm)**; FC fora da normalidade → reavaliar mais tarde no mesmo exame |
+| Intrauterina | saco intrauterino; aguardar embrião se assintomática | saco deve estar **completamente delimitado pelo miométrio**; avaliar com **varredura de todo o útero**; integridade pode estar comprometida em **cicatriz de cesárea** ou **corno rudimentar** |
+| Datação | CCN até 84 mm; ideal 8 a 13+6 sem | CCN em **todos os casos, exceto FIV**; se várias medidas, usar o CCN de **melhor qualidade entre 45 e 84 mm**; preferir gráficos internacionais recentes |
+| Anatomia | Tabela de avaliação sugerida | Dois níveis: **requisitos mínimos** (Tabela 1) e **exame detalhado/"melhores práticas"** (Tabela 2); TV **não é obrigatória**, mas pode melhorar a imagem (IMC alto, miomas, útero retrovertido) |
+| Laudo | exemplo de relatório | **Modelos de laudo** básico e detalhado (Apêndices 2 e 3) |
+| Rastreios | TN, bioquímica | Acrescenta **cfDNA** como 2º nível e **rastreio de pré-eclâmpsia** (IP das artérias uterinas, PlGF, PAM) — fora do escopo de um aluno |
+
+**Roteiro para a gestação inicial:**
+1. **Objetivos [ISUOG] (2013 e 2023):** confirmar **viabilidade**, estabelecer a **idade gestacional**, determinar o **número de fetos** e, se múltipla, **corionicidade e amnionicidade**. Antes de começar, o profissional deve orientar a mulher/casal sobre **benefícios e limitações** do exame (ponto de boa prática).
+2. **Saco gestacional intrauterino [ISUOG 2023]:** confirmar que está **completamente envolto por miométrio**, varrendo **todo o útero**.
+3. **Sequência normal vista na TV [Outra fonte — SRU/NEJM]:** saco gestacional por volta de **5 semanas**; **vesícula vitelínica** (estrutura circular de cerca de **3 a 5 mm**) por volta de **5½ semanas**; **embrião com batimento** ao lado da vesícula por volta de **6 semanas** (variação de cerca de **± ½ semana**).
+4. **Viabilidade e frequência cardíaca:**
+   - Viabilidade = embrião com **atividade cardíaca** no momento do exame; atividade documentada a partir de **37 dias**; frequentemente visível com embrião **≥ 2 mm**, mas pode não aparecer em **~5–10%** dos embriões viáveis de **2–4 mm**. **[ISUOG 2013]**
+   - Registrar a **FC** (modo M ou Doppler espectral). **[ISUOG 2023]** **Antes de 11 semanas**, a declaração de segurança de 2021 diz que o Doppler **não deve ser usado de rotina** (exposição mínima se indicado) — por isso, no período embrionário, o **modo M** é a escolha coerente com as duas recomendações. **[ISUOG]** (a combinação é interpretação do pesquisador)
+5. **DMSG [ISUOG 2013]:** média das 3 medidas ortogonais do espaço líquido; com embrião presente, o **CCN é mais preciso**. O painel SRU define o DMSG como a média dos diâmetros **sagital, transverso e anteroposterior**. **[Outra fonte]**
+6. **CCN [ISUOG 2013/2023]:** técnica em 2.11; entre 6–9 semanas o embrião é muito fletido (na prática mede-se pescoço–nádega); bem no início, medir o **maior comprimento**. Erro de até **± 5 dias em 95%** (2013). A variação entre observadores no CCN é de **± 15%** e no DMSG de **± 19%** (SRU/NEJM). **[Outra fonte]**
+7. **Número de embriões e corionicidade [ISUOG 2023]:** determinar e **documentar** corionicidade e amnionicidade; usar o **sinal lambda** ou o **sinal T**; determinar **cedo**, quando é mais confiável.
+8. **Outras estruturas [ISUOG 2013/2023]:** coleção subcoriônica grande (**> 5 cm**) → registrar e acompanhar; **não relatar placenta prévia** nesta fase; em **cesárea prévia**, examinar a região entre bexiga e istmo (cicatriz); se suspeita → **encaminhar a especialista**; descrever anomalias da forma uterina e massas anexiais. A medida do **colo no 1º trimestre ainda não é recomendada de rotina** (2023).
+
+**Critérios de perda gestacional por TV — painel SRU (Doubilet et al., NEJM 2013) [Outra fonte]** (para mulher com gestação intrauterina de viabilidade incerta; quem decide é o médico):
+
+| Achados **diagnósticos** de perda gestacional | Achados **suspeitos, mas não diagnósticos** |
+|---|---|
+| CCN **≥ 7 mm** e sem batimento | CCN **< 7 mm** e sem batimento |
+| DMSG **≥ 25 mm** e sem embrião | DMSG **16–24 mm** e sem embrião |
+| Sem embrião com batimento **≥ 2 semanas** após exame que mostrou saco **sem** vesícula vitelínica | Sem embrião com batimento **7–13 dias** após exame que mostrou saco **sem** vesícula |
+| Sem embrião com batimento **≥ 11 dias** após exame que mostrou saco **com** vesícula vitelínica | Sem embrião com batimento **7–10 dias** após exame que mostrou saco **com** vesícula |
+| | Sem embrião **≥ 6 semanas** após a DUM |
+| | **Âmnio vazio** (âmnio ao lado da vesícula, sem embrião visível) |
+| | **Vesícula vitelínica aumentada (> 7 mm)** |
+| | Saco pequeno para o embrião (**diferença DMSG − CCN < 5 mm**) |
+
+Com achados suspeitos, o painel considera em geral apropriado **repetir a ultrassonografia em 7 a 10 dias**. O painel também lembra que **um único valor de hCG não determina** de forma confiável localização nem viabilidade. **[Outra fonte]**
+
+**Não consultado:** NICE NG126 (o site devolveu erro de acesso; só apareceram resumos de protocolos de hospitais do NHS, que não foram usados).
 
 ### Etapa F — Retirar a sonda e encerrar
 
 1. Retirar a sonda devagar, oferecer papel/lenço, ajudar a paciente a sentar e garantir privacidade para se vestir. **[Prática/ensino]**
 2. **Explicar o próximo passo** (quem dará o resultado). O aluno **não** dá diagnóstico: o resultado é comunicado pelo responsável. **[Prática/ensino]**
 
-### Etapa G — Limpeza da sonda (Declaração ISUOG 2020) **[ISUOG]**
+### Etapa G — Limpeza da sonda entre pacientes
 
-Com **luvas descartáveis**:
-1. Desconectar o transdutor (se aplicável).
-2. Retirar a capa e descartar em **lixo infectante**.
-3. Enxaguar a parte que entra na paciente em **água corrente** (**não** molhar a extremidade do conector eletrônico).
-4. Limpar com **escova macia e detergente não abrasivo**.
-5. Enxaguar com água corrente.
-6. Limpar o **cabo** com lenço de desinfetante de baixo nível.
-7. **Secar** (água residual dilui o desinfetante químico).
-8. **Desinfecção de alto nível** conforme o fabricante e o controle de infecção local (ex.: produtos químicos "úmidos" ou sistemas automatizados — a declaração lista vários; a menção a produtos **não** implica endosso).
-9. Guardar em armário limpo ou estojo próprio.
+Base principal: **WFUMB 2024** — "Recommendations for the Cleaning of Endocavity Ultrasound Transducers Between Patients" (Westerway, Basseal, Abramowicz, Moran; atualiza a diretriz WFUMB 2017), documento de **rotina**. **[Outra fonte]** Complementos: **AIUM (revisão 2025)** **[Outra fonte]** e passos detalhados da declaração **ISUOG 2020** (a parte de limpeza de rotina, que se baseia nas diretrizes da WFUMB 2017 e da AIUM) **[ISUOG]**.
 
-Por que limpar **antes** de desinfetar: gel residual funciona como **barreira** e reduz a eficácia do desinfetante. **[ISUOG]**
+**Os 4 passos obrigatórios da WFUMB 2024 (entre uma paciente e outra) [Outra fonte]:**
+1. **Retirar e descartar** com segurança a capa usada.
+2. **Limpar** a sonda para remover sujeira grosseira, como o gel.
+3. **Desinfecção de alto nível (DAN)** e **guardar a sonda coberta**.
+4. **Colocar capa nova** adequada antes de usar na próxima paciente.
+
+**Detalhando cada passo (com luvas descartáveis):**
+1. Desconectar o transdutor, se aplicável; retirar a capa e descartar em **lixo infectante**. **[ISUOG]**
+2. Limpar com **lenço/pano ou água corrente** para tirar o gel; usar **produto de limpeza de grau médico**, limpando **ranhuras e fendas** (resíduo orgânico pode **inativar** o desinfetante). **[Outra fonte — WFUMB 2024]** Escova macia e detergente não abrasivo; **não** molhar a extremidade do conector eletrônico; enxaguar. **[ISUOG]**
+3. Limpar o **cabo** com lenço de desinfetante de baixo nível. **[ISUOG]**
+4. **Secar** com papel-toalha ou pano macio — água residual **dilui** o desinfetante. **[ISUOG]** **[Outra fonte — WFUMB 2024 e AIUM]**
+5. **DAN** com produto **compatível com a sonda**, aprovado pela autoridade reguladora nacional e seguindo as **instruções do fabricante**. **[Outra fonte — WFUMB 2024]** Exemplos de métodos citados pela WFUMB: glutaraldeído 2,4–3,2% (DAN em **20 min a 20 °C**, hoje pouco usado pela toxicidade), ácido peracético/orto-ftalaldeído (**5–10 min a 20 °C**), dióxido de cloro, peróxido de hidrogênio (inclusive sistemas automatizados) e **UV-C** (exposição de **75 a 180 s** após a limpeza). A menção a produtos não é recomendação de marca.
+6. Enxaguar e secar depois da DAN **se o produto exigir**, com água potável. **[Outra fonte — AIUM]**
+7. Guardar conforme o nível de desinfecção: em armário limpo ou estojo próprio, **coberta**. **[ISUOG]** **[Outra fonte]**
+8. Tirar as luvas, descartar e **lavar as mãos**. **[Outra fonte — AIUM]**
+
+Por que limpar **antes** de desinfetar: gel residual funciona como **barreira** e reduz a eficácia do desinfetante. **[ISUOG]** **[Outra fonte — WFUMB 2024]**
+
+**No Brasil:** não foi encontrada nota técnica da ANVISA específica para sondas endocavitárias. Uma nota da Prefeitura de Belo Horizonte (2021), vista só em resumo de busca, cita a **RDC 15/2012**, segundo a qual produtos semicríticos exigem no mínimo **DAN após a limpeza** — o texto da RDC **não** foi lido. Siga a Comissão de Controle de Infecção do serviço.
 
 ### Etapa H — Documentação e laudo
 
-**Imagens a salvar.** Nenhuma das fontes ISUOG lidas traz uma lista fechada de imagens para o exame ginecológico completo. A única lista explícita encontrada é a do **MUSA** para o miométrio **[Consenso ISUOG/UOG]**: pelo menos **um corte sagital mediano do útero (escala de cinza e com power Doppler)**; de preferência também um **transversal** e/ou reconstrução **coronal 3D**; se houver lesão, pelo menos um corte com a lesão e, de preferência, imagem ampliada (cinza + power Doppler).
+**O que um exame ginecológico básico deve obter — ISUOG, recomendações de formação básica (2014, Tabela 2) [ISUOG]:**
+1. Visualização do útero em planos **longitudinais e transversais**.
+2. **Medida da espessura endometrial**.
+3. **Tamanho e morfologia dos ovários**.
+4. Presença ou ausência de **líquido na pelve**.
+5. **Descrição de qualquer anormalidade**.
 
-**Conjunto mínimo sugerido para o aluno [Prática/ensino]** (complementa o MUSA):
+O mesmo documento pede que o aluno mantenha um **livro de registro** com história clínica, indicação, achados, um **"conjunto padronizado de imagens"** e o laudo formal, e sugere como referência para certificação **mínimo de 100 horas** de exames supervisionados, com **≥ 100 exames obstétricos** e **≥ 100 ginecológicos**. **[ISUOG]** Ele **não** especifica quais imagens compõem esse conjunto.
+
+**Imagens propostas pelo MUSA para o miométrio [Consenso ISUOG/UOG]:** pelo menos **um corte sagital mediano do útero (escala de cinza e com power Doppler)**; de preferência também um **transversal** e/ou reconstrução **coronal 3D**; se houver lesão, pelo menos um corte com a lesão e, de preferência, imagem ampliada (cinza + power Doppler).
+
+**Gestação de 11–14 semanas:** a diretriz ISUOG 2023 lista os **planos obrigatórios** do exame básico (Tabela 1 e Figura 2) e traz **modelos de laudo** (Apêndices 2 e 3). **[ISUOG]**
+
+**Conjunto de imagens sugerido para o aluno [Prática/ensino]** (organiza em imagens a Tabela 2 da ISUOG 2014 e o MUSA):
 1. Útero sagital mediano com medidas (d1, d2).
 2. Útero transversal com d3.
 3. Endométrio ampliado com a medida da dupla camada (ou registro de "não mensurável").
@@ -311,7 +380,7 @@ Por que limpar **antes** de desinfetar: gel residual funciona como **barreira** 
 5. Ovário esquerdo em dois planos com medidas.
 6. Fundo de saco (com medida AP se houver líquido).
 7. Qualquer achado anormal em dois planos (+ Doppler, se permitido).
-8. Gestação: saco/embrião, CCN, registro da atividade cardíaca (modo M), número de sacos/embriões e corionicidade se múltipla.
+8. Gestação: saco intrauterino (todo o útero), embrião, CCN, FC registrada (modo M), número de sacos/embriões e corionicidade se múltipla.
 
 **Laudo estruturado — elementos do consenso ISUOG de endométrio [ISUOG]:**
 - indicação e história clínica relevante; dia do ciclo; terapia hormonal; DIU/SIU;
@@ -333,6 +402,7 @@ Na gestação, o relatório deve ser eletrônico e/ou impresso, armazenado local
 - Exame não completável conforme a diretriz (documentar e repetir/encaminhar). **[ISUOG]**
 - Suspeita de gestação em cicatriz de cesárea/acretismo (encaminhar especialista). **[ISUOG]**
 - Espessamento da nuca percebido mesmo sem programa de rastreio (considerar especialista). **[ISUOG]**
+- As recomendações ISUOG de formação básica (2014) dizem que um **achado anormal em exame básico** deve normalmente ser **encaminhado** a exame mais completo por especialista, e que o ensino do aluno deve **sempre ser supervisionado** por especialista experiente. **[ISUOG]**
 - **Para o aluno, sempre que houver [Prática/ensino]:** dor intensa ou piora durante o exame; sangramento ativo; teste de gravidez positivo **sem** saco intrauterino claro; ausência de atividade cardíaca em embrião visível; líquido livre com ecos (possível sangue) ou em grande quantidade; qualquer massa anexial; dúvida de orientação ou de medida; paciente que pede para parar (**parar imediatamente**).
 
 ---
@@ -414,6 +484,8 @@ Na gestação, o relatório deve ser eletrônico e/ou impresso, armazenado local
 
 A idade gestacional sai de um **nomograma** (a diretriz cita nomogramas, sem reproduzir tabela de DMSG) e, se houver embrião, prefere-se o **CCN**. **[ISUOG]**
 
+**Como ler esse número com o critério SRU [Outra fonte]:** se **não** houver embrião, 10,3 mm está **abaixo** da faixa "suspeita" (16–24 mm) e muito abaixo do limite "diagnóstico" (≥ 25 mm) — o DMSG, sozinho, **não** indica perda. (Os critérios de tempo da tabela da Etapa E continuam valendo.) Interpretar é tarefa do médico responsável.
+
 ---
 
 ## 5. Atalhos e pegadinhas (erros comuns)
@@ -438,6 +510,9 @@ A idade gestacional sai de um **nomograma** (a diretriz cita nomogramas, sem rep
 18. **Confundir "sinal de deslizamento negativo"** (anormal: órgãos não deslizam) com "exame negativo" (normal). Escreva "presente/ausente". **[Prática/ensino]**
 19. **Diagnosticar placenta prévia no 1º trimestre** — a diretriz diz que não. **[ISUOG]**
 20. **Dar diagnóstico à paciente** sendo aluno. **[Prática/ensino]**
+21. **Usar critérios antigos de perda gestacional** (CCN 5 mm ou DMSG 16 mm). O painel SRU elevou os limites diagnósticos para **CCN ≥ 7 mm sem batimento** e **DMSG ≥ 25 mm sem embrião**, porque os antigos davam falso-positivo. **[Outra fonte]**
+22. **Usar lenço com álcool ou detergente comum como se fosse DAN.** Não é. **[Outra fonte — WFUMB 2024]**
+23. **Usar preservativo lubrificado ou com espermicida** como capa. Se usar preservativo, ele deve ser **sem lubrificante e sem medicamento**. **[Outra fonte — WFUMB 2024]**
 
 ---
 
@@ -459,12 +534,12 @@ A idade gestacional sai de um **nomograma** (a diretriz cita nomogramas, sem rep
 - [ ] Ovário D e E: 3 diâmetros em 2 planos; folículos/corpo lúteo; mobilidade.
 - [ ] Anexos; fundo de saco (AP sagital se houver líquido).
 - [ ] Mobilidade, dor localizada, sinal de deslizamento (se indicado).
-- [ ] Gestação: saco intrauterino, embrião, CCN, atividade cardíaca (modo M), número, corionicidade; **sem Doppler de rotina < 11 sem**.
+- [ ] Gestação: saco intrauterino envolto por miométrio (varri todo o útero), vesícula, embrião, CCN, **FC registrada** (modo M), número, corionicidade; **sem Doppler de rotina < 11 sem**.
 - [ ] Imagens salvas (lista mínima).
 
 **Depois**
 - [ ] Sonda retirada com cuidado; paciente amparada.
-- [ ] Limpeza (passos a–g) + DAN.
+- [ ] Capa descartada → limpeza (gel fora, fendas) → secar → DAN → guardar coberta → lavar as mãos.
 - [ ] Laudo estruturado com limitações; achado anormal → supervisor.
 
 ---
@@ -484,7 +559,7 @@ A idade gestacional sai de um **nomograma** (a diretriz cita nomogramas, sem rep
 
 1. 2,8 × 2,0 = 5,6; 5,6 × 1,5 = 8,4 cm³; 8,4 × 0,523 = **4,3932 ≈ 4,4 cm³ (mL)**. Inversa: 4,3932 ÷ 0,523 = 8,4 ✔; 8,4 ÷ 1,5 = 5,6 ✔; 5,6 ÷ 2,0 = 2,8 ✔. (Em mm: 28 × 20 × 15 = 8400 mm³; × 0,523 = 4393,2 mm³ = 4,4 cm³ ✔.)
 2. 2,4 + 3,1 = **5,5 mm** (soma das camadas, sem o líquido). Inversa: 5,5 − 3,1 = 2,4 ✔.
-3. 18 + 14 + 16 = 48; 48 ÷ 3 = **16,0 mm**. Inversa: 16 × 3 = 48 ✔.
+3. 18 + 14 + 16 = 48; 48 ÷ 3 = **16,0 mm**. Inversa: 16 × 3 = 48 ✔. (Se não houver embrião, 16,0 mm cai na faixa **16–24 mm = suspeita, mas não diagnóstica** do painel SRU → em geral repetir em 7–10 dias; decisão do médico. **[Outra fonte]**)
 4. No **lado direito** da paciente (direita da paciente = esquerda da tela). **[ISUOG]**
 5. Em 8 semanas (período embrionário, até 10+6): Doppler **não** deve ser usado de rotina; se clinicamente indicado, exposição mínima — use **modo M** para registrar a atividade cardíaca. Em 12 semanas (11+0 a 13+6): pode ser usado para indicações específicas, com **TI ≤ 1,0** e exposição geralmente **≤ 5–10 min**. **[ISUOG]**
 6. **Semicrítica** → **desinfecção de alto nível**, após limpeza. A capa **não** dispensa a DAN. **[ISUOG]**
@@ -503,27 +578,38 @@ A idade gestacional sai de um **nomograma** (a diretriz cita nomogramas, sem rep
 4. **Poon LC, Abramowicz JS, Dall'Asta A, et al. (ISUOG Safety Committee).** ISUOG Safety Committee Position Statement on safe performance of obstetric and gynecological scans and equipment cleaning in context of COVID-19. *Ultrasound Obstet Gynecol* 2020;55:709–712. DOI 10.1002/uog.22027. PDF: https://isuog.org/asset/18D42263%2D4C7E%2D419B%2DACA08F70CC89B6C5 — usado para: Spaulding, passos de limpeza, DAN. (Observação: algumas recomendações são específicas do contexto COVID-19; aqui foram usadas só as de limpeza/desinfecção de rotina.)
 5. **ISUOG Basic Training.** "Transducers, Image Production, Knobology and Scanning Planes" (slides, licença CC BY-NC-ND 4.0). https://isuog.org/static/uploaded/1337e6bb-fa6c-40cc-95dc9e6253be6955.pdf — frequências, capa/látex, ajustes, arranjo da sala, orientação e rotação.
 6. **ISUOG Basic Training.** "Examining the Uterus, Cervix, Ovaries & Adnexae: Normal Findings" (slides). https://isuog.org/asset/A043FAF7%2DB1F1%2D4C5E%2DAA46F8474AAA4556 — TV × TA, técnica sistemática, exame dinâmico, líquido no fundo de saco, volumes ovarianos (Jokubkiene 2012; Sladkevicius 1995), endométrio pós-menopausa.
-7. **Bilardo CM, Chaoui R, Hyett JA, et al. (ISUOG).** ISUOG Practice Guidelines (updated): performance of 11–14-week ultrasound scan. *Ultrasound Obstet Gynecol* 2023;61:127–143. DOI 10.1002/uog.26106 — **apenas metadados e introdução consultados** (texto completo não acessado); citado para avisar que a diretriz de 2013 foi atualizada.
+7. **Bilardo CM, Chaoui R, Hyett JA, Kagan KO, Karim JN, Papageorghiou AT, Poon LC, Salomon LJ, Syngelaki A, Nicolaides KH (ISUOG).** ISUOG Practice Guidelines (updated): performance of 11–14-week ultrasound scan. *Ultrasound Obstet Gynecol* 2023;61:127–143. DOI 10.1002/uog.26106. **Lida na íntegra** na tradução oficial ISUOG para o português ("Protocolos de Prática ISUOG (atualizado): performance da ultrassonografia de 11–14 semanas", trad. Danielle Sodré Barmpas e Michail Barmpas; rev. Karina Bilda de Castro Rezende): https://www.isuog.org/asset/AEAF2177%2DE9E7%2D4DAB%2DAC810B33A282A543/ — usada para: equipamento, segurança, viabilidade/FC, saco intrauterino, CCN, corionicidade, placenta, cesárea prévia, laudo, comparação com 2013.
+8. **ISUOG Education Committee.** Recomendações do Comitê de Educação da ISUOG para formação básica em ultrassonografia obstétrica e ginecológica (tradução de Wellington P. Martins; documento de 2014). https://www.isuog.org/asset/53D0AF9C%2DB3B9%2D43B9%2DA30E282561C39B06/ — usada para: consentimento verbal/escrito, acompanhante, lista do exame ginecológico básico (Tabela 2), livro de registro, supervisão, números para certificação, encaminhamento.
 
 ### Consensos publicados na revista da ISUOG (UOG)
 
-8. **Van den Bosch T, Dueholm M, Leone FPG, et al.** Terms, definitions and measurements to describe sonographic features of myometrium and uterine masses: a consensus opinion from the MUSA group. *Ultrasound Obstet Gynecol* 2015;46:284–298. DOI 10.1002/uog.14806. PDF (KU Leuven): https://ftp.esat.kuleuven.be/pub/stadius/ida/reports/CP_15-127.pdf — medidas uterinas, fórmula × 0,523, imagens propostas.
-9. **Timmerman D, Valentin L, Bourne TH, Collins WP, Verrelst H, Vergote I.** Terms, definitions and measurements to describe the sonographic features of adnexal tumors: a consensus opinion from the IOTA group. *Ultrasound Obstet Gynecol* 2000;16:500–505. PDF: https://www.birmingham.ac.uk/documents/college-mds/trials/bctu/a-neuroscience/rockets/term-definitions-and.....pdf
-10. **IOTA Group.** Updated consensus opinion on the terms, definitions and measurements to describe the sonographic features of adnexal tumors. *Ultrasound Obstet Gynecol* 2026; DOI 10.1002/uog.70191 — **só a página-resumo da ISUOG** foi consultada: https://www.isuog.org/resource/updated-consensus-opinion-on-the-terms-definitions-and-measurements-to-describe-the-sonographic-features-of-adnexal-tumors.html
-11. **Guerriero S, Condous G, van den Bosch T, et al. (IDEA).** Systematic approach to sonographic evaluation of the pelvis in women with suspected endometriosis… *Ultrasound Obstet Gynecol* 2016;48:318–332 — consultado **via pôster-resumo** (GE Healthcare) com os 4 passos: https://assets.takeshape.io/f1ba446a-c0cf-4882-b0c9-50298f143ec2/dev/6b9dd70d-1d35-4b01-b2a2-916238b5e501/systematic_approach_to_ultrasound_evaluation.pdf (texto completo do artigo não acessado).
+9. **Van den Bosch T, Dueholm M, Leone FPG, et al.** Terms, definitions and measurements to describe sonographic features of myometrium and uterine masses: a consensus opinion from the MUSA group. *Ultrasound Obstet Gynecol* 2015;46:284–298. DOI 10.1002/uog.14806. PDF (KU Leuven): https://ftp.esat.kuleuven.be/pub/stadius/ida/reports/CP_15-127.pdf — medidas uterinas, fórmula × 0,523, imagens propostas.
+10. **Timmerman D, Valentin L, Bourne TH, Collins WP, Verrelst H, Vergote I.** Terms, definitions and measurements to describe the sonographic features of adnexal tumors: a consensus opinion from the IOTA group. *Ultrasound Obstet Gynecol* 2000;16:500–505. PDF: https://www.birmingham.ac.uk/documents/college-mds/trials/bctu/a-neuroscience/rockets/term-definitions-and.....pdf
+11. **IOTA Group.** Updated consensus opinion on the terms, definitions and measurements to describe the sonographic features of adnexal tumors. *Ultrasound Obstet Gynecol* 2026; DOI 10.1002/uog.70191 — **só a página-resumo da ISUOG** foi consultada: https://www.isuog.org/resource/updated-consensus-opinion-on-the-terms-definitions-and-measurements-to-describe-the-sonographic-features-of-adnexal-tumors.html
+12. **Guerriero S, Condous G, van den Bosch T, et al. (IDEA).** Systematic approach to sonographic evaluation of the pelvis in women with suspected endometriosis… *Ultrasound Obstet Gynecol* 2016;48:318–332. DOI 10.1002/uog.15955 — **texto completo NÃO acessado** (Unpaywall/Europe PMC: acesso fechado; Wiley e repositórios devolveram erro 403). Os 4 passos e a técnica do deslizamento foram tirados dos artigos 17 e 18, que citam o IDEA.
 
 ### Outras fontes
 
-12. **Radiopaedia.** Deep endometriosis (transvaginal ultrasound) — descrição da técnica do sinal de deslizamento, citando o IDEA: https://radiopaedia.org/articles/deep-endometriosis-transvaginal-ultrasound
-13. **Wehba S, Fernandes CE, Ferreira JAS, et al.** Transvaginal ultrasonography assessment of ovarian volumes in postmenopausal women. *São Paulo Med J* 1996;114(3). DOI 10.1590/S1516-31801996000300002. https://scielo.br/j/spmj/a/7FzyKsqRCvj4jSnhg4M9t8y/?lang=en — fórmula "comprimento × altura × profundidade × 0,523" para ovário.
-14. **WFUMB e-learning** — "Finding the Uterus" (USG transabdominal da pelve feminina): ovário procurado entre o fundo uterino e os vasos ilíacos da parede pélvica. https://wfumb.info/wp-content/obsgyn/Admin_tutorial/www.anu-tech.com/WFUMB_01_01-Transabdominal_Ultrasound_Female_Pelvis/d/ELFH_Session/19/tab_5925.html
-15. **Nyhsen CM, et al. (ESR Ultrasound Working Group).** Infection prevention and control in ultrasound — best practice recommendations. *Insights Imaging* 2017;8:523–535. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5707224/ — consultado apenas via resumo de busca ("capas não substituem a DAN").
-16. **Abramowicz JS, Evans DH, Fowlkes JB, Maršal K, ter Haar G (WFUMB Safety Committee).** Guidelines for Cleaning Transvaginal Ultrasound Transducers Between Patients. *Ultrasound Med Biol* 2017;43:1076–1079 — **texto completo não acessado**; conhecido aqui por ser a referência 9 da declaração ISUOG 2020 (item 4), que resume suas recomendações de limpeza.
+13. **Westerway SC, Basseal JM, Abramowicz J, Moran C (WFUMB Safety Committee).** Recommendations for the Cleaning of Endocavity Ultrasound Transducers Between Patients. *Ultrasound Med Biol* 2024. DOI 10.1016/j.ultrasmedbio.2024.02.011. Lido na íntegra: https://wfumb.org/wp-content/uploads/2024/05/UMB-Endocavity-recommendations.pdf (página: https://wfumb.org/2024/03/21/recommendations-for-the-cleaning-of-endocavity-ultrasound-transducers-between-patients/) — atualiza a diretriz WFUMB 2017; usado para: Spaulding, 4 passos, vazamento de capas, DAN, métodos, precauções.
+14. **AIUM.** Guidelines for Cleaning and Preparing External- and Internal-Use Ultrasound Transducers and Equipment Between Patients as well as Safe Handling and Use of Ultrasound Coupling Gel — **revisão de 2 jul. 2025**. https://www.aium.org/resources/official-statements/view/guidelines-for-cleaning-and-preparing-external--and-internal-use-ultrasound-transducers-and-equipment-between-patients-as-well-as-safe-handling-and-use-of-ultrasound-coupling-gel — usado para: luvas, DAN obrigatória, capa, gel, armazenamento.
+15. **Doubilet PM, Benson CB, Bourne T, Blaivas M, et al. (Society of Radiologists in Ultrasound Multispecialty Panel).** Diagnostic criteria for nonviable pregnancy early in the first trimester. *N Engl J Med* 2013;369:1443–1451. DOI 10.1056/NEJMra1302417. Lido na íntegra (cópia de acesso aberto da UC): https://escholarship.org/uc/item/3g86q83k — usado para: sequência saco/vesícula/embrião, tamanho da vesícula, critérios de perda gestacional, variação entre observadores, hCG.
+16. ***Ultrasound in Obstetrics & Gynecology: A Practical Approach*** — cap. 3 "Technical Aspects of the Ultrasound Examination", p. 43–65 (e-book gratuito, GLOWM). https://www.glowm.com/pdf/Ultrasound_in_obstetrics_and_gynecology-chapter3.pdf — usado para: elevar as nádegas com travesseiros/comadre invertida/lençol dobrado quando a maca não tem perneiras. **Autoria não confirmada:** as páginas lidas não trazem os nomes dos autores/editores (a busca atribui o livro a Abuhamad, mas isso não foi verificado). Conferir antes de citar o autor.
+17. **Alcázar JL, Eguez PM, Forcada P, et al.** Diagnostic accuracy of sliding sign for detecting pouch of Douglas obliteration and bowel involvement in women with suspected endometriosis: systematic review and meta-analysis. *Ultrasound Obstet Gynecol* 2022;60(4):477–486. DOI 10.1002/uog.24900. https://pmc.ncbi.nlm.nih.gov/articles/PMC9825886/ — definição e interpretação do sinal de deslizamento posterior; sensibilidade/especificidade.
+18. **McClenahan P, Mak J, Uzuner C, et al.** Diagnostic test accuracy of each of the four IDEA ultrasound steps in predicting presence of deep endometriosis. *Ultrasound Obstet Gynecol* 2026;67(5):679–683. DOI 10.1002/uog.70208. https://pmc.ncbi.nlm.nih.gov/articles/PMC13136050/ — descrição dos 4 passos IDEA e de quando cada um é "positivo".
+19. **Min N, van Keizerswaard J, Visser RH, et al.** Prediction of vesicouterine adhesions by transvaginal sonographic sliding sign technique: validation study. *Ultrasound Obstet Gynecol* 2025;65(1):114–121. DOI 10.1002/uog.29128. https://pmc.ncbi.nlm.nih.gov/articles/PMC11693815/ — técnica do deslizamento anterior (bexiga).
+20. **Wehba S, Fernandes CE, Ferreira JAS, et al.** Transvaginal ultrasonography assessment of ovarian volumes in postmenopausal women. *São Paulo Med J* 1996;114(3). DOI 10.1590/S1516-31801996000300002. https://scielo.br/j/spmj/a/7FzyKsqRCvj4jSnhg4M9t8y/?lang=en — fórmula "comprimento × altura × profundidade × 0,523" para ovário.
+21. **WFUMB e-learning** — "Finding the Uterus" (USG transabdominal da pelve feminina): ovário procurado entre o fundo uterino e os vasos ilíacos da parede pélvica. https://wfumb.info/wp-content/obsgyn/Admin_tutorial/www.anu-tech.com/WFUMB_01_01-Transabdominal_Ultrasound_Female_Pelvis/d/ELFH_Session/19/tab_5925.html
+22. **Abramowicz JS, Evans DH, Fowlkes JB, Maršal K, ter Haar G (WFUMB Safety Committee).** Guidelines for Cleaning Transvaginal Ultrasound Transducers Between Patients. *Ultrasound Med Biol* 2017;43:1076–1079 — **texto completo não acessado**; substituído pela atualização WFUMB 2024 (item 13), que o atualiza explicitamente.
 
-### O que NÃO foi encontrado nas fontes consultadas (por isso marcado [Prática/ensino] ou omitido)
+(Removidos desta versão por terem sido substituídos por fontes lidas na íntegra: Radiopaedia, pôster GE do IDEA e o resumo de busca da ESR 2017.)
 
-- Lista ISUOG fechada de imagens mínimas para o exame ginecológico completo.
-- Glossário ISUOG dos movimentos da sonda e técnica detalhada de introdução.
-- Almofada sob o quadril; dupla identificação da paciente.
-- Valores de referência de volume uterino, de vesícula vitelínica, de frequência cardíaca embrionária e critérios numéricos de perda gestacional (existem em outras diretrizes, não consultadas aqui).
+### O que continua sem fonte (marcado [Prática/ensino] ou omitido)
+
+- **Lista fechada de imagens** do exame ginecológico: a ISUOG 2014 diz **o que obter** (Tabela 2) e pede um "conjunto padronizado de imagens", mas **não lista as imagens**; a lista de imagens deste resumo é [Prática/ensino]. O AIUM/ACR Practice Parameter de US pélvico foi procurado, mas o PDF não pôde ser lido.
+- **Almofada sob o quadril:** só há fonte de livro-texto (item 16, autoria não confirmada), nenhuma diretriz.
+- Glossário ISUOG dos movimentos da sonda e técnica detalhada de introdução; dupla identificação da paciente.
+- **Volume uterino normal:** nenhuma fonte consultada traz valor de referência.
+- **Texto completo do IDEA 2016:** acesso fechado.
+- **NICE NG126:** site inacessível (erro 403); não usado.
+- **ANVISA:** não foi encontrada nota técnica específica para sondas endocavitárias; a RDC 15/2012 só aparece citada de segunda mão.
 - Recomendação ISUOG específica sobre a via transperineal.
