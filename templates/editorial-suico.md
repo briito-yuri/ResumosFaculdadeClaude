@@ -12,32 +12,39 @@ python3 templates/gerar_html.py resumos/<tema> editorial-suico
 CSS em `templates/editorial-suico.css`. Para trocar o texto do cabeçalho, coloque no topo do `rascunho.md`:
 `<!-- kicker: Ultrassom Transvaginal · ISUOG -->` (sem isso, sai "Sistemas de Informação · CESMAC").
 
+## Origem dos valores
+
+Cores, fontes e medidas copiadas do design feito pelo designer no Paper (arquivo "Resumo – Ultrassom
+Transvaginal (ISUOG)", capa e página de roteiro). Seção 9 e exemplos foram estendidos no mesmo sistema.
+
 ## Grade
 
-- Largura máxima de 1040 px; duas colunas: margem de 152 px (números de seção) + 32 px de respiro + texto.
-- Texto corrido limitado a ~44em para a linha não ficar longa demais.
-- Abaixo de 760 px de largura vira coluna única (celular).
-- Na impressão (A4), a coluna da margem cai para 96 px.
+- Largura máxima de 960 px; coluna da margem de 120 px (números de seção e subseção) + 24 px + texto.
+- Texto corrido limitado a ~44em. Abaixo de 760 px vira coluna única (celular). Na impressão A4, margem de 90 px.
 
 ## Cores
 
 | Papel | Hex | Uso |
 |---|---|---|
-| Tinta | `#141414` | texto, réguas, selo [ISUOG] |
+| Tinta | `#111111` | texto, réguas (1 px no cabeçalho, 6 px sob títulos), selo [Outra fonte] |
 | Papel | `#FFFFFF` | fundo |
-| Vermelho | `#E2231A` | único destaque: números de seção, numeração de listas, resultado, avisos "⚠ ver seção N", faixa da seção de limitações |
-| Vermelho-claro | `#FDECEB` | fundo da seção "não conseguiu conferir" |
-| Cinza-claro | `#F2F2F2` | fundo dos exemplos e do gabarito |
-| Cinza-texto | `#5C5C5C` | introdução, conferências, selos secundários |
+| Azul-cobalto | `#1F3FD1` | destaque principal: números de seção/subseção, numeração "01", selos [ISUOG] e [Consenso], resultado |
+| Alerta | `#E5391B` | só avisos: selo "⚠ VER SEÇÃO N" e faixa da seção de limitações |
+| Alerta-claro | `#FDEEEA` | fundo das caixas de aviso e da seção de limitações |
+| Texto 2 / cinza | `#333333` / `#5A5A5A` | introdução, rótulos em mono, conferências |
+| Linha | `#DADADA` | divisórias de tabela e listas |
 
 ## Tipografia
 
-- **Inter** (texto e títulos, pesos 400–800) + **IBM Plex Mono** (subnúmeros, selos de origem, células de tabela).
-- Título: 64 px / peso 800 / −0,035em. Seção: número em 88 px vermelho + título 34 px.
+- **Inter** (texto e títulos, até peso 900) + **JetBrains Mono** (cabeçalho corrido, rótulos, selos, numeração).
+- Título: 80 px / 900 / −0,045em; complemento após "—" em 30 px regular.
+- Seção: número 132 px / 900 azul + título 34 px / 800. Subseção: número 26 px / 900 azul na margem + título 20 px / 700.
+- Rótulos em mono 10,5–11 px, caixa-alta, +0,12em.
 
 ## Elementos especiais
 
-- **Selos de origem**: [ISUOG] preto cheio; [Consenso ISUOG/UOG] contorno preto; [Outra fonte] contorno cinza; [Prática/ensino] contorno cinza tracejado.
-- **Avisos** "⚠ ver seção N": link vermelho sublinhado para a seção.
-- **Seção cujo nome contém "conferir"**: faixa vermelha no título e fundo vermelho-claro; começa em página nova na impressão.
-- **Exemplos e gabarito**: caixa cinza com régua preta grossa no topo; resultado com barra vermelha à esquerda.
+- **Selos de origem** (mono, caixa-alta, raio 2 px): [ISUOG] azul cheio; [Consenso] contorno azul; [Outra fonte] preto cheio; [Prática/ensino] tracejado cinza.
+- **Avisos** "⚠ ver seção N": selo vermelho que leva à seção.
+- **"Para quem"**: rótulo na margem ao lado do subtítulo, sob a régua de 6 px.
+- **Seção cujo nome contém "conferir"**: faixa vermelha no título e fundo alerta-claro; página nova na impressão.
+- **Exemplos e gabarito**: caixa cinza com régua preta de 6 px no topo; resultado com barra azul.

@@ -23,7 +23,7 @@ layout = sys.argv[2] if len(sys.argv) > 2 else "sinalizacao"
 css_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), layout + ".css")
 FONTS = {
     "sinalizacao": "JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700",
-    "editorial-suico": "IBM+Plex+Mono:wght@400;600&family=Inter:wght@400;500;700;800",
+    "editorial-suico": "Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600;700",
 }
 md = open(src, encoding="utf-8").read()
 m = re.search(r"<!--\s*kicker:\s*(.*?)\s*-->", md)
@@ -273,6 +273,12 @@ out.append("</section>")
 body = "\n".join(x for x in out if x)
 
 css = open(css_path, encoding="utf-8").read().replace("{{RODAPE}}", doc_title.upper().replace('"', ""))
+# no editorial suíço, "Título — complemento" vira título grande + linha fina
+if layout == "editorial-suico" and " — " in doc_title:
+    t1, t2 = doc_title.split(" — ", 1)
+    titulo_html = f'{inline(t1)}<span class="h1-sub">— {inline(t2)}</span>'
+else:
+    titulo_html = inline(doc_title)
 page = f"""<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -290,7 +296,7 @@ page = f"""<!doctype html>
 <main>
 <header>
 <p class="kicker"><span>Resumo</span> {html.escape(kicker)}</p>
-<h1>{inline(doc_title)}</h1>
+<h1>{titulo_html}</h1>
 <p class="subtitle">{inline(subtitle)}</p>
 </header>
 {"".join(f'<p class="intro">{inline(p)}</p>' for p in intro)}
