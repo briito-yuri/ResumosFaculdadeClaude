@@ -600,14 +600,13 @@ Todos os exemplos e exercícios deste resumo são próprios e foram conferidos p
 
 ## Status do fluxo (nota de trabalho — não entra no resumo final)
 
-Pausado em 16/10/2026, na **etapa 4 (designer), Etapa 2 do `designer.md`: desenhar o resumo completo no Paper**.
+Atualizado em 16/10/2026, na **etapa 4 (designer)**: resumo completo desenhado no Paper, **aguardando aprovação do aluno**.
 
 - Concluído: pesquisa, revisão QA, rascunho, exemplo de fração em octal, 3 opções de layout no Paper.
 - Layout escolhido pelo aluno: **Opção 3 — Sinalização**, especificado em `templates/layout-escolhido.md`.
-- No Paper (arquivo "Resumos Faculdade", Page 1), páginas A4 "Resumo · p. N":
-  - p. 1 a 12 desenhadas (p. 1 a 11 conferidas por screenshot; p. 12 ainda não);
-  - p. 13 incompleta: só tem o Exemplo 11 — faltam os Exemplos 12 e 13 e o rodapé.
-- Falta desenhar: "Quando a fração não fecha", seção 4 (Erros comuns), 5 (Atalhos), 6 (Exercícios), 7 (Gabarito) e 8 (Fontes) — cerca de 5 páginas.
-- Motivo da pausa: limite semanal de uso do Paper (MCP) atingido.
-- Próximos passos: terminar as páginas no Paper → aluno revisa e aprova → gerar `resumo.html` (arquivo único, CSS embutido, `@media print`) → commit.
+- No Paper (arquivo "Resumos Faculdade", Page 1), páginas A4 "Resumo · p. 1" a "Resumo · p. 19", todas conferidas por screenshot.
+  - p. 13: Exemplos 11 e 12; p. 14: Exemplo 13, "Quando a fração não fecha", início da seção 4;
+  - p. 15: erros 4–12 e início da seção 5; p. 16: fim dos atalhos e seção 6;
+  - p. 17–18: seção 7 (gabarito); p. 19: seção 8 (fontes).
+- Próximos passos: aluno revisa e aprova no Paper → gerar `resumo.html` (arquivo único, CSS embutido, `@media print`) → commit.
 - Lembrete: no Paper o negrito dentro de frases não aparece (limitação da ferramenta); no `resumo.html` ele deve voltar.
