@@ -1,3 +1,4 @@
+<!-- layout: sinalizacao -->
 # Conversão de Bases Numéricas
 
 Resumo para alunos do 1º período de Sistemas de Informação (CESMAC).

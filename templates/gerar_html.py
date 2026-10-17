@@ -2,7 +2,7 @@
 
 Uso: python3 templates/gerar_html.py resumos/<tema>
 
-O layout está descrito em templates/layout-escolhido.md e o CSS em templates/sinalizacao.css.
+O layout está descrito em templates/sinalizacao.md e o CSS em templates/sinalizacao.css.
 O rascunho deve seguir a estrutura padrão: "# Título", subtítulo, parágrafo(s) de abertura,
 seções "## N. Nome", subseções "### N.M Nome" e exemplos "#### Exemplo ...".
 Seções com nome especial ganham estilo próprio: "Erros comuns", "Atalhos", "Exercícios",
@@ -19,6 +19,7 @@ dst = os.path.join(pasta, "resumo.html")
 css_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sinalizacao.css")
 md = open(src, encoding="utf-8").read()
 md = md.split("<!-- STATUS")[0].rstrip().rstrip("-").rstrip()
+md = re.sub(r"<!--.*?-->\n?", "", md, flags=re.S)  # comentários (ex.: <!-- layout: ... -->)
 lines = md.split("\n")
 
 
