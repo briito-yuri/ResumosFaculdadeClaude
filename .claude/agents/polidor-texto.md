@@ -14,4 +14,4 @@ A partir de `resumos/<tema>/pesquisa.md` (já revisado), escreva `resumos/<tema>
 - Remova repetição; deixe cada seção com um título claro.
 - Retire a seção "Revisão QA" do rascunho.
 
-Ao terminar, faça commit e devolva o tamanho aproximado do texto e as principais mudanças.
+Ao terminar, devolva (o commit fica com o orquestrador) o tamanho aproximado do texto e as principais mudanças.

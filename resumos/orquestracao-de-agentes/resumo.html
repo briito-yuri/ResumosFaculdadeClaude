@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Como orquestrar agentes de IA com Claude Code, Orca e GitHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+/* =========================================================
+   Layout "Sinalização" (Opção 3, desenhado no Paper)
+   Template reutilizável para os resumos de ResumosFaculdadeClaude.
+   Fontes: Space Grotesk (texto/títulos) + JetBrains Mono (código,
+   números de seção, etiquetas). Sem sombras, cantos ou gradientes.
+   ========================================================= */
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap");
+
+:root {
+  --bg: #FFFFFF;
+  --ink: #111111;
+  --ink-2: #555555;
+  --ink-3: #333333;
+  --yellow: #FFD21F;
+  --gray: #F3F3F3;
+  --sans: "Space Grotesk", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 24px;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.page {
+  max-width: 794px;
+  margin: 0 auto;
+  padding: 48px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ---------- Cabeçalho ---------- */
+.doc-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 20px;
+  border-bottom: 8px solid var(--ink);
+}
+.doc-header .tags { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.tag {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--ink);
+  padding: 4px 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.tag-label {
+  color: var(--ink-2);
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.doc-header h1 {
+  margin: 0;
+  font-size: 42px;
+  line-height: 46px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.doc-header .subtitle {
+  margin: 0;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--ink-2);
+}
+
+/* ---------- Seções ---------- */
+section, .subsection { display: flex; flex-direction: column; gap: 24px; }
+.subsection { gap: 16px; }
+
+.section-title, .sub-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+}
+.section-title { margin-top: 16px; }
+.section-title .num, .sub-title .num {
+  flex-shrink: 0;
+  background: var(--ink);
+  color: #FFFFFF;
+  font-family: var(--mono);
+  font-weight: 700;
+}
+.section-title .num { font-size: 16px; line-height: 22px; padding: 4px 10px; }
+.section-title .txt {
+  font-size: 23px;
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.sub-title .num { font-size: 12px; line-height: 16px; padding: 3px 7px; letter-spacing: .04em; }
+.sub-title .txt {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Texto ---------- */
+p { margin: 0; font-size: 15px; line-height: 24px; }
+strong { font-weight: 700; }
+a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 2px; word-break: break-word; }
+a:hover { background: var(--yellow); }
+
+ul, ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; }
+li { font-size: 15px; line-height: 24px; }
+li > ul, li > ol, li > .flow { margin-top: 6px; }
+li .flow { display: flex; flex-direction: column; gap: 8px; }
+ol > li::marker { font-family: var(--mono); font-weight: 700; font-size: 13px; }
+
+code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--gray);
+  padding: 1px 4px;
+  word-break: break-word;
+}
+
+/* ---------- Blocos de código ---------- */
+pre {
+  margin: 0;
+  background: var(--gray);
+  padding: 10px 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 19px;
+  white-space: pre;
+  overflow-x: auto;
+  max-width: 100%;
+}
+pre code { background: none; padding: 0; font-size: inherit; word-break: normal; }
+
+/* ---------- Exemplo resolvido / método ---------- */
+.box {
+  border: 2px solid var(--ink);
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+.box > .box-title, .box .sub-title .txt { font-size: 17px; line-height: 22px; font-weight: 700; margin: 0; }
+.box .sub-title { margin-bottom: 4px; }
+.box p, .box li { font-size: 14px; line-height: 20px; }
+.box ul, .box ol { gap: 4px; }
+
+.box-label {
+  align-self: flex-start;
+  background: var(--ink);
+  color: #FFFFFF;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+}
+.box-label.yellow { background: var(--yellow); color: var(--ink); }
+
+/* ---------- Resultado / destaque ---------- */
+.result {
+  background: var(--yellow);
+  padding: 3px 8px;
+  font-size: 19px;
+  line-height: 26px;
+  font-weight: 700;
+}
+.callout {
+  background: var(--yellow);
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.callout .callout-title { font-size: 19px; line-height: 26px; font-weight: 700; }
+.callout code { background: rgba(255, 255, 255, .55); }
+
+.note {
+  border-left: 8px solid var(--ink);
+  background: var(--gray);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.note p { font-size: 14px; line-height: 22px; color: var(--ink-3); }
+.note code { background: #FFFFFF; }
+
+/* ---------- Conferência ---------- */
+.check { font-size: 14px; line-height: 22px; color: var(--ink-3); }
+.check > strong:first-child, .check-mark {
+  background: var(--yellow);
+  color: var(--ink);
+  padding: 1px 6px;
+}
+.check li { font-size: 14px; line-height: 22px; color: var(--ink-3); }
+
+/* ---------- Tabelas ---------- */
+.table-wrap { overflow-x: auto; max-width: 100%; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid var(--ink);
+}
+th {
+  background: var(--ink);
+  color: #FFFFFF;
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 700;
+  text-align: left;
+  padding: 8px 14px;
+  vertical-align: bottom;
+}
+th code { background: none; color: inherit; padding: 0; }
+th.key { background: var(--yellow); color: var(--ink); }
+td {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 18px;
+  padding: 6px 14px;
+  border-bottom: 1px solid var(--ink);
+  vertical-align: top;
+}
+td code { background: none; padding: 0; font-size: inherit; word-break: normal; white-space: nowrap; }
+tbody tr:nth-child(odd) td { background: #FFFFFF; }
+tbody tr:nth-child(even) td { background: var(--gray); }
+
+/* ---------- Rodapé ---------- */
+.doc-footer {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 8px solid var(--ink);
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 640px) {
+  .page { padding: 32px 16px; gap: 20px; }
+  .doc-header h1 { font-size: 32px; line-height: 36px; }
+  .section-title .txt { font-size: 20px; line-height: 26px; }
+  .box, .callout { padding: 14px 14px; }
+  .note { padding: 14px 14px; }
+  th, td { padding-left: 10px; padding-right: 10px; }
+}
+
+/* ---------- Impressão ---------- */
+@page { size: A4; margin: 14mm 12mm; }
+@media print {
+  html, body { background: #FFFFFF; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { max-width: none; padding: 0; gap: 16px; }
+  .box, .callout, .note, pre, .table-wrap, table, tr, .result, .check { break-inside: avoid; page-break-inside: avoid; }
+  .box.method, .box.long { break-inside: auto; page-break-inside: auto; }
+  .section-title, .sub-title { break-after: avoid; page-break-after: avoid; }
+  section > .section-title { break-before: auto; }
+  pre { white-space: pre-wrap; word-break: break-word; overflow: visible; }
+  .table-wrap { overflow: visible; }
+  a { text-decoration: none; }
+  p, li { orphans: 3; widows: 3; }
+}
+
+</style>
+</head>
+<body>
+<main class="page">
+<header class="doc-header">
+<div class="tags"><span class="tag">Guia</span><span class="tag-label">Orquestração de agentes</span></div>
+<h1>Como orquestrar agentes de IA com Claude Code, Orca e GitHub</h1>
+<p class="subtitle">Este guia usa o próprio repositório <code>ResumosFaculdadeClaude</code> como exemplo. Você vai ver como uma "squad" de agentes de IA produz um resumo de estudo, etapa por etapa, com Git e GitHub cuidando do histórico.</p>
+</header>
+<aside class="note"><p><strong>Antes de começar: qual "Orca"?</strong> Existem vários projetos com esse nome. Aqui, "Orca" é o <strong>Orca da Stably AI</strong> (<code>github.com/stablyai/orca</code>, site <code>onorca.dev</code>). É um aplicativo de desktop gratuito e de código aberto (licença MIT). Ele roda vários agentes de código (Claude Code, Codex, Cursor CLI etc.) <strong>em paralelo</strong>, cada um no seu próprio <em>git worktree</em>. Confirmamos isso no README e na documentação oficial (<code>onorca.dev/docs</code>). Outros "Orca" que aparecem na busca (forks como <code>MuathJ/orca</code> e projetos sem relação, como <code>orca-agent-ide</code>) <strong>não</strong> entram aqui.</p>
+<p>O grau de confiança é <strong>alto</strong> para o que o Orca é e para o fluxo básico (Add Repo → criar worktree → escolher agente → revisar diff → commit/push). Conferimos a CLI <code>orca worktree create</code> no README e no <code>orca worktree create --help</code> de uma instalação real. Mas as opções da CLI mudam rápido: confira o <code>--help</code> da sua versão antes de usar.</p>
+<p><strong>Versão.</strong> Claude Code e Orca mudam com frequência. Tudo aqui foi conferido na documentação oficial em <strong>outubro de 2026</strong>.</p></aside>
+<section>
+<h2 class="section-title"><span class="num">1</span><span class="txt">O que você vai aprender</span></h2>
+<p>Ao final, você deve conseguir:</p>
+<ol>
+<li>Explicar o que é um <strong>agente de IA</strong>, um <strong>subagente</strong> e um <strong>orquestrador</strong>. E entender por que vale dividir um trabalho grande em papéis (pesquisa → revisão → texto → design).</li>
+<li>Instalar o <strong>Claude Code</strong>, escrever um <strong><code>CLAUDE.md</code></strong> de regras e criar <strong>subagentes</strong> em <code>.claude/agents/*.md</code> com <code>name</code>, <code>description</code> e <code>tools</code> corretos.</li>
+<li>Usar <strong>Git e GitHub</strong> do jeito certo com agentes: um <strong>branch por tema</strong>, <strong>commit pequeno por etapa</strong>, <strong>push</strong>, <strong>pull request</strong>, revisão e <strong>merge</strong>. Nunca trabalhar direto na <code>main</code>.</li>
+<li>Rodar vários agentes <strong>em paralelo</strong> com <strong>git worktrees</strong>, pelo terminal (<code>git worktree</code>, <code>claude --worktree</code>) ou pelo <strong>Orca</strong>, sem um agente atropelar o outro.</li>
+<li>Recriar do zero a estrutura deste repositório (<code>ResumosFaculdadeClaude</code>) e reconhecer os erros mais comuns: ferramentas demais, ferramentas de menos, pular a pausa humana e conflito entre worktrees.</li>
+</ol>
+</section>
+<section>
+<h2 class="section-title"><span class="num">2</span><span class="txt">Conceitos, do básico ao avançado</span></h2>
+
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.1</span><span class="txt">Modelo de linguagem (LLM)</span></h3>
+<p>Um LLM é um programa treinado com muito texto. Ele recebe uma mensagem e gera uma resposta em texto. Sozinho, ele só "conversa": não lê seus arquivos nem roda comandos.</p>
+<div class="box example"><div class="box-label yellow">Exemplo:</div>
+<p>você pergunta no chat "o que é base binária?" e recebe uma explicação.</p></div>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.2</span><span class="txt">Agente de IA</span></h3>
+<p>Um agente é um LLM que também pode <strong>usar ferramentas</strong>: ler arquivo, escrever arquivo, buscar na web, rodar comando no terminal. Ele trabalha em ciclo: pensa → usa uma ferramenta → vê o resultado → decide o próximo passo. E repete até terminar a tarefa.</p>
+<div class="box example"><div class="box-label yellow">Exemplo:</div>
+<p>o Claude Code recebe "crie <code>pesquisa.md</code> sobre conversão de bases". Ele busca fontes na web (<code>WebSearch</code>), escreve o arquivo (<code>Write</code>) e faz commit (<code>Bash</code> com <code>git commit</code>).</p></div>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.3</span><span class="txt">Ferramentas (tools)</span></h3>
+<p>Ferramentas são as ações que o agente tem permissão de fazer. No Claude Code, alguns nomes reais são: <code>Read</code>, <code>Write</code>, <code>Edit</code>, <code>Glob</code> (achar arquivos por padrão), <code>Grep</code> (buscar texto), <code>Bash</code> (rodar comandos), <code>WebSearch</code> e <code>WebFetch</code>.</p>
+<div class="box example"><div class="box-label yellow">Exemplo:</div>
+<p>um agente só com <code>Read, Grep, Glob</code> consegue <strong>ler</strong> o projeto, mas <strong>não consegue alterar</strong> nada. Ele é "somente leitura".</p></div>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.4</span><span class="txt">Contexto (janela de contexto)</span></h3>
+<p>O contexto é tudo o que o modelo "tem na cabeça" naquela conversa: suas mensagens, os arquivos lidos, os resultados de busca. O tamanho é limitado. Se o contexto enche de lixo, a qualidade cai.</p>
+<div class="box example"><div class="box-label yellow">Exemplo:</div>
+<p>se o agente principal ler 40 páginas de documentação para pesquisar, essas páginas ocupam o contexto da conversa inteira. Elas continuam lá mesmo quando você já passou para o design.</p></div>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.5</span><span class="txt">Subagente</span></h3>
+<p>A documentação oficial define subagentes como "assistentes de IA especializados que lidam com tipos específicos de tarefa". Cada um tem:</p>
+<ul>
+<li><strong>janela de contexto própria</strong>;</li>
+<li><strong>prompt de sistema próprio</strong>;</li>
+<li><strong>ferramentas próprias</strong>;</li>
+<li><strong>permissões próprias</strong>.</li>
+</ul>
+<p>O subagente começa "do zero": não vê o histórico da conversa principal. Ao terminar, ele <strong>devolve só um resumo</strong> para a conversa principal.</p>
+<div class="box example"><div class="box-label yellow">Exemplo:</div>
+<p>o subagente <code>pesquisador</code> lê dezenas de páginas. A conversa principal recebe só "criei <code>pesquisa.md</code> com X conceitos, Y exercícios".</p></div>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.6</span><span class="txt">Orquestrador</span></h3>
+<p>O orquestrador <strong>coordena</strong> os agentes. Ele decide quem trabalha e em que ordem, passa a tarefa e recebe o resultado.</p>
+<ul>
+<li>No <strong>Claude Code</strong>, o orquestrador é a <strong>conversa principal</strong> (a sessão <code>claude</code> que você abriu).</li>
+<li>No <strong>Orca</strong>, o orquestrador é <strong>você</strong>, usando o app para controlar várias sessões ao mesmo tempo.</li>
+</ul>
+<div class="box example"><div class="box-label yellow">Exemplo:</div>
+<p>neste repositório, a sessão principal chama o <code>pesquisador</code>, espera, mostra o resultado ao aluno, chama o <code>revisor-qa</code>, e assim por diante.</p></div>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.7</span><span class="txt">Pipeline (esteira) e por que dividir em papéis</span></h3>
+<p>Uma pipeline é uma sequência fixa de etapas. A saída de uma etapa é a entrada da próxima.</p>
+<p>Por que dividir o trabalho em papéis:</p>
+<ul>
+<li><strong>Foco:</strong> cada agente recebe instruções curtas e específicas, e segue melhor.</li>
+<li><strong>Contexto limpo:</strong> a sujeira da pesquisa não contamina o design.</li>
+<li><strong>Segurança:</strong> cada papel recebe só as ferramentas de que precisa. Isso se chama <strong>princípio do menor privilégio</strong>.</li>
+<li><strong>Revisão:</strong> um agente confere o trabalho do outro. O QA acha erro do pesquisador.</li>
+</ul>
+<div class="box example"><div class="box-label yellow">Exemplo (este repo):</div>
+<p><code>pesquisador</code> → <code>pesquisa.md</code> → <code>revisor-qa</code> (corrige <code>pesquisa.md</code>) → <code>polidor-texto</code> → <code>rascunho.md</code> → <code>designer</code> → <code>resumo.html</code>.</p></div>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.8</span><span class="txt"><code>CLAUDE.md</code>: a memória do projeto</span></h3>
+<p>O <code>CLAUDE.md</code> é um arquivo Markdown com <strong>instruções permanentes</strong>. O Claude Code carrega esse arquivo <strong>no início de toda sessão</strong>. Ele pode ficar em três lugares:</p>
+<div class="table-wrap"><table><thead><tr><th>Arquivo</th><th>Para quem vale</th><th>Vai para o Git?</th></tr></thead>
+<tbody>
+<tr><td><code>./CLAUDE.md</code> ou <code>./.claude/CLAUDE.md</code></td><td>todo mundo do projeto</td><td>sim</td></tr>
+<tr><td><code>./CLAUDE.local.md</code></td><td>só você, neste projeto</td><td>não (coloque no <code>.gitignore</code>)</td></tr>
+<tr><td><code>~/.claude/CLAUDE.md</code></td><td>só você, em todos os projetos</td><td>não</td></tr>
+</tbody></table></div>
+<p>Dicas da documentação:</p>
+<ul>
+<li>Mantenha cada arquivo com <strong>menos de 200 linhas</strong>.</li>
+<li>Escreva instruções <strong>específicas e concisas</strong>.</li>
+<li>O comando <code>/init</code> gera um <code>CLAUDE.md</code> inicial.</li>
+</ul>
+<p><strong>Importante:</strong> o <code>CLAUDE.md</code> é <strong>contexto, não trava</strong>. O Claude tenta seguir, mas não há garantia. Para bloquear algo de verdade, a documentação indica <em>hooks</em>: scripts que o Claude Code roda automaticamente antes ou depois de cada ação e que podem barrar essa ação.</p>
+<div class="box example"><div class="box-label yellow">Exemplo:</div>
+<p>o <code>CLAUDE.md</code> deste repo diz "Trabalhe sempre num branch próprio (<code>resumo/&lt;tema&gt;</code>), nunca direto na <code>main</code>" e "Pare e mostre o resultado ao aluno antes de passar para a próxima etapa".</p></div>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.9</span><span class="txt">O arquivo de um subagente (<code>.claude/agents/&lt;nome&gt;.md</code>)</span></h3>
+<p>Cada subagente é um arquivo Markdown com duas partes:</p>
+<ol>
+<li>um <strong>frontmatter YAML</strong> no topo (o bloco entre <code>---</code>);</li>
+<li>logo abaixo, o <strong>prompt de sistema</strong> do agente.</li>
+</ol>
+<p>Campos do frontmatter:</p>
+<ul>
+<li><strong>Obrigatórios:</strong>
+<ul>
+<li><code>name</code>: identificador único. Não pode ter <code>:</code>, não pode começar com <code>-</code> e tem até 256 caracteres.</li>
+<li><code>description</code>: diz quando o Claude deve delegar para esse agente.</li>
+<li>Se faltar <code>description</code> ou se o <code>name</code> for inválido, o arquivo inteiro é <strong>pulado</strong>. O agente nem aparece.</li>
+</ul></li>
+<li><strong>Opcional mais importante:</strong> <code>tools</code>, a lista do que o agente pode usar. <strong>Se você omitir, ele herda todas as ferramentas disponíveis.</strong></li>
+<li><strong>Outros opcionais:</strong> <code>disallowedTools</code> (lista do que ele <strong>não</strong> pode usar), <code>model</code> (<code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>inherit</code>...), <code>permissionMode</code>, <code>maxTurns</code>, <code>isolation: worktree</code>, entre outros.</li>
+<li><strong>Cuidado:</strong> campos com nome errado são <strong>ignorados sem aviso</strong>. Por exemplo, <code>max_turns</code> em vez de <code>maxTurns</code>.</li>
+</ul>
+<p>Onde os arquivos ficam:</p>
+<div class="table-wrap"><table><thead><tr><th>Local</th><th>Escopo</th></tr></thead>
+<tbody>
+<tr><td><code>.claude/agents/</code></td><td>só este projeto (vai para o Git; a doc recomenda versionar)</td></tr>
+<tr><td><code>~/.claude/agents/</code></td><td>todos os seus projetos</td></tr>
+</tbody></table></div>
+<p>Se dois agentes tiverem o mesmo <code>name</code>, vale o de <strong>maior prioridade</strong>: o do projeto vence o do usuário.</p>
+<div class="box example"><div class="box-label yellow">Exemplo real deste repo:</div>
+<pre><code class="language-markdown">---
+name: polidor-texto
+description: Use depois do revisor-qa para transformar pesquisa.md em rascunho.md com texto claro, didático e gramaticalmente correto.
+tools: Read, Write, Edit, Glob
+---
+
+Você é o editor de texto da squad.
+...</code></pre></div>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.10</span><span class="txt">Como chamar um subagente</span></h3>
+<p>A documentação oficial mostra três jeitos:</p>
+<ol>
+<li><strong>Automático:</strong> o Claude compara seu pedido com a <code>description</code> de cada agente. Frases como "use proactively" na descrição incentivam a delegação.</li>
+<li><strong>Por linguagem natural:</strong> "Use o subagente pesquisador para o tema conversão de bases".</li>
+<li><strong>Por @-menção:</strong> <code>@"pesquisador (agent)" tema: matrizes</code>. Isso garante que <strong>esse</strong> agente rode.</li>
+</ol>
+<p>Você também pode abrir a sessão inteira como um agente: <code>claude --agent pesquisador</code>.</p>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.11</span><span class="txt">O que o subagente vê e o que ele não pode fazer</span></h3>
+<p><strong>O que ele vê:</strong></p>
+<ul>
+<li>o <strong>próprio prompt de sistema</strong> (o texto abaixo do frontmatter);</li>
+<li>a tarefa que o orquestrador escreveu;</li>
+<li>os arquivos <code>CLAUDE.md</code> (a menos que <code>omitClaudeMd: true</code>);</li>
+<li>um retrato do <code>git status</code>.</li>
+</ul>
+<p><strong>O que ele não vê:</strong> o histórico da conversa principal.</p>
+<p><strong>O que ele não pode fazer:</strong></p>
+<ul>
+<li><strong>Perguntar algo ao usuário.</strong> A ferramenta <code>AskUserQuestion</code> é removida de todo subagente. Por isso a <strong>pausa humana</strong> (ex.: "aluno, escolha o layout 1 a 6") acontece quando o subagente <strong>termina e devolve</strong> a pergunta. Quem fala com o aluno é a conversa principal.</li>
+<li><strong>Descer mais de 3 níveis.</strong> Um subagente pode chamar outros pela ferramenta <code>Agent</code> (que se chamava <code>Task</code> até a versão 2.1.63). O padrão permite até <strong>3 níveis</strong> abaixo da conversa principal. Para impedir que ele chame outros, tire <code>Agent</code> da lista de <code>tools</code> ou coloque-o em <code>disallowedTools</code>.</li>
+</ul>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.12</span><span class="txt">Git: repositório, commit e branch</span></h3>
+<ul>
+<li><strong>Repositório (repo):</strong> pasta cujo histórico o Git controla (pela pasta oculta <code>.git/</code>).</li>
+<li><strong>Commit:</strong> uma "foto" salva do projeto, com uma mensagem. Um <strong>commit pequeno</strong> traz uma mudança lógica só (ex.: <code>pesquisa: conversão de bases</code>). Isso facilita revisar e desfazer.</li>
+<li><strong>Branch:</strong> uma linha de trabalho separada. A <code>main</code> é a versão "oficial". Cada tema ganha seu branch <code>resumo/&lt;tema&gt;</code>.</li>
+</ul>
+<div class="box example"><div class="box-label yellow">Exemplo:</div>
+<p><code>git switch -c resumo/matrizes</code> cria o branch do tema "matrizes" e já entra nele.</p></div>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.13</span><span class="txt">GitHub: remoto, push, pull request, revisão e merge</span></h3>
+<ul>
+<li><strong>Remoto (<code>origin</code>):</strong> a cópia do repositório no GitHub.</li>
+<li><strong>Push:</strong> envia seus commits locais para o GitHub (<code>git push -u origin resumo/matrizes</code>).</li>
+<li><strong>Pull request (PR):</strong> uma "proposta para juntar mudanças" de um branch (o <em>head</em>, ex.: <code>resumo/matrizes</code>) em outro (a <em>base</em>, ex.: <code>main</code>). O PR tem uma aba de conversa e a aba <strong>Files changed</strong>, com o <em>diff</em> para revisar. O diff é a lista de linhas adicionadas e removidas em cada arquivo.</li>
+<li><strong>PR em rascunho (draft):</strong> não pode ser mergeado até ser marcado como "pronto para revisão".</li>
+<li><strong>Merge:</strong> aceita o PR; as mudanças entram na <code>main</code>.</li>
+</ul>
+<div class="box example"><div class="box-label yellow">Exemplo:</div>
+<p><code>gh pr create --base main --title "Resumo: matrizes" --body "pesquisa + QA + rascunho + html"</code>.</p></div>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.14</span><span class="txt">Git worktree</span></h3>
+<p>Segundo a documentação do Git, um worktree permite ter <strong>várias pastas de trabalho ligadas ao mesmo repositório</strong>. Cada pasta fica com um branch diferente "aberto" ao mesmo tempo. Elas compartilham o histórico (<code>.git</code>), mas cada uma tem seus próprios arquivos.</p>
+<p><strong>Regra importante:</strong> por padrão, o Git <strong>recusa</strong> abrir o <strong>mesmo branch</strong> em dois worktrees.</p>
+<div class="box example"><div class="box-label yellow">Exemplo:</div>
+<pre><code class="language-bash">git worktree add -b resumo/matrizes ../resumos-matrizes main</code></pre>
+<p>Esse comando cria a pasta <code>../resumos-matrizes</code> já no branch novo <code>resumo/matrizes</code>, que parte da <code>main</code>.</p></div>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.15</span><span class="txt">Agentes em paralelo</span></h3>
+<p>Rodar agentes em paralelo é abrir várias sessões ao mesmo tempo, cada uma em um worktree. Assim, uma sessão não altera os arquivos da outra. A documentação confirma três formas:</p>
+<ul>
+<li><strong>Claude Code:</strong> <code>claude --worktree &lt;nome&gt;</code> (ou <code>-w &lt;nome&gt;</code>) abre uma sessão isolada num worktree novo.
+<ul>
+<li>A pasta fica em <code>.claude/worktrees/&lt;nome&gt;/</code>.</li>
+<li>O branch novo se chama <code>worktree-&lt;nome&gt;</code> e parte do branch padrão do remoto (normalmente <code>main</code>).</li>
+<li>O repo precisa ter pelo menos 1 commit.</li>
+</ul></li>
+<li><strong>Subagente:</strong> <code>isolation: worktree</code> no frontmatter faz o subagente trabalhar numa cópia temporária. Ela parte do branch padrão e é apagada se ele não mudar nada.</li>
+<li><strong>Orca:</strong> o app cria um worktree por tarefa e abre um terminal com o agente escolhido.</li>
+</ul>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.16</span><span class="txt">Orca (Stably AI)</span></h3>
+<p>O Orca se define como um "ambiente de desenvolvimento de agentes" (<em>agent development environment</em>). É um app de desktop para macOS, Windows e Linux, gratuito e com licença MIT. Ele junta worktrees, terminais, visualizador de diff, navegador e uma CLI.</p>
+<p>O Orca <strong>não traz modelo próprio</strong>. Você usa suas próprias assinaturas (ex.: Claude Code).</p>
+<p>Recursos confirmados no README e no site:</p>
+<ul>
+<li>worktrees paralelos ("mande um prompt para cinco agentes, compare e faça merge do vencedor");</li>
+<li>anotar diffs da IA e devolver ao agente;</li>
+<li>integração com GitHub (ver PRs e issues no app) e com Linear;</li>
+<li>worktrees via SSH;</li>
+<li>app de celular para acompanhar;</li>
+<li>CLI, por exemplo: <code>orca worktree create --name &lt;nome&gt; [--base-branch &lt;ref&gt;] [--agent &lt;id&gt;] [--prompt &lt;texto&gt;]</code>.</li>
+</ul>
+<p><strong>Instalação:</strong> baixe em onorca.dev ou nas releases do GitHub. No macOS, também dá para usar <code>brew install --cask stablyai/orca/orca</code>.</p>
+<div class="box example"><div class="box-label yellow">Exemplo:</div>
+<p>abrir 3 worktrees no Orca (<code>resumo-matrizes</code>, <code>resumo-limites</code>, <code>resumo-logica</code>), cada um com o Claude Code rodando a pipeline de um tema diferente.</p></div>
+</div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">2.17</span><span class="txt">Claude no GitHub Actions (opcional, avançado)</span></h3>
+<p>A action oficial <code>anthropics/claude-code-action@v1</code> roda o Claude Code dentro do GitHub. Quem tem permissão de escrita escreve <code>@claude ...</code> num comentário de issue ou PR. O Claude responde e pode até criar commits.</p>
+<p><strong>Configuração rápida:</strong> dentro do <code>claude</code>, rode <code>/install-github-app</code>. Você precisa do <code>gh</code> instalado e logado, e precisa ser admin do repo. A chave fica num <strong>secret</strong> (<code>ANTHROPIC_API_KEY</code> ou <code>CLAUDE_CODE_OAUTH_TOKEN</code>). <strong>Nunca</strong> faça commit da chave.</p>
+<div class="box example"><div class="box-label yellow">Exemplo:</div>
+<p>num PR do resumo, comente <code>@claude confira se todos os exercícios de rascunho.md têm gabarito</code>.</p></div>
+</div>
+</section>
+<section>
+<h2 class="section-title"><span class="num">3</span><span class="txt">Métodos: passo a passo com exemplos resolvidos</span></h2>
+
+<div class="box method">
+<h3 class="sub-title"><span class="num">Método A</span><span class="txt">Instalar e preparar as ferramentas</span></h3>
+<ol>
+<li><strong>Git</strong> instalado: <code>git --version</code> deve mostrar uma versão.</li>
+<li><strong>Conta no GitHub</strong> e, se quiser, a <strong>GitHub CLI</strong> (<code>gh</code>) logada com <code>gh auth login</code>.</li>
+<li><strong>Claude Code.</strong> Ele exige plano Pro, Max, Team, Enterprise ou conta Console; o plano grátis não inclui.
+<ul>
+<li>macOS / Linux / WSL:
+<div class="flow"><pre><code class="language-bash">curl -fsSL https://claude.ai/install.sh | bash</code></pre></div></li>
+<li>Windows PowerShell:
+<div class="flow"><pre><code class="language-powershell">irm https://claude.ai/install.ps1 | iex</code></pre></div></li>
+<li>Alternativas: <code>brew install --cask claude-code</code> (macOS) ou <code>npm install -g @anthropic-ai/claude-code</code> (Node 22+; <strong>não</strong> use <code>sudo</code>).</li>
+</ul></li>
+<li>Abra um terminal novo e confira com <code>claude --version</code>. Ele deve imprimir um número de versão. Para diagnóstico, use <code>claude doctor</code>.</li>
+<li>Rode <code>claude</code> dentro da pasta do projeto e faça login pelo navegador.</li>
+<li><strong>(Opcional) Orca:</strong> baixe em onorca.dev ou, no macOS, rode <code>brew install --cask stablyai/orca/orca</code>.</li>
+</ol>
+<p class="check"><strong>Conferência (sentido inverso):</strong> se <code>claude --version</code> falhar com "command not found", a pasta do programa não entrou no PATH. O PATH é a lista de pastas onde o terminal procura comandos. Abra um terminal novo ou siga a página de troubleshooting.</p>
+</div>
+<div class="box method long">
+<h3 class="sub-title"><span class="num">Método B</span><span class="txt">Recriar este repositório do zero (exemplo central)</span></h3>
+<p><strong>Meta:</strong> chegar exatamente nesta árvore:</p>
+<pre><code>ResumosFaculdadeClaude/
+├── .claude/
+│   └── agents/
+│       ├── pesquisador.md
+│       ├── revisor-qa.md
+│       ├── polidor-texto.md
+│       └── designer.md
+├── resumos/
+│   └── .gitkeep
+├── templates/
+│   └── .gitkeep
+├── .gitignore
+└── CLAUDE.md</code></pre>
+<p><strong>Passo 1 — Criar a pasta e o repositório Git</strong></p>
+<pre><code class="language-bash">mkdir ResumosFaculdadeClaude
+cd ResumosFaculdadeClaude
+git init -b main</code></pre>
+<p><strong>Passo 2 — Criar as pastas.</strong> O Git não guarda pasta vazia. Por isso criamos o <code>.gitkeep</code>: um arquivo vazio que só serve para a pasta existir no repo.</p>
+<pre><code class="language-bash">mkdir -p .claude/agents resumos templates
+touch resumos/.gitkeep templates/.gitkeep
+printf ".DS_Store\nnode_modules/\n" &gt; .gitignore</code></pre>
+<p><strong>Passo 3 — Escrever o <code>CLAUDE.md</code></strong> com as regras que valem para todos. Este é o conteúdo usado neste repo:</p>
+<pre><code class="language-markdown"># ResumosFaculdadeClaude
+
+Repositório de resumos de estudo do curso de Sistemas de Informação (CESMAC).
+Cada resumo é produzido por uma squad de subagentes em `.claude/agents/`.
+
+## Estrutura
+
+- `resumos/&lt;tema&gt;/` — uma pasta por resumo (ex.: `resumos/conversao-de-bases/`)
+  - `pesquisa.md` — saída do pesquisador
+  - `rascunho.md` — conteúdo revisado (QA + polimento)
+  - `resumo.html` — versão final diagramada
+- `templates/` — layouts aprovados (o designer reutiliza o escolhido)
+
+## Fluxo de um resumo
+
+Trabalhe sempre num branch próprio (`resumo/&lt;tema&gt;`), nunca direto na `main`.
+
+1. **pesquisador** → cria `pesquisa.md` com conceitos, exemplos resolvidos e fontes.
+2. **revisor-qa** → confere cada conceito, conta e exemplo; corrige erros em `pesquisa.md` e lista o que mudou.
+3. **polidor-texto** → transforma em `rascunho.md`: linguagem didática, português correto, ordem lógica.
+4. **designer** → gera opções de layout, ESPERA o aluno escolher, e só então monta `resumo.html`.
+
+Ao fim de cada etapa: commit pequeno com mensagem clara (ex.: `pesquisa: conversão de bases`).
+Pare e mostre o resultado ao aluno antes de passar para a próxima etapa.
+
+## Regras gerais
+
+- Português do Brasil.
+- Público: aluno de 1º período. Explique do básico ao avançado, sem pular passos.
+- Todo cálculo deve aparecer passo a passo e ser conferido.
+- Nada de inventar fontes: cite só o que foi realmente consultado.</code></pre>
+<p>Repare nos três ingredientes: <strong>onde ficam as coisas</strong>, <strong>a ordem do fluxo</strong> e <strong>as regras de qualidade</strong>.</p>
+<p><strong>Passo 4 — Escrever os 4 subagentes.</strong> Cada um vai em <code>.claude/agents/&lt;nome&gt;.md</code>. Veja o arquivo completo do primeiro:</p>
+<pre><code class="language-markdown">---
+name: pesquisador
+description: Use no início de um resumo novo para levantar conceitos, exemplos resolvidos e fontes sobre o tema. Salva em resumos/&lt;tema&gt;/pesquisa.md.
+tools: Read, Write, Edit, Glob, Grep, WebSearch, WebFetch
+---
+
+Você é o pesquisador da squad de resumos.
+
+Tarefa: dado um tema da faculdade, produza `resumos/&lt;tema&gt;/pesquisa.md` com:
+
+1. **Objetivo** — o que o aluno deve saber fazer ao final (3 a 5 itens).
+2. **Conceitos** — do básico ao avançado, cada um com definição curta e um exemplo.
+3. **Métodos** — passo a passo numerado, com exemplos resolvidos completos.
+4. **Atalhos e pegadinhas** — erros comuns em prova.
+5. **Exercícios** — 5 a 8, com gabarito no final.
+6. **Fontes** — links ou livros realmente consultados.
+
+Regras:
+- Confira toda conta antes de escrever (refaça no sentido inverso).
+- Não se preocupe com visual; só conteúdo em Markdown.
+- Ao terminar, devolva (o commit fica com o orquestrador) um resumo de 3 linhas do que foi produzido.</code></pre>
+<p>Os outros três seguem o mesmo molde. Esta tabela resume os papéis e as ferramentas reais deste repo:</p>
+<div class="table-wrap"><table><thead><tr><th>Agente</th><th>Entrada → Saída</th><th><code>tools</code></th><th class="key">Tem <code>Bash</code>?</th></tr></thead>
+<tbody>
+<tr><td><code>pesquisador</code></td><td>tema → <code>pesquisa.md</code></td><td>Read, Write, Edit, Glob, Grep, WebSearch, WebFetch</td><td><strong>não</strong></td></tr>
+<tr><td><code>revisor-qa</code></td><td><code>pesquisa.md</code> → <code>pesquisa.md</code> corrigido + seção "Revisão QA"</td><td>Read, Edit, Bash, Glob, Grep, WebSearch, WebFetch</td><td>sim</td></tr>
+<tr><td><code>polidor-texto</code></td><td><code>pesquisa.md</code> → <code>rascunho.md</code></td><td>Read, Write, Edit, Glob</td><td><strong>não</strong></td></tr>
+<tr><td><code>designer</code></td><td><code>rascunho.md</code> → <code>opcoes.html</code> → (aluno escolhe) → <code>templates/&lt;nome&gt;.css</code> + <code>resumo.html</code></td><td>Read, Write, Edit, Bash, Glob</td><td>sim</td></tr>
+</tbody></table></div>
+<p>Por que cada lista é assim:</p>
+<ul>
+<li>O <code>revisor-qa</code> <strong>não tem <code>Write</code></strong>, só <code>Edit</code>: ele corrige o arquivo existente, não cria outro. Ele tem <code>Bash</code> para conferir contas com <code>python3 -c ...</code>.</li>
+<li>O <code>polidor-texto</code> não tem web: ele não deve trazer informação nova, só reescrever.</li>
+<li>O <code>designer</code> não tem web: ele só diagrama, não altera conteúdo.</li>
+</ul>
+<aside class="callout"><div class="callout-title">Atenção: um erro real que este repo já teve.</div>
+<p>Na primeira versão, os prompts do <code>pesquisador</code> e do <code>polidor-texto</code> mandavam "faça commit". Só que a lista <code>tools</code> deles <strong>não inclui <code>Bash</code></strong>, então eles <strong>não conseguiam</strong> rodar <code>git commit</code>. Havia duas correções possíveis:<br>
+(a) adicionar <code>Bash</code> à lista desses dois; ou<br>
+(b) trocar a instrução por "devolva o resultado; o orquestrador faz o commit".<br>
+O repo escolheu a (b), porque ela mantém o princípio do menor privilégio (commit <code>squad: commit do pesquisador e do polidor fica com o orquestrador</code>). Hoje os dois prompts dizem "devolva (o commit fica com o orquestrador) ...". Veja a pegadinha 4.5.</p>
+</aside>
+<p><strong>Passo 5 — Fazer o primeiro commit e enviar ao GitHub</strong></p>
+<pre><code class="language-bash">git add .
+git commit -m "Estrutura da squad de resumos com subagentes"</code></pre>
+<p>Crie um repositório <strong>vazio</strong> no site do GitHub, sem README, para não dar conflito. Depois conecte:</p>
+<pre><code class="language-bash">git remote add origin https://github.com/&lt;seu-usuario&gt;/ResumosFaculdadeClaude.git
+git push -u origin main</code></pre>
+<p><strong>Passo 6 — Conferir se o Claude Code enxerga os agentes.</strong> Abra <code>claude</code> na pasta e pergunte: "quais subagentes existem neste projeto?". Os 4 nomes devem aparecer. Nas versões mais novas, <code>/agents</code> só lembra que os agentes ficam em <code>.claude/agents/</code>; até a versão 2.1.197, ele abria um assistente interativo.</p>
+<p class="check"><strong>Conferência (sentido inverso):</strong> liste o que você criou e compare com a árvore da meta: 4 arquivos em <code>.claude/agents/</code> + <code>CLAUDE.md</code> + <code>.gitignore</code> + 2 <code>.gitkeep</code> = <strong>8 arquivos</strong>. Contando na árvore: 4 + 1 + 1 + 1 + 1 = 8. Confere.</p>
+</div>
+<div class="box method">
+<h3 class="sub-title"><span class="num">Método C</span><span class="txt">Produzir um resumo com a pipeline (exemplo: "conversão de bases")</span></h3>
+<ol>
+<li><strong>Crie o branch do tema</strong> (nunca trabalhe na <code>main</code>):
+<div class="flow"><pre><code class="language-bash">git switch main
+git pull
+git switch -c resumo/conversao-de-bases</code></pre></div></li>
+<li><strong>Etapa 1 — pesquisador.</strong> No <code>claude</code>, peça:<br>
+<code>Use o subagente pesquisador. Tema: conversão de bases. Pasta: resumos/conversao-de-bases/</code><br>
+Resultado: <code>resumos/conversao-de-bases/pesquisa.md</code>.<br>
+O <strong>orquestrador</strong> (a conversa principal) faz o commit, porque o <code>pesquisador</code> não tem <code>Bash</code>:
+<div class="flow"><pre><code class="language-bash">git add resumos/conversao-de-bases/pesquisa.md
+git commit -m "pesquisa: conversão de bases"</code></pre>
+<p><strong>PAUSA:</strong> o Claude mostra o resultado; o aluno lê e diz "pode seguir".</p></div></li>
+<li><strong>Etapa 2 — revisor-qa.</strong> Peça: <code>Use o subagente revisor-qa em resumos/conversao-de-bases/pesquisa.md</code>.<br>
+Ele refaz as contas (ex.: 45₁₀ = 101101₂; conferência inversa: 32 + 8 + 4 + 1 = 45), corrige o que precisar e adiciona "## Revisão QA". Commit <code>qa: conversão de bases</code>. <strong>PAUSA.</strong></li>
+<li><strong>Etapa 3 — polidor-texto.</strong> Ele gera <code>rascunho.md</code> sem a seção Revisão QA e sem mudar números. O orquestrador faz o commit <code>rascunho: conversão de bases</code>, porque o <code>polidor-texto</code> também não tem <code>Bash</code>. <strong>PAUSA.</strong></li>
+<li><strong>Etapa 4 — designer.</strong>
+<ul>
+<li>Se <code>templates/</code> não tem layout: ele cria <code>opcoes.html</code> com 6 opções e <strong>devolve a pergunta</strong>. A conversa principal pergunta ao aluno: "Qual layout, de 1 a 6?". <strong>Nada continua sem resposta.</strong></li>
+<li>Com a escolha feita: ele salva <code>templates/&lt;nome&gt;.css</code> e monta <code>resumo.html</code>. Commit <code>design: conversão de bases</code>.</li>
+</ul></li>
+<li><strong>Publique e revise:</strong>
+<div class="flow"><pre><code class="language-bash">git push -u origin resumo/conversao-de-bases
+gh pr create --base main --title "Resumo: conversão de bases" --body "pesquisa, QA, rascunho e HTML"</code></pre>
+<p>No GitHub, abra o PR → aba <strong>Files changed</strong> → leia o diff → <strong>Merge pull request</strong>.</p></div></li>
+<li><strong>Limpe:</strong> rode <code>git switch main &amp;&amp; git pull</code> (agora a <code>main</code> tem o resumo). Se quiser, apague o branch com <code>git branch -d resumo/conversao-de-bases</code>.<br>
+Atenção: se o PR entrou com <strong>Squash and merge</strong>, o Git não reconhece o branch como mergeado e o <code>-d</code> recusa. Nesse caso, confira que o PR entrou e use <code>git branch -D</code>.</li>
+</ol>
+<p class="check"><strong>Conferência (contagem):</strong> etapas = 4 → commits no branch = 4 (<code>pesquisa</code>, <code>qa</code>, <code>rascunho</code>, <code>design</code>). Pausas: 4 (uma ao fim de cada etapa, regra do <code>CLAUDE.md</code>) + 1 (escolha de layout dentro do designer, só quando não há template) = <strong>5</strong>. Inverso: 5 − 1 = 4 = número de etapas. Confere.</p>
+<aside class="note"><p>Observação: os nomes <code>qa:</code>, <code>rascunho:</code> e <code>design:</code> seguem o padrão do exemplo <code>pesquisa: conversão de bases</code> do <code>CLAUDE.md</code>. O repositório só fixa o exemplo da pesquisa.</p></aside>
+</div>
+<div class="box method">
+<h3 class="sub-title"><span class="num">Método D</span><span class="txt">Vários temas em paralelo com worktrees (só terminal)</span></h3>
+<p><strong>Cenário:</strong> produzir <strong>matrizes</strong> e <strong>lógica proposicional</strong> ao mesmo tempo.</p>
+<ol>
+<li>Na pasta principal (na <code>main</code>, com pelo menos 1 commit), crie um worktree por tema. Cada um ganha um <strong>branch próprio</strong>:
+<div class="flow"><pre><code class="language-bash">git worktree add -b resumo/matrizes ../resumos-matrizes main
+git worktree add -b resumo/logica-proposicional ../resumos-logica main</code></pre></div></li>
+<li>Abra <strong>dois terminais</strong>:
+<div class="flow"><pre><code class="language-bash"># terminal 1
+cd ../resumos-matrizes &amp;&amp; claude
+# terminal 2
+cd ../resumos-logica &amp;&amp; claude</code></pre>
+<p>Cada sessão roda a pipeline do Método C no seu tema. Como as pastas são diferentes, um agente <strong>não sobrescreve</strong> os arquivos do outro.</p>
+<p><strong>Atalho do Claude Code:</strong> <code>claude --worktree matrizes</code> cria e abre o worktree isolado com um comando só. Mas ele cria a pasta <code>.claude/worktrees/matrizes/</code> e o branch <code>worktree-matrizes</code>, <strong>não</strong> <code>resumo/matrizes</code>. Para seguir a regra do <code>CLAUDE.md</code>, renomeie dentro do worktree com <code>git branch -m resumo/matrizes</code>, ou use o <code>git worktree add</code> acima. A documentação também recomenda pôr <code>.claude/worktrees/</code> no <code>.gitignore</code>.</p></div></li>
+<li>Para ver o que existe, rode <code>git worktree list</code>. A pasta principal aparece primeiro.</li>
+<li>Ao terminar cada tema: <code>git push -u origin resumo/matrizes</code>, abra o PR, revise e faça o merge.</li>
+<li>Remova o worktree. Isso só funciona se ele estiver limpo: sem mudanças pendentes nem arquivos não rastreados.
+<div class="flow"><pre><code class="language-bash">git worktree remove ../resumos-matrizes</code></pre>
+<p>Se você apagou a pasta "na mão", limpe o registro com <code>git worktree prune</code>.</p></div></li>
+</ol>
+<p class="check"><strong>Conferência:</strong> 2 temas × 4 commits = 8 commits no total, divididos em 2 branches (4 + 4 = 8). Confere.</p>
+</div>
+<div class="box method">
+<h3 class="sub-title"><span class="num">Método E</span><span class="txt">Os mesmos temas em paralelo com o Orca</span></h3>
+<p>Este é o fluxo da documentação oficial ("Your first 3-agent session"), adaptado para este repo:</p>
+<ol>
+<li>Clique em <strong>Add Repo</strong> (barra lateral) e aponte para a pasta local <code>ResumosFaculdadeClaude</code>. O Orca usa o branch padrão como <strong>base ref</strong> (normalmente <code>origin/main</code>).</li>
+<li>Clique no <strong>+</strong> ao lado do nome do repo e dê à tarefa o nome <code>resumo-matrizes</code>. Por padrão, o Orca deriva o nome do branch do nome do workspace. Para forçar o nome <code>resumo/matrizes</code>, use <strong>Advanced → Branch name</strong>. O ponto de partida é a base ref.</li>
+<li>Abre-se um terminal com um seletor de agente. Escolha <strong>Claude Code</strong>. Como o worktree é uma cópia do repo, o <code>CLAUDE.md</code> e os <code>.claude/agents/</code> <strong>vêm junto</strong>. A squad funciona igual.</li>
+<li>Repita para <code>resumo-logica</code>.</li>
+<li>Use <strong>splits</strong> (arraste a aba para a borda) para ver as duas sessões lado a lado.</li>
+<li>Em cada worktree, abra o <strong>diff</strong>. Com <strong>Annotate AI Diff</strong>, você comenta linhas e manda de volta ao agente. É outra forma de pausa humana.</li>
+<li>Faça <strong>Commit &amp; push</strong> pelo Orca. Depois abra o PR no GitHub (ou pelo próprio app, que mostra PRs e issues).</li>
+<li>Ao terminar, <strong>delete</strong> o worktree no Orca. Após sua confirmação, ele remove a pasta e o branch local. Numa exclusão em lote, se o Git recusar apagar um branch com commits não mergeados, o Orca mantém esse branch e avisa.</li>
+</ol>
+<p><strong>Uso avançado ("corrida" de agentes):</strong> mande <strong>o mesmo prompt</strong> a 3 worktrees, compare os 3 resultados e fique só com o melhor. Em resumos, isso serve, por exemplo, para gerar 3 versões do <code>rascunho.md</code> e escolher a mais clara.</p>
+</div>
+<div class="box method">
+<h3 class="sub-title"><span class="num">Método F</span><span class="txt">(Opcional) <code>@claude</code> no GitHub</span></h3>
+<ol>
+<li>Instale a GitHub CLI (<code>gh</code>) e faça login: <code>gh auth login</code>.</li>
+<li>No <code>claude</code>, rode <code>/install-github-app</code> e siga as instruções (você precisa ser admin do repo). Ele:
+<ul>
+<li>instala o app do Claude;</li>
+<li>salva o secret;</li>
+<li>envia um branch com o workflow <code>.github/workflows/claude.yml</code>;</li>
+<li>abre o navegador com o PR pronto para você criar.</li>
+</ul></li>
+<li>Crie esse PR e faça o merge.</li>
+<li>Num PR de resumo, comente: <code>@claude verifique se rascunho.md manteve todos os números de pesquisa.md</code>.</li>
+<li>Lembre: só quem tem <strong>acesso de escrita</strong> consegue disparar o <code>@claude</code>. Cada execução gasta minutos do GitHub Actions e tokens.</li>
+</ol>
+</div>
+</section>
+<section>
+<h2 class="section-title"><span class="num">4</span><span class="txt">Atalhos e pegadinhas</span></h2>
+<p><strong>4.1 Commitar direto na <code>main</code>.</strong> O <code>CLAUDE.md</code> proíbe. Antes de pedir qualquer etapa, rode <code>git branch --show-current</code>; ele deve mostrar <code>resumo/&lt;tema&gt;</code>. Lembre: o <code>CLAUDE.md</code> é <strong>contexto, não trava</strong>, e o Claude pode errar. Para bloquear de verdade, use proteção de branch no GitHub ou <em>hooks</em>.</p>
+<p><strong>4.2 Agente com ferramentas demais.</strong> Omitir <code>tools</code> = herdar <strong>todas</strong> as ferramentas. Um <code>polidor-texto</code> com <code>Bash</code> e <code>WebFetch</code> pode "inventar" conteúdo novo ou rodar comandos que não devia. Regra: dê só o necessário (menor privilégio).</p>
+<p><strong>4.3 Nome de campo errado no frontmatter.</strong> <code>max_turns</code>, <code>Tools</code>, <code>nome</code> etc. são <strong>ignorados em silêncio</strong>. Use exatamente <code>name</code>, <code>description</code>, <code>tools</code>, <code>model</code>, <code>maxTurns</code>.</p>
+<p><strong>4.4 <code>description</code> vaga.</strong> "Agente útil" não diz quando usar, então o Claude não delega na hora certa. Diga <strong>quando</strong> usar ("Use depois do revisor-qa para...") e <strong>o que o agente entrega</strong>.</p>
+<p><strong>4.5 Agente com ferramentas de menos para o que o prompt pede.</strong> Pedir "faça commit" a um agente sem <code>Bash</code> não funciona. Isso aconteceu de verdade neste repo com o <code>pesquisador</code> e o <code>polidor-texto</code>, e já foi corrigido. Em vez de dar <code>Bash</code> a eles, o prompt passou a dizer "devolva (o commit fica com o orquestrador)". Quem roda <code>git commit</code> é a conversa principal. Confira sempre se o prompt e a lista <code>tools</code> combinam.</p>
+<p><strong>4.6 Pular a pausa humana.</strong> Se você encadeia as 4 etapas sem parar, um erro da pesquisa passa pelo QA, vira texto bonito e vai para o HTML. Além disso, <strong>subagente não consegue perguntar ao usuário</strong> (não tem <code>AskUserQuestion</code>). A pergunta "qual layout?" tem que voltar para a conversa principal.</p>
+<p><strong>4.7 Achar que o subagente "lembra" da conversa.</strong> Ele começa do zero. Tudo o que importa (tema, pasta, restrições) tem que ir <strong>no prompt de delegação</strong>.</p>
+<p><strong>4.8 Mesmo branch em dois worktrees.</strong> O Git recusa por padrão. Cada worktree = um branch diferente. Forçar com <code>--force</code> é pedir confusão.</p>
+<p><strong>4.9 Conflitos entre worktrees.</strong> Dois temas não conflitam, porque usam pastas <code>resumos/&lt;tema&gt;/</code> diferentes. Mas se <strong>os dois</strong> alteram o mesmo arquivo compartilhado (ex.: <code>templates/paper.css</code> ou o <code>CLAUDE.md</code>), o segundo PR terá <strong>conflito de merge</strong>. Regra prática: arquivos compartilhados só mudam num PR dedicado.</p>
+<p><strong>4.10 <code>CLAUDE.local.md</code> e worktrees.</strong> Esse arquivo fica no <code>.gitignore</code>, então <strong>não existe</strong> nos worktrees novos. Para levar preferências pessoais deste projeto a todos os worktrees, a documentação indica guardá-las num arquivo da sua pasta pessoal e importá-lo (ex.: uma linha <code>@~/.claude/minhas-instrucoes.md</code>). Se a preferência vale para todos os projetos, use <code>~/.claude/CLAUDE.md</code>.</p>
+<p><strong>4.11 <code>claude --worktree</code> em repo sem commit.</strong> O comando falha (<code>Failed to resolve base branch "HEAD"</code>). Faça o primeiro commit antes.</p>
+<p><strong>4.12 Remover worktree com mudanças pendentes.</strong> O <code>git worktree remove</code> recusa, com a mensagem <code>contains modified or untracked files, use --force to delete it</code>. Faça commit (ou descarte as mudanças) antes.</p>
+<p><strong>4.13 Chave de API no repositório.</strong> Nunca. No GitHub Actions, use <strong>Secrets</strong> (<code>${{ secrets.ANTHROPIC_API_KEY }}</code>).</p>
+<p><strong>4.14 Orca não é modelo de IA.</strong> Ele não "pensa"; ele organiza worktrees e terminais. Quem faz o trabalho é o agente (Claude Code), com a sua assinatura.</p>
+<p><strong>4.15 <code>CLAUDE.md</code> gigante.</strong> Acima de ~200 linhas, a adesão cai. Detalhes de um papel vão no arquivo do agente, não no <code>CLAUDE.md</code>.</p>
+</section>
+<section>
+<h2 class="section-title"><span class="num">5</span><span class="txt">Exercícios</span></h2>
+<div class="box item"><div class="box-label ">E1.</div>
+<p>Escreva o arquivo completo <code>.claude/agents/verificador-fontes.md</code> para um agente que só <strong>confere se os links da seção Fontes de <code>pesquisa.md</code> abrem</strong>, sem alterar nenhum arquivo.</p></div>
+<div class="box item"><div class="box-label ">E2.</div>
+<p>Pela tabela do Método B, quais agentes deste repositório <strong>conseguem</strong> rodar <code>git commit</code> sozinhos? Quais não? Na primeira versão do repo, os que não conseguiam recebiam a ordem "faça commit". Quais eram as duas correções possíveis, qual o repo escolheu e por quê?</p></div>
+<div class="box item"><div class="box-label ">E3.</div>
+<p>Encontre os <strong>4 erros</strong> neste arquivo de agente:</p>
+<pre><code class="language-markdown">---
+name: revisor:qa
+Tools: Read, Edit
+max_turns: 10
+---
+Você revisa resumos.</code></pre></div>
+<div class="box item"><div class="box-label ">E4.</div>
+<p>Escreva, em ordem, os comandos para: (a) sair da <code>main</code> atualizada para um branch novo do tema "limites"; (b) depois da etapa de pesquisa, commitar só o arquivo da pesquisa; (c) enviar o branch para o GitHub.</p></div>
+<div class="box item"><div class="box-label ">E5.</div>
+<p>Você rodou:</p>
+<pre><code class="language-bash">git worktree add -b resumo/matrizes ../wt1 main
+git worktree add ../wt2 resumo/matrizes</code></pre>
+<p>O que acontece no segundo comando? Por quê? Como corrigir?</p></div>
+<div class="box item"><div class="box-label ">E6.</div>
+<p>Três temas são produzidos <strong>um depois do outro</strong> pela pipeline. No início não há nenhum layout em <code>templates/</code>. Quantos <strong>commits</strong> e quantas <strong>pausas humanas</strong> acontecem no total? (Use: 1 commit por etapa; 1 pausa ao fim de cada etapa; +1 pausa de escolha de layout sempre que <code>templates/</code> estiver vazio.)</p></div>
+<div class="box item"><div class="box-label ">E7.</div>
+<p>A conversa principal chama o agente A, que chama B, que chama C, que tenta chamar D. Com a configuração padrão, quais chamadas funcionam? Como impedir que o <code>pesquisador</code> chame qualquer subagente?</p></div>
+<div class="box item"><div class="box-label ">E8.</div>
+<p>Você quer que o Claude sempre responda com frases curtas <strong>em todos os seus projetos</strong>, mas isso é preferência sua, não do grupo. Onde escreve essa instrução? E se fosse uma preferência só deste projeto e só sua?</p></div>
+<div class="subsection">
+<h3 class="sub-title"><span class="num">Gabarito</span></h3>
+<div class="box item"><div class="box-label yellow">E1.</div>
+<p>Exemplo de resposta correta:</p>
+<pre><code class="language-markdown">---
+name: verificador-fontes
+description: Use depois do pesquisador para conferir se cada link da seção Fontes de resumos/&lt;tema&gt;/pesquisa.md abre e trata do tema. Não altera arquivos.
+tools: Read, Grep, WebFetch
+---
+
+Você é o verificador de fontes da squad.
+
+1. Leia a seção "Fontes" de `resumos/&lt;tema&gt;/pesquisa.md`.
+2. Abra cada link com WebFetch.
+3. Devolva uma lista: link → "ok" ou "problema: &lt;motivo&gt;".
+Não edite nenhum arquivo.</code></pre>
+<p>Pontos que precisam estar presentes: <code>name</code> sem <code>:</code>; <code>description</code> dizendo <strong>quando</strong> usar; <code>tools</code> <strong>sem</strong> <code>Write</code>, <code>Edit</code> e <code>Bash</code> (somente leitura + web).</p></div>
+<div class="box item"><div class="box-label yellow">E2.</div>
+<p>Conseguem: <code>revisor-qa</code> e <code>designer</code> (têm <code>Bash</code>). Não conseguem: <code>pesquisador</code> e <code>polidor-texto</code> (sem <code>Bash</code>). Correções possíveis: (a) adicionar <code>Bash</code> ao <code>tools</code> deles, ou (b) mudar o prompt para "devolva o resultado; o orquestrador faz o commit". O repo escolheu a (b), pelo menor privilégio: os dois continuam sem <code>Bash</code> e o prompt atual diz "devolva (o commit fica com o orquestrador)". Conferência: 2 conseguem + 2 não = 4 agentes. Confere.</p></div>
+<div class="box item"><div class="box-label yellow">E3.</div>
+<ol>
+<li><code>name: revisor:qa</code> — <code>name</code> <strong>não pode conter <code>:</code></strong> → <code>revisor-qa</code>.</li>
+<li>Falta <code>description</code>, que é <strong>obrigatória</strong>.</li>
+<li><code>Tools</code> com T maiúsculo → nome de campo errado, <strong>ignorado</strong> → o agente herdaria <strong>todas</strong> as ferramentas. Correto: <code>tools</code>.</li>
+<li><code>max_turns</code> → ignorado. Correto: <code>maxTurns</code>.</li>
+</ol>
+<p>Observação: por causa dos erros 1 e 2 (nome com <code>:</code> e falta de <code>description</code>), o Claude Code <strong>pula o arquivo inteiro</strong>: o agente nem chega a ser carregado. Os erros 3 e 4 só fariam efeito depois de corrigidos os dois primeiros.</p></div>
+<div class="box item"><div class="box-label yellow">E4.</div>
+<pre><code class="language-bash"># (a)
+git switch main
+git pull
+git switch -c resumo/limites
+# (b)
+git add resumos/limites/pesquisa.md
+git commit -m "pesquisa: limites"
+# (c)
+git push -u origin resumo/limites</code></pre></div>
+<div class="box item"><div class="box-label yellow">E5.</div>
+<p>O segundo comando <strong>falha</strong> (<code>fatal: 'resumo/matrizes' is already used by worktree at '.../wt1'</code>): o branch <code>resumo/matrizes</code> já está aberto no worktree <code>../wt1</code>, e por padrão o Git recusa abrir o mesmo branch em dois worktrees. Correção: criar outro branch, por exemplo <code>git worktree add -b resumo/limites ../wt2 main</code>, ou trabalhar em <code>../wt1</code>.</p></div>
+<div class="box item"><div class="box-label yellow">E6.</div>
+<ul>
+<li>Commits: 3 temas × 4 etapas = <strong>12</strong>. Inverso: 12 ÷ 4 = 3 temas. Confere.</li>
+<li>Pausas: tema 1 = 4 + 1 (escolha de layout, <code>templates/</code> vazio) = 5. Depois disso o designer salva <code>templates/&lt;nome&gt;.css</code>, então os temas 2 e 3 pulam a escolha: 4 + 4. Total = 5 + 4 + 4 = <strong>13</strong>. Inverso: 13 − 1 = 12 = 3 × 4. Confere.</li>
+</ul></div>
+<div class="box item"><div class="box-label yellow">E7.</div>
+<p>Padrão: até <strong>3 níveis abaixo</strong> da conversa principal. A = nível 1, B = nível 2, C = nível 3 → as chamadas principal→A, A→B e B→C funcionam. D seria nível 4 → a chamada C→D é <strong>bloqueada</strong> (no limite, o Claude Code tira a ferramenta <code>Agent</code> de C). Inverso: 4 − 3 = 1 nível além do limite. Para impedir o <code>pesquisador</code> de chamar subagentes: <strong>não</strong> listar <code>Agent</code> no <code>tools</code> dele (como já acontece neste repo) ou colocá-lo em <code>disallowedTools</code>.</p></div>
+<div class="box item"><div class="box-label yellow">E8.</div>
+<p>Em todos os projetos e só para você: <code>~/.claude/CLAUDE.md</code>. Só neste projeto e só para você: <code>./CLAUDE.local.md</code> (e adicionar ao <code>.gitignore</code>). O <code>./CLAUDE.md</code> do projeto é para regras do <strong>grupo</strong> e vai para o Git.</p></div>
+</div>
+</section>
+<section>
+<h2 class="section-title"><span class="num">6</span><span class="txt">Fontes (realmente consultadas, outubro de 2026)</span></h2>
+<p><strong>Este repositório (exemplo central):</strong></p>
+<ul>
+<li><code>CLAUDE.md</code>, <code>.claude/agents/pesquisador.md</code>, <code>revisor-qa.md</code>, <code>polidor-texto.md</code>, <code>designer.md</code>, <code>.gitignore</code> — <a href="https://github.com/briito-yuri/ResumosFaculdadeClaude">https://github.com/briito-yuri/ResumosFaculdadeClaude</a> (lidos localmente)</li>
+</ul>
+<p><strong>Anthropic — documentação oficial do Claude Code:</strong></p>
+<ul>
+<li>Subagentes: <a href="https://code.claude.com/docs/en/sub-agents">https://code.claude.com/docs/en/sub-agents</a></li>
+<li>Memória / <code>CLAUDE.md</code>: <a href="https://code.claude.com/docs/en/memory">https://code.claude.com/docs/en/memory</a></li>
+<li>Instalação (Advanced setup): <a href="https://code.claude.com/docs/en/setup">https://code.claude.com/docs/en/setup</a></li>
+<li>Fluxos comuns (worktrees paralelos, <code>claude --worktree</code>, subagentes de pesquisa): <a href="https://code.claude.com/docs/en/common-workflows">https://code.claude.com/docs/en/common-workflows</a></li>
+<li>Claude Code GitHub Actions: <a href="https://code.claude.com/docs/en/github-actions">https://code.claude.com/docs/en/github-actions</a></li>
+<li>Worktrees (<code>claude --worktree</code>, pasta <code>.claude/worktrees/</code>, branch <code>worktree-&lt;nome&gt;</code>, <code>isolation: worktree</code>): <a href="https://code.claude.com/docs/en/worktrees">https://code.claude.com/docs/en/worktrees</a></li>
+</ul>
+<p><strong>Orca (Stably AI):</strong></p>
+<ul>
+<li>Repositório/README oficial: <a href="https://github.com/stablyai/orca">https://github.com/stablyai/orca</a></li>
+<li>Site oficial: <a href="https://onorca.dev/">https://onorca.dev/</a></li>
+<li>Doc "Your first 3-agent session": <a href="https://www.onorca.dev/docs/first-session">https://www.onorca.dev/docs/first-session</a></li>
+<li>Doc de worktrees: <a href="https://www.onorca.dev/docs/model/worktrees">https://www.onorca.dev/docs/model/worktrees</a></li>
+<li>Ajuda da CLI instalada: <code>orca worktree create --help</code></li>
+</ul>
+<p><strong>Git e GitHub:</strong></p>
+<ul>
+<li><code>git worktree</code> (doc oficial do Git): <a href="https://git-scm.com/docs/git-worktree">https://git-scm.com/docs/git-worktree</a></li>
+<li>Sobre pull requests (GitHub Docs): <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests">https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests</a></li>
+<li><code>gh pr create</code> (manual da GitHub CLI): <a href="https://cli.github.com/manual/gh_pr_create">https://cli.github.com/manual/gh_pr_create</a></li>
+</ul>
+<p>Observação: os comandos básicos do Git (<code>git init</code>, <code>git add</code>, <code>git commit</code>, <code>git switch</code>, <code>git push</code>, <code>git remote add</code>) aparecem na forma padrão; nenhuma página específica foi consultada para eles nesta pesquisa.</p>
+</section>
+<footer class="doc-footer">ResumosFaculdadeClaude · Sistemas de Informação (CESMAC) · Orquestração de agentes</footer>
+</main>
+</body>
+</html>
