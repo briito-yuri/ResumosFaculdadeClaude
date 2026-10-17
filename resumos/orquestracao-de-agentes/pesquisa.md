@@ -7,8 +7,9 @@
 > README oficial e na documentação oficial (`onorca.dev/docs`). Outros "Orca" achados na busca
 > (forks como `MuathJ/orca` e projetos sem relação, como `orca-agent-ide`) **não** foram usados.
 > Grau de confiança: **alto** para o que o Orca é e para o fluxo básico (Add Repo → criar worktree →
-> escolher agente → revisar diff → commit/push). **Médio** para detalhes de CLI do Orca
-> (`orca worktree create ...`), que mudam rápido — confira a doc oficial antes de usar.
+> escolher agente → revisar diff → commit/push). A CLI `orca worktree create` foi conferida no README
+> e no `orca worktree create --help` de uma instalação real; as opções da CLI mudam rápido, então
+> confira o `--help` da sua versão antes de usar.
 >
 > **Nota de versão.** Claude Code e Orca são atualizados com frequência. Tudo aqui foi conferido na
 > documentação oficial em **outubro de 2026**.
@@ -58,7 +59,7 @@ Ao final, o aluno deve saber:
 **Por que dividir:**
 - **Foco:** cada agente tem instruções curtas e específicas → segue melhor.
 - **Contexto limpo:** a sujeira da pesquisa não contamina o design.
-- **Segurança:** cada papel recebe só as ferramentas de que precisa.
+- **Segurança:** cada papel recebe só as ferramentas de que precisa (isso se chama **princípio do menor privilégio**).
 - **Revisão:** um agente confere o trabalho do outro (o QA acha erro do pesquisador).
 **Exemplo (este repo):** `pesquisador` → `pesquisa.md` → `revisor-qa` (corrige `pesquisa.md`) → `polidor-texto` → `rascunho.md` → `designer` → `resumo.html`.
 
@@ -70,14 +71,14 @@ Ao final, o aluno deve saber:
 | `./CLAUDE.local.md` | só você, neste projeto | não (coloque no `.gitignore`) |
 | `~/.claude/CLAUDE.md` | só você, em todos os projetos | não |
 
-A doc recomenda **menos de 200 linhas** por arquivo e instruções **específicas e concisas**. O comando `/init` gera um `CLAUDE.md` inicial. Importante: o `CLAUDE.md` é **contexto, não trava** — o Claude tenta seguir, mas não é garantido (para bloquear algo de verdade, a doc indica *hooks*).
+A doc recomenda **menos de 200 linhas** por arquivo e instruções **específicas e concisas**. O comando `/init` gera um `CLAUDE.md` inicial. Importante: o `CLAUDE.md` é **contexto, não trava** — o Claude tenta seguir, mas não é garantido (para bloquear algo de verdade, a doc indica *hooks*: scripts que o Claude Code roda automaticamente antes ou depois de cada ação e que podem barrar a ação).
 **Exemplo:** o `CLAUDE.md` deste repo diz "Trabalhe sempre num branch próprio (`resumo/<tema>`), nunca direto na `main`" e "Pare e mostre o resultado ao aluno antes de passar para a próxima etapa".
 
 ### 2.9 Arquivo de subagente (`.claude/agents/<nome>.md`)
 **Definição:** um arquivo Markdown com **frontmatter YAML** (o bloco entre `---`) e, abaixo, o **prompt de sistema** do agente.
-- **Obrigatórios:** `name` (identificador único, sem `:`) e `description` (quando o Claude deve delegar para ele).
+- **Obrigatórios:** `name` (identificador único, sem `:`, sem começar com `-`, até 256 caracteres) e `description` (quando o Claude deve delegar para ele). Se faltar `description` ou se o `name` for inválido, o arquivo inteiro é **pulado**: o agente nem aparece.
 - **Opcional mais importante:** `tools` (lista do que ele pode usar). **Se omitir, ele herda todas as ferramentas disponíveis.**
-- Outros opcionais: `model` (`sonnet`, `opus`, `haiku`, `inherit`...), `permissionMode`, `maxTurns`, `isolation: worktree`, entre outros.
+- Outros opcionais: `disallowedTools` (lista do que ele **não** pode usar), `model` (`sonnet`, `opus`, `haiku`, `inherit`...), `permissionMode`, `maxTurns`, `isolation: worktree`, entre outros.
 - Campos com nome errado são **ignorados sem aviso** (ex.: `max_turns` em vez de `maxTurns`).
 
 Onde ficam:
@@ -107,10 +108,10 @@ Três jeitos (doc oficial):
 Também dá para abrir a sessão inteira como um agente: `claude --agent pesquisador`.
 
 ### 2.11 O que o subagente vê e o que ele NÃO pode fazer
-- Vê: o prompt que o orquestrador escreveu + os arquivos `CLAUDE.md` (a menos que `omitClaudeMd: true`).
+- Vê: o **próprio prompt de sistema** (o texto abaixo do frontmatter) + a tarefa que o orquestrador escreveu + os arquivos `CLAUDE.md` (a menos que `omitClaudeMd: true`) + um retrato do `git status`.
 - **Não vê** o histórico da conversa principal.
 - **Não pode perguntar nada ao usuário**: a ferramenta `AskUserQuestion` é removida de todo subagente. Por isso a **pausa humana** (ex.: "aluno, escolha o layout 1 a 6") acontece quando o subagente **termina e devolve** a pergunta; quem fala com o aluno é a conversa principal.
-- Pode chamar outros subagentes, até **3 níveis** abaixo da conversa principal (padrão). Para impedir, tire `Agent` da lista de `tools`.
+- Pode chamar outros subagentes (pela ferramenta `Agent`, que até a versão 2.1.63 se chamava `Task`), até **3 níveis** abaixo da conversa principal (padrão). Para impedir, tire `Agent` da lista de `tools` ou coloque-o em `disallowedTools`.
 
 ### 2.12 Git: repositório, commit, branch
 - **Repositório (repo):** pasta cujo histórico é controlado pelo Git (pasta oculta `.git/`).
@@ -121,7 +122,7 @@ Também dá para abrir a sessão inteira como um agente: `claude --agent pesquis
 ### 2.13 GitHub: remoto, push, pull request, revisão, merge
 - **Remoto (`origin`):** cópia do repositório no GitHub.
 - **Push:** enviar seus commits locais para o GitHub (`git push -u origin resumo/matrizes`).
-- **Pull request (PR):** "proposta para juntar mudanças" de um branch (o *head*, ex.: `resumo/matrizes`) em outro (a *base*, ex.: `main`). Tem aba de conversa e aba **Files changed** com o diff para revisar.
+- **Pull request (PR):** "proposta para juntar mudanças" de um branch (o *head*, ex.: `resumo/matrizes`) em outro (a *base*, ex.: `main`). Tem aba de conversa e aba **Files changed** com o *diff* (a lista de linhas adicionadas e removidas em cada arquivo) para revisar.
 - **PR em rascunho (draft):** não pode ser mergeado até ser marcado "pronto para revisão".
 - **Merge:** aceitar o PR; as mudanças entram na `main`.
 **Exemplo:** `gh pr create --base main --title "Resumo: matrizes" --body "pesquisa + QA + rascunho + html"`.
@@ -138,13 +139,13 @@ cria a pasta `../resumos-matrizes` já no branch novo `resumo/matrizes`, que par
 ### 2.15 Agentes em paralelo
 **Definição:** rodar várias sessões de agente ao mesmo tempo, cada uma em um worktree, para que uma não altere os arquivos da outra.
 Formas confirmadas na doc:
-- **Claude Code:** `claude --worktree <nome>` abre uma sessão isolada num worktree (o repo precisa ter pelo menos 1 commit).
+- **Claude Code:** `claude --worktree <nome>` (ou `-w <nome>`) abre uma sessão isolada num worktree novo em `.claude/worktrees/<nome>/`, num branch novo chamado `worktree-<nome>`, que parte do branch padrão do remoto (normalmente `main`). O repo precisa ter pelo menos 1 commit.
 - **Subagente:** `isolation: worktree` no frontmatter faz aquele subagente trabalhar numa cópia temporária (parte do branch padrão; é apagada se ele não mudar nada).
 - **Orca:** app que cria um worktree por tarefa e abre um terminal com o agente escolhido.
 
 ### 2.16 Orca (Stably AI)
 **Definição:** "ambiente de desenvolvimento de agentes" (*agent development environment*). App de desktop (macOS, Windows, Linux), gratuito, MIT, que junta worktrees, terminais, visualizador de diff, navegador e uma CLI. **Não traz modelo próprio**: você usa suas próprias assinaturas (ex.: Claude Code).
-Recursos confirmados no README/site: worktrees paralelos ("mande um prompt para cinco agentes, compare e faça merge do vencedor"), anotar diffs da IA e devolver ao agente, integração com GitHub (ver PRs e issues no app) e Linear, worktrees via SSH, app de celular para acompanhar, CLI (`orca worktree create ...`).
+Recursos confirmados no README/site: worktrees paralelos ("mande um prompt para cinco agentes, compare e faça merge do vencedor"), anotar diffs da IA e devolver ao agente, integração com GitHub (ver PRs e issues no app) e Linear, worktrees via SSH, app de celular para acompanhar, CLI (ex.: `orca worktree create --name <nome> [--base-branch <ref>] [--agent <id>] [--prompt <texto>]`).
 Instalação confirmada: download em onorca.dev / releases do GitHub, ou `brew install --cask stablyai/orca/orca` (macOS).
 **Exemplo:** abrir 3 worktrees `resumo-matrizes`, `resumo-limites`, `resumo-logica` no Orca, cada um com Claude Code rodando a pipeline de um tema diferente.
 
@@ -175,7 +176,7 @@ Configuração rápida: dentro do `claude`, rodar `/install-github-app` (precisa
 5. Rode `claude` dentro da pasta do projeto e faça login pelo navegador.
 6. **(Opcional) Orca:** baixe em onorca.dev ou, no macOS, `brew install --cask stablyai/orca/orca`.
 
-**Conferência (sentido inverso):** se `claude --version` falhar com "command not found", a instalação não entrou no PATH → abra um terminal novo ou siga a página de troubleshooting.
+**Conferência (sentido inverso):** se `claude --version` falhar com "command not found", a pasta do programa não entrou no PATH (a lista de pastas onde o terminal procura comandos) → abra um terminal novo ou siga a página de troubleshooting.
 
 ---
 
@@ -270,7 +271,7 @@ Tarefa: dado um tema da faculdade, produza `resumos/<tema>/pesquisa.md` com:
 Regras:
 - Confira toda conta antes de escrever (refaça no sentido inverso).
 - Não se preocupe com visual; só conteúdo em Markdown.
-- Ao terminar, faça commit e devolva um resumo de 3 linhas do que foi produzido.
+- Ao terminar, devolva (o commit fica com o orquestrador) um resumo de 3 linhas do que foi produzido.
 ```
 Os outros três seguem o mesmo molde. Resumo dos papéis e ferramentas reais deste repo:
 
@@ -286,10 +287,10 @@ Por que cada lista é assim:
 - `polidor-texto` não tem web: ele não deve trazer informação nova, só reescrever.
 - `designer` não tem web: só diagrama, não altera conteúdo.
 
-> **Atenção (inconsistência real encontrada neste repo):** os prompts do `pesquisador` e do `polidor-texto` mandam "faça commit", mas a lista `tools` deles **não inclui `Bash`** — então eles **não conseguem** rodar `git commit`. Há duas correções possíveis:
+> **Atenção (inconsistência real que este repo já teve e corrigiu):** na primeira versão, os prompts do `pesquisador` e do `polidor-texto` mandavam "faça commit", mas a lista `tools` deles **não inclui `Bash`** — então eles **não conseguiam** rodar `git commit`. Havia duas correções possíveis:
 > (a) adicionar `Bash` à lista desses dois; ou
 > (b) trocar a instrução por "devolva o resultado; o orquestrador faz o commit".
-> A opção (b) mantém o princípio do menor privilégio. Ver pegadinha 4.5.
+> O repo escolheu a (b), que mantém o princípio do menor privilégio (commit `squad: commit do pesquisador e do polidor fica com o orquestrador`). Hoje os dois prompts dizem "devolva (o commit fica com o orquestrador) ...". Ver pegadinha 4.5.
 
 **Passo 5 — Primeiro commit e envio ao GitHub**
 ```bash
@@ -319,7 +320,7 @@ git push -u origin main
 2. **Etapa 1 — pesquisador.** No `claude`:
    `Use o subagente pesquisador. Tema: conversão de bases. Pasta: resumos/conversao-de-bases/`
    Resultado: `resumos/conversao-de-bases/pesquisa.md`.
-   Commit (pelo agente, se tiver `Bash`, ou pelo orquestrador):
+   Commit feito pelo **orquestrador** (a conversa principal), porque o `pesquisador` não tem `Bash`:
    ```bash
    git add resumos/conversao-de-bases/pesquisa.md
    git commit -m "pesquisa: conversão de bases"
@@ -327,7 +328,7 @@ git push -u origin main
    **PAUSA:** o Claude mostra o resultado; o aluno lê e diz "pode seguir".
 3. **Etapa 2 — revisor-qa.** `Use o subagente revisor-qa em resumos/conversao-de-bases/pesquisa.md`.
    Ele refaz contas (ex.: 45₁₀ = 101101₂; conferência inversa: 32 + 8 + 4 + 1 = 45), corrige e adiciona "## Revisão QA". Commit `qa: conversão de bases`. **PAUSA.**
-4. **Etapa 3 — polidor-texto.** Gera `rascunho.md` (sem a seção Revisão QA, sem mudar números). Commit `rascunho: conversão de bases`. **PAUSA.**
+4. **Etapa 3 — polidor-texto.** Gera `rascunho.md` (sem a seção Revisão QA, sem mudar números). Commit `rascunho: conversão de bases`, feito pelo orquestrador (o `polidor-texto` também não tem `Bash`). **PAUSA.**
 5. **Etapa 4 — designer.**
    - Se `templates/` não tem layout: cria `opcoes.html` com 6 opções e **devolve a pergunta**. A conversa principal pergunta ao aluno: "Qual layout, de 1 a 6?". **Nada continua sem resposta.**
    - Com a escolha: salva `templates/<nome>.css`, monta `resumo.html`. Commit `design: conversão de bases`.
@@ -337,7 +338,7 @@ git push -u origin main
    gh pr create --base main --title "Resumo: conversão de bases" --body "pesquisa, QA, rascunho e HTML"
    ```
    No GitHub, abra o PR → aba **Files changed** → leia o diff → **Merge pull request**.
-7. **Limpar:** `git switch main && git pull` (agora a `main` tem o resumo) e, se quiser, `git branch -d resumo/conversao-de-bases`.
+7. **Limpar:** `git switch main && git pull` (agora a `main` tem o resumo) e, se quiser, `git branch -d resumo/conversao-de-bases`. (Se o PR foi mergeado com **Squash and merge**, o Git não reconhece o branch como mergeado e o `-d` recusa; aí, depois de conferir que o PR entrou, use `git branch -D`.)
 
 **Conferência (contagem):** etapas = 4 → commits no branch = 4 (`pesquisa`, `qa`, `rascunho`, `design`). Pausas: 4 (uma ao fim de cada etapa, regra do `CLAUDE.md`) + 1 (escolha de layout dentro do designer, só quando não há template) = **5**. Inverso: 5 − 1 = 4 = número de etapas. Confere.
 
@@ -362,10 +363,10 @@ Cenário: produzir **matrizes** e **lógica proposicional** ao mesmo tempo.
    cd ../resumos-logica && claude
    ```
    Cada sessão roda a pipeline do Método C no seu tema. Como são pastas diferentes, um agente **não sobrescreve** os arquivos do outro.
-   (Atalho do Claude Code: `claude --worktree matrizes` cria e abre o worktree isolado em um comando.)
+   (Atalho do Claude Code: `claude --worktree matrizes` cria e abre o worktree isolado em um comando. Atenção: ele cria a pasta `.claude/worktrees/matrizes/` e o branch `worktree-matrizes`, **não** `resumo/matrizes`. Para seguir a regra do `CLAUDE.md`, renomeie dentro do worktree com `git branch -m resumo/matrizes`, ou use o `git worktree add` acima. A doc também recomenda pôr `.claude/worktrees/` no `.gitignore`.)
 3. Ver o que existe: `git worktree list` (a pasta principal aparece primeiro).
 4. Ao terminar cada tema: `git push -u origin resumo/matrizes`, abrir PR, revisar, merge.
-5. Remover o worktree (só funciona se estiver limpo, sem mudanças pendentes):
+5. Remover o worktree (só funciona se estiver limpo: sem mudanças pendentes nem arquivos não rastreados):
    ```bash
    git worktree remove ../resumos-matrizes
    ```
@@ -386,7 +387,7 @@ Fluxo da documentação oficial ("Your first 3-agent session"), adaptado:
 5. Use **splits** (arraste a aba para a borda) para ver as duas sessões lado a lado.
 6. Em cada worktree, abra o **diff**; use **Annotate AI Diff** para comentar linhas e mandar de volta ao agente (é uma forma de pausa humana).
 7. **Commit & push** pelo Orca, depois abra o PR no GitHub (ou pelo próprio app, que mostra PRs e issues).
-8. Ao terminar, **delete** o worktree no Orca (remove a pasta e o branch local, após confirmação; se o branch tiver commits não mergeados, o Orca o mantém e avisa).
+8. Ao terminar, **delete** o worktree no Orca (remove a pasta e o branch local, após confirmação; numa exclusão em lote, se o Git recusar apagar um branch com commits não mergeados, o Orca mantém esse branch e avisa).
 
 Uso avançado ("corrida" de agentes): mandar **o mesmo prompt** a 3 worktrees, comparar os 3 resultados e ficar só com o melhor. Para resumos, isso serve, por exemplo, para gerar 3 versões do `rascunho.md` e escolher a mais clara.
 
@@ -394,9 +395,9 @@ Uso avançado ("corrida" de agentes): mandar **o mesmo prompt** a 3 worktrees, c
 
 ### Método F — (Opcional) `@claude` no GitHub
 
-1. Instale e logue a GitHub CLI: `gh auth login`.
-2. No `claude`, rode `/install-github-app` e siga as instruções (precisa ser admin do repo). Ele instala o app do Claude, salva o secret e abre um PR com `.github/workflows/claude.yml`.
-3. Faça merge desse PR.
+1. Instale a GitHub CLI (`gh`) e faça login: `gh auth login`.
+2. No `claude`, rode `/install-github-app` e siga as instruções (precisa ser admin do repo). Ele instala o app do Claude, salva o secret, envia um branch com o workflow `.github/workflows/claude.yml` e abre o navegador com o PR pronto para você criar.
+3. Crie e faça merge desse PR.
 4. Num PR de resumo, comente: `@claude verifique se rascunho.md manteve todos os números de pesquisa.md`.
 5. Lembre: só quem tem **acesso de escrita** dispara; cada execução gasta minutos do GitHub Actions e tokens.
 
@@ -412,7 +413,7 @@ Uso avançado ("corrida" de agentes): mandar **o mesmo prompt** a 3 worktrees, c
 
 4.4 **`description` vaga.** "Agente útil" não diz quando usar → o Claude não delega na hora certa. Diga **quando** ("Use depois do revisor-qa para...") e **o que entrega**.
 
-4.5 **Agente com ferramentas de menos para o que o prompt pede.** Pedir "faça commit" a um agente sem `Bash` não funciona (é o caso real de `pesquisador` e `polidor-texto` neste repo). Confira se o prompt e a lista `tools` combinam.
+4.5 **Agente com ferramentas de menos para o que o prompt pede.** Pedir "faça commit" a um agente sem `Bash` não funciona. Isso aconteceu de verdade neste repo com `pesquisador` e `polidor-texto`, e já foi corrigido: em vez de dar `Bash` a eles, o prompt passou a dizer "devolva (o commit fica com o orquestrador)", e quem roda `git commit` é a conversa principal. Confira sempre se o prompt e a lista `tools` combinam.
 
 4.6 **Pular a pausa humana.** Encadear as 4 etapas sem parar faz um erro da pesquisa passar pelo QA, virar texto bonito e ir para o HTML. Além disso, **subagente não consegue perguntar ao usuário** (não tem `AskUserQuestion`): a pergunta "qual layout?" tem que ser devolvida à conversa principal.
 
@@ -422,11 +423,11 @@ Uso avançado ("corrida" de agentes): mandar **o mesmo prompt** a 3 worktrees, c
 
 4.9 **Conflitos entre worktrees.** Dois temas não conflitam (pastas `resumos/<tema>/` diferentes). Mas se **os dois** alteram o mesmo arquivo compartilhado (ex.: `templates/paper.css` ou o `CLAUDE.md`), o segundo PR terá **conflito de merge**. Regra prática: arquivos compartilhados só mudam num PR dedicado.
 
-4.10 **`CLAUDE.local.md` e worktrees.** Ele fica no `.gitignore`, então **não existe** nos worktrees novos. Preferências pessoais que devem valer em todos os worktrees vão em `~/.claude/CLAUDE.md`.
+4.10 **`CLAUDE.local.md` e worktrees.** Ele fica no `.gitignore`, então **não existe** nos worktrees novos. Para levar preferências pessoais deste projeto a todos os worktrees, a doc indica guardar num arquivo da sua pasta pessoal e importá-lo (ex.: uma linha `@~/.claude/minhas-instrucoes.md`); se a preferência vale para todos os projetos, use `~/.claude/CLAUDE.md`.
 
 4.11 **`claude --worktree` em repo sem commit.** Falha (`Failed to resolve base branch "HEAD"`). Faça o primeiro commit antes.
 
-4.12 **Remover worktree com mudanças pendentes.** `git worktree remove` recusa. Faça commit (ou descarte) antes.
+4.12 **Remover worktree com mudanças pendentes.** `git worktree remove` recusa (mensagem: `contains modified or untracked files, use --force to delete it`). Faça commit (ou descarte) antes.
 
 4.13 **Chave de API no repositório.** Nunca. No GitHub Actions use **Secrets** (`${{ secrets.ANTHROPIC_API_KEY }}`).
 
@@ -440,7 +441,7 @@ Uso avançado ("corrida" de agentes): mandar **o mesmo prompt** a 3 worktrees, c
 
 **E1.** Escreva o arquivo completo `.claude/agents/verificador-fontes.md` para um agente que só **confere se os links da seção Fontes de `pesquisa.md` abrem**, sem alterar nenhum arquivo.
 
-**E2.** Pela tabela do Método B, quais agentes deste repositório **conseguem** rodar `git commit` sozinhos? Quais não? Proponha uma correção para os que não conseguem.
+**E2.** Pela tabela do Método B, quais agentes deste repositório **conseguem** rodar `git commit` sozinhos? Quais não? Na primeira versão do repo, os que não conseguiam recebiam a ordem "faça commit". Quais eram as duas correções possíveis, qual o repo escolheu e por quê?
 
 **E3.** Encontre os **4 erros** neste arquivo de agente:
 ```markdown
@@ -488,13 +489,15 @@ Não edite nenhum arquivo.
 ```
 Pontos que precisam estar presentes: `name` sem `:`; `description` dizendo **quando** usar; `tools` **sem** `Write`, `Edit` e `Bash` (somente leitura + web).
 
-**E2.** Conseguem: `revisor-qa` e `designer` (têm `Bash`). Não conseguem: `pesquisador` e `polidor-texto` (sem `Bash`). Correção: (a) adicionar `Bash` ao `tools` deles, ou (b) mudar o prompt para "devolva o resultado; o orquestrador faz o commit" — preferível pelo menor privilégio. Conferência: 2 conseguem + 2 não = 4 agentes. Confere.
+**E2.** Conseguem: `revisor-qa` e `designer` (têm `Bash`). Não conseguem: `pesquisador` e `polidor-texto` (sem `Bash`). Correções possíveis: (a) adicionar `Bash` ao `tools` deles, ou (b) mudar o prompt para "devolva o resultado; o orquestrador faz o commit". O repo escolheu a (b), pelo menor privilégio: os dois continuam sem `Bash` e o prompt atual diz "devolva (o commit fica com o orquestrador)". Conferência: 2 conseguem + 2 não = 4 agentes. Confere.
 
 **E3.**
 1. `name: revisor:qa` — `name` **não pode conter `:`** → `revisor-qa`.
 2. Falta `description`, que é **obrigatória**.
 3. `Tools` com T maiúsculo → nome de campo errado, **ignorado** → o agente herdaria **todas** as ferramentas. Correto: `tools`.
 4. `max_turns` → ignorado. Correto: `maxTurns`.
+
+Observação: por causa dos erros 1 e 2 (nome com `:` e falta de `description`), o Claude Code **pula o arquivo inteiro**: o agente nem chega a ser carregado. Os erros 3 e 4 só fariam efeito depois de corrigidos os dois primeiros.
 
 **E4.**
 ```bash
@@ -509,13 +512,13 @@ git commit -m "pesquisa: limites"
 git push -u origin resumo/limites
 ```
 
-**E5.** O segundo comando **falha**: o branch `resumo/matrizes` já está aberto no worktree `../wt1`, e por padrão o Git recusa abrir o mesmo branch em dois worktrees. Correção: criar outro branch, por exemplo `git worktree add -b resumo/limites ../wt2 main`, ou trabalhar em `../wt1`.
+**E5.** O segundo comando **falha** (`fatal: 'resumo/matrizes' is already used by worktree at '.../wt1'`): o branch `resumo/matrizes` já está aberto no worktree `../wt1`, e por padrão o Git recusa abrir o mesmo branch em dois worktrees. Correção: criar outro branch, por exemplo `git worktree add -b resumo/limites ../wt2 main`, ou trabalhar em `../wt1`.
 
 **E6.**
 - Commits: 3 temas × 4 etapas = **12**. Inverso: 12 ÷ 4 = 3 temas. Confere.
 - Pausas: tema 1 = 4 + 1 (escolha de layout, `templates/` vazio) = 5. Depois disso o designer salva `templates/<nome>.css`, então os temas 2 e 3 pulam a escolha: 4 + 4. Total = 5 + 4 + 4 = **13**. Inverso: 13 − 1 = 12 = 3 × 4. Confere.
 
-**E7.** Padrão: até **3 níveis abaixo** da conversa principal. A = nível 1, B = nível 2, C = nível 3 → funcionam. D seria nível 4 → **bloqueado**. Inverso: 4 − 3 = 1 nível além do limite. Para impedir o `pesquisador` de chamar subagentes: **não** listar `Agent` no `tools` dele (como já acontece neste repo) ou colocá-lo em `disallowedTools`.
+**E7.** Padrão: até **3 níveis abaixo** da conversa principal. A = nível 1, B = nível 2, C = nível 3 → as chamadas principal→A, A→B e B→C funcionam. D seria nível 4 → a chamada C→D é **bloqueada** (no limite, o Claude Code tira a ferramenta `Agent` de C). Inverso: 4 − 3 = 1 nível além do limite. Para impedir o `pesquisador` de chamar subagentes: **não** listar `Agent` no `tools` dele (como já acontece neste repo) ou colocá-lo em `disallowedTools`.
 
 **E8.** Em todos os projetos e só para você: `~/.claude/CLAUDE.md`. Só neste projeto e só para você: `./CLAUDE.local.md` (e adicionar ao `.gitignore`). O `./CLAUDE.md` do projeto é para regras do **grupo** e vai para o Git.
 
@@ -532,12 +535,14 @@ git push -u origin resumo/limites
 - Instalação (Advanced setup): https://code.claude.com/docs/en/setup
 - Fluxos comuns (worktrees paralelos, `claude --worktree`, subagentes de pesquisa): https://code.claude.com/docs/en/common-workflows
 - Claude Code GitHub Actions: https://code.claude.com/docs/en/github-actions
+- Worktrees (`claude --worktree`, pasta `.claude/worktrees/`, branch `worktree-<nome>`, `isolation: worktree`): https://code.claude.com/docs/en/worktrees (acrescentada na revisão QA)
 
 **Orca (Stably AI):**
 - Repositório/README oficial: https://github.com/stablyai/orca
 - Site oficial: https://onorca.dev/
 - Doc "Your first 3-agent session": https://www.onorca.dev/docs/first-session
 - Doc de worktrees: https://www.onorca.dev/docs/model/worktrees
+- Ajuda da CLI instalada: `orca worktree create --help` (conferida na revisão QA)
 
 **Git e GitHub:**
 - `git worktree` (doc oficial do Git): https://git-scm.com/docs/git-worktree
@@ -545,3 +550,27 @@ git push -u origin resumo/limites
 - `gh pr create` (manual da GitHub CLI): https://cli.github.com/manual/gh_pr_create
 
 Observação: comandos básicos do Git (`git init`, `git add`, `git commit`, `git switch`, `git push`, `git remote add`) foram usados na forma padrão, sem consulta a uma página específica nesta pesquisa.
+
+---
+
+## Revisão QA
+
+Conferido em outubro de 2026 contra a documentação oficial (Claude Code: sub-agents, memory, setup, common-workflows, worktrees, github-actions; Orca: README, onorca.dev, docs first-session e worktrees; GitHub Docs; manual do `gh`), contra os arquivos reais do repositório (`CLAUDE.md` idêntico ao do Passo 3; `.gitignore`; `.claude/agents/*.md`) e com testes locais (`git worktree` em pasta temporária, `claude --help` v2.1.302, `orca worktree create --help`).
+
+O que mudou:
+
+1. **Pesquisador e polidor-texto (mudança recente do repo).** Passo 4 do Método B agora mostra a linha real atual do `pesquisador.md` ("devolva (o commit fica com o orquestrador) ..."). O quadro "Atenção" virou histórico de um problema **já resolvido** pela opção (b). Método C: os commits das etapas 1 e 3 passam a ser do orquestrador. Pegadinha 4.5 e exercício E2 (enunciado e gabarito) reescritos como problema já resolvido.
+2. **`claude --worktree` (2.15 e Método D):** faltava dizer que ele cria `.claude/worktrees/<nome>/` e o branch `worktree-<nome>` (não `resumo/<tema>`), partindo do branch padrão do remoto. Acrescentados o atalho `-w`, como renomear (`git branch -m resumo/matrizes`) e a dica de pôr `.claude/worktrees/` no `.gitignore`.
+3. **CLI do Orca:** `orca worktree create` foi confirmado (README e `--help`). Nota inicial deixou de marcar como "confiança média" e 2.16 agora mostra a sintaxe real (`--name`, `--base-branch`, `--agent`, `--prompt`).
+4. **Método E, passo 8:** "o Orca mantém o branch com commits não mergeados" vale, segundo a doc, para **exclusão em lote**. Texto ajustado.
+5. **Método F:** o `/install-github-app` não abre o PR sozinho. Ele envia um branch e abre o navegador com o PR **pronto para você criar**. Passos 1 a 3 corrigidos.
+6. **4.10 (`CLAUDE.local.md` e worktrees):** a doc indica **importar** um arquivo da pasta pessoal (`@~/.claude/...`) para levar preferências de um projeto a todos os worktrees. `~/.claude/CLAUDE.md` serve só quando a regra vale para todos os projetos.
+7. **2.9 (frontmatter):** regras do `name` completadas (sem `:`, sem começar com `-`, até 256 caracteres). Explicado que o arquivo inteiro é **pulado** se faltar `description` ou o `name` for inválido. Acrescentado `disallowedTools`.
+8. **E3, gabarito:** observação nova. Com `name: revisor:qa` e sem `description`, o agente **nem carrega**, então os erros 3 e 4 só teriam efeito depois de corrigidos os dois primeiros.
+9. **2.11 e E7:** o subagente também vê o próprio prompt de sistema e um retrato do `git status`. Explicado que a ferramenta `Agent` se chamava `Task` até a versão 2.1.63. No E7, ficou claro quais **chamadas** funcionam (principal→A, A→B, B→C) e que C→D é bloqueada porque C perde a ferramenta `Agent`.
+10. **Método C, passo 7:** com "Squash and merge", o `git branch -d` recusa. Acrescentado o aviso e a alternativa `-D`.
+11. **Mensagens de erro reais** (testadas) acrescentadas ao E5 (`is already used by worktree`) e ao 4.12 (`contains modified or untracked files`). No Método D, a remoção também exige "sem arquivos não rastreados".
+12. **Lacunas de vocabulário:** termos usados antes de serem explicados agora têm definição curta: *menor privilégio* (2.7), *hooks* (2.8), *diff* (2.13) e *PATH* (Método A).
+13. **Fontes:** acrescentadas apenas páginas abertas nesta revisão (`code.claude.com/docs/en/worktrees` e o `--help` da CLI do Orca). Todas as outras fontes foram abertas e confirmadas.
+
+Conferido e **sem erro**: comandos de instalação (curl, irm, `brew install --cask claude-code`, npm com Node 22+ e sem `sudo`), planos exigidos, `claude doctor`, `claude --agent`, sintaxe de @-menção, "use proactively", limite de 3 níveis, remoção de `AskUserQuestion` em subagentes, `omitClaudeMd`, `/agents` (até a 2.1.197), `isolation: worktree`, erro `Failed to resolve base branch "HEAD"`, limite de 200 linhas e `/init`, `brew install --cask stablyai/orca/orca`, recursos do Orca, action `anthropics/claude-code-action@v1`, nomes dos secrets, acesso de escrita para `@claude`, PR em rascunho não pode ser mergeado, flags do `gh pr create`. Contagens também conferidas: 8 arquivos no Método B, 4 commits e 5 pausas no Método C, 8 commits no Método D, E6 = 12 commits e 13 pausas.
