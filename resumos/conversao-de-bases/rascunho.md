@@ -593,20 +593,3 @@ Conferência pelo decimal (só para checar): 4B₁₆ = 4×16 + 11 = 75; 113₈ 
 - LOPES, Evelin. "Conversão de bases numéricas". Evelin DEV (Substack), 9 mar. 2022. Disponível em: https://evelindev.substack.com/p/conversao-de-bases-numericas — algoritmo de divisões sucessivas (restos invertidos no final).
 
 Todos os exemplos e exercícios deste resumo são próprios e foram conferidos pela conversão inversa.
-
----
-
-<!-- STATUS DO FLUXO: nota de trabalho, NÃO faz parte do resumo. Remover antes de gerar o resumo.html. -->
-
-## Status do fluxo (nota de trabalho — não entra no resumo final)
-
-Atualizado em 16/10/2026, na **etapa 4 (designer)**: resumo completo desenhado no Paper, **aguardando aprovação do aluno**.
-
-- Concluído: pesquisa, revisão QA, rascunho, exemplo de fração em octal, 3 opções de layout no Paper.
-- Layout escolhido pelo aluno: **Opção 3 — Sinalização**, especificado em `templates/layout-escolhido.md`.
-- No Paper (arquivo "Resumos Faculdade", Page 1), páginas A4 "Resumo · p. 1" a "Resumo · p. 19", todas conferidas por screenshot.
-  - p. 13: Exemplos 11 e 12; p. 14: Exemplo 13, "Quando a fração não fecha", início da seção 4;
-  - p. 15: erros 4–12 e início da seção 5; p. 16: fim dos atalhos e seção 6;
-  - p. 17–18: seção 7 (gabarito); p. 19: seção 8 (fontes).
-- Próximos passos: aluno revisa e aprova no Paper → gerar `resumo.html` (arquivo único, CSS embutido, `@media print`) → commit.
-- Lembrete: no Paper o negrito dentro de frases não aparece (limitação da ferramenta); no `resumo.html` ele deve voltar.

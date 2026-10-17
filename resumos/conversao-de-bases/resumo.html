@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conversão de Bases Numéricas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout "Sinalização" — ver templates/layout-escolhido.md */
+:root {
+  --tinta: #111111;
+  --papel: #FFFFFF;
+  --amarelo: #FFD21F;
+  --cinza-claro: #F3F3F3;
+  --cinza-texto: #555555;
+  --conferencia: #333333;
+  --sans: "Space Grotesk", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 24px;
+  -webkit-font-smoothing: antialiased;
+}
+main {
+  max-width: 794px;
+  margin: 0 auto;
+  padding: 48px 64px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+section { display: flex; flex-direction: column; gap: 12px; }
+p { margin: 0; }
+strong { font-weight: 700; }
+code { font-family: var(--mono); font-size: 0.9em; }
+
+/* Cabeçalho */
+header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 20px;
+  border-bottom: 8px solid var(--tinta);
+}
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 22px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cinza-texto);
+}
+.kicker span {
+  background: var(--amarelo);
+  color: var(--tinta);
+  font-weight: 700;
+  padding: 4px 8px;
+  margin-right: 8px;
+}
+h1 {
+  margin: 0;
+  font-size: 42px;
+  line-height: 46px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.subtitle { color: var(--cinza-texto); font-size: 15px; line-height: 22px; }
+
+/* Títulos de seção */
+h2, h3 { margin: 0; display: flex; gap: 12px; }
+h2 {
+  align-items: center;
+  padding-top: 18px;
+  font-size: 26px;
+  line-height: 32px;
+  letter-spacing: -0.015em;
+}
+h3 {
+  align-items: flex-start;
+  gap: 10px;
+  padding-top: 8px;
+  font-size: 19px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+}
+.tag {
+  flex-shrink: 0;
+  background: var(--tinta);
+  color: var(--papel);
+  font-family: var(--mono);
+  font-size: 18px;
+  line-height: 24px;
+  padding: 4px 10px;
+  letter-spacing: 0;
+}
+.tag-outline {
+  background: none;
+  color: var(--tinta);
+  border: 2px solid var(--tinta);
+  font-size: 13px;
+  line-height: 18px;
+  padding: 1px 7px;
+  margin-top: 1px;
+}
+h4 { margin: 0; font-size: 17px; line-height: 22px; }
+h4.sub { padding-top: 8px; }
+
+/* Listas */
+ol, ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+ol { counter-reset: item; }
+ol > li { counter-increment: item; position: relative; padding-left: 30px; }
+ol > li::before {
+  content: counter(item) ".";
+  position: absolute;
+  left: 0;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+}
+ul > li { position: relative; padding-left: 20px; }
+ul > li::before { content: "•"; position: absolute; left: 0; font-family: var(--mono); font-weight: 700; }
+
+ol.titled, ul.titled { gap: 12px; }
+ol.titled > li, ul.titled > li { padding-left: 30px; }
+.item-title { display: block; }
+
+ol.ruled { gap: 0; border-top: 2px solid var(--tinta); }
+ol.ruled > li { padding: 10px 0 10px 30px; border-bottom: 1px solid var(--tinta); }
+ol.ruled > li::before { top: 10px; }
+
+ul.sources { gap: 0; border-top: 2px solid var(--tinta); }
+ul.sources > li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--tinta);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 22px;
+}
+ul.sources > li::before { content: none; }
+ul.sources strong { font-size: 15px; line-height: 24px; }
+.url {
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--cinza-texto);
+  overflow-wrap: anywhere;
+}
+
+/* Exemplo resolvido / item do gabarito */
+.box {
+  border: 2px solid var(--tinta);
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 22px;
+}
+.box ul, .box ol { gap: 4px; }
+.box ul > li::before { font-size: 13px; }
+
+/* Bits / código */
+pre.bits {
+  margin: 0;
+  background: var(--cinza-claro);
+  padding: 10px 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 19px;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Resultado (marca-texto) */
+.result mark {
+  display: inline-block;
+  background: var(--amarelo);
+  color: var(--tinta);
+  font-size: 19px;
+  line-height: 26px;
+  font-weight: 700;
+  padding: 3px 8px;
+}
+.result mark strong { font-weight: 700; }
+
+/* Conferência */
+.conf { color: var(--conferencia); font-size: 14px; line-height: 22px; }
+.conf strong:first-child { font-weight: 600; font-size: 13px; }
+.conf-label { color: var(--conferencia); font-weight: 600; font-size: 13px; line-height: 20px; }
+
+/* Destaque "Importante" */
+.important {
+  background: var(--cinza-claro);
+  border-left: 6px solid var(--amarelo);
+  padding: 12px 16px;
+}
+
+/* Tabelas */
+.table-wrap { overflow-x: auto; }
+table {
+  border-collapse: collapse;
+  border: 2px solid var(--tinta);
+  width: 100%;
+  font-size: 13px;
+  line-height: 20px;
+}
+th {
+  background: var(--tinta);
+  color: var(--papel);
+  font-weight: 700;
+  text-align: left;
+  padding: 6px 14px;
+}
+th.key { color: var(--amarelo); }
+td {
+  padding: 6px 14px;
+  border-top: 1px solid var(--tinta);
+  font-family: var(--mono);
+}
+td.key { font-weight: 700; }
+.text-table td { font-family: var(--sans); font-size: 14px; }
+tbody tr:nth-child(even) { background: var(--cinza-claro); }
+
+/* Celular */
+@media (max-width: 600px) {
+  main { padding: 24px 16px 40px; }
+  h1 { font-size: 32px; line-height: 36px; }
+  h2 { font-size: 22px; line-height: 28px; }
+  .box { padding: 14px 14px; }
+  th, td { padding: 6px 8px; }
+}
+
+/* Impressão / PDF */
+@page {
+  size: A4;
+  margin: 13mm 17mm 16mm;
+  @bottom-left { content: "CONVERSÃO DE BASES NUMÉRICAS"; font-family: var(--mono); font-size: 8pt; letter-spacing: 0.08em; color: #555555; }
+  @bottom-right { content: counter(page); font-family: var(--mono); font-size: 8pt; font-weight: 700; }
+}
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  main { max-width: none; padding: 0; }
+  .box, table, pre.bits, .important, ol.titled > li, ul.titled > li, ul.sources > li, ol.ruled > li { break-inside: avoid; }
+  h2, h3, h4 { break-after: avoid; }
+  .page-break { break-before: page; }
+  pre.bits, .table-wrap { overflow: visible; }
+  a { color: inherit; text-decoration: none; }
+}
+
+</style>
+</head>
+<body>
+<main>
+<header>
+<p class="kicker"><span>Resumo</span> Sistemas de Informação · CESMAC</p>
+<h1>Conversão de Bases Numéricas</h1>
+<p class="subtitle">Resumo para alunos do 1º período de Sistemas de Informação (CESMAC).</p>
+</header>
+<p class="intro">Aqui vamos trabalhar só com quatro bases: <strong>2 (binária), 8 (octal), 10 (decimal) e 16 (hexadecimal)</strong>.</p>
+<section id="s1">
+<h2><span class="tag">1</span><span>O que você vai aprender</span></h2>
+<p>Ao terminar este resumo, você vai saber:</p>
+<ol><li>Explicar o que é uma <strong>base numérica</strong> e como funciona a <strong>notação posicional</strong> (valor do dígito = dígito × base^posição). Também vai reconhecer quais dígitos valem em cada base.</li><li>Converter <strong>binário, octal ou hexadecimal → decimal</strong> (soma de potências) e <strong>decimal → binário, octal ou hexadecimal</strong> (divisões sucessivas).</li><li>Converter <strong>binário ↔ octal</strong> e <strong>binário ↔ hexadecimal</strong> agrupando os bits de 3 em 3 ou de 4 em 4.</li><li>Converter <strong>octal ↔ hexadecimal</strong> passando <strong>sempre pelo binário</strong>.</li><li>Converter números <strong>com parte fracionária</strong> (com vírgula) do decimal para binário, octal ou hexadecimal (multiplicações sucessivas), e entender quanto vale cada posição depois da vírgula (expoentes negativos).</li><li><strong>Conferir</strong> qualquer resultado fazendo a conversão de volta, e fugir dos erros mais comuns de prova.</li></ol>
+</section>
+<section id="s2">
+<h2><span class="tag">2</span><span>Conceitos básicos</span></h2>
+<h3><span class="tag tag-outline">2.1</span><span>O que é a base</span></h3>
+<p>A base (ou raiz) de um sistema de numeração é a quantidade de dígitos diferentes que ele usa. Na base <em>b</em>, os dígitos vão de 0 até <em>b</em> − 1.</p>
+<p><strong>Exemplo:</strong> a base 10 usa 10 dígitos (0 a 9). A base 2 usa só 2 dígitos (0 e 1).</p>
+<h3><span class="tag tag-outline">2.2</span><span>Dígitos válidos em cada base</span></h3>
+<div class="table-wrap text-table"><table><thead><tr><th class="key">Base</th><th>Nome</th><th>Dígitos válidos</th></tr></thead><tbody><tr><td class="key">2</td><td>binária</td><td>0, 1</td></tr><tr><td class="key">8</td><td>octal</td><td>0 a 7</td></tr><tr><td class="key">10</td><td>decimal</td><td>0 a 9</td></tr><tr><td class="key">16</td><td>hexadecimal</td><td>0 a 9, A (=10), B (=11), C (=12), D (=13), E (=14), F (=15)</td></tr></tbody></table></div>
+<p>Guarde esta regra: <strong>nenhum dígito pode ser maior ou igual à base</strong>. Por isso, <code>19₈</code> não existe (9 ≥ 8), e <code>102₂</code> também não (2 ≥ 2).</p>
+<p>A base 16 passa de 10. Como cada posição precisa de <strong>um único símbolo</strong>, usamos letras para os valores de 10 em diante.</p>
+<h3><span class="tag tag-outline">2.3</span><span>Como indicar a base</span></h3>
+<p>Escrevemos a base como um índice pequeno (subscrito) à direita do número. Assim ninguém se confunde.</p>
+<p><strong>Exemplo:</strong> <code>1011₂</code> (binário), <code>17₈</code> (octal), <code>2F₁₆</code> (hexadecimal), <code>25₁₀</code> (decimal).</p>
+<p>Repare: <code>10₂</code>, <code>10₈</code>, <code>10₁₀</code> e <code>10₁₆</code> são números diferentes. Em decimal, eles valem 2, 8, 10 e 16.</p>
+<p>Em programação, você também vai ver: <code>0b1011</code> (binário), <code>0o17</code> ou <code>017</code> (octal) e <code>0x2F</code> (hexadecimal).</p>
+<h3><span class="tag tag-outline">2.4</span><span>Notação posicional</span></h3>
+<p>O valor de um dígito depende da <strong>posição</strong> em que ele está. Contamos as posições <strong>da direita para a esquerda, começando em 0</strong>. Cada dígito vale:</p>
+<div class="important"><p><strong>valor do dígito = dígito × base^posição</strong></p></div>
+<p>O valor do número é a <strong>soma</strong> dos valores de todos os dígitos.</p>
+<p><strong>Exemplo na base 10:</strong></p>
+<pre class="bits">  3   5   7      ← dígitos
+  2   1   0      ← posições
+357₁₀ = 3×10² + 5×10¹ + 7×10⁰ = 300 + 50 + 7 = 357</pre>
+<p><strong>Exemplo na base 2:</strong></p>
+<pre class="bits">  1   0   1   1  ← dígitos
+  3   2   1   0  ← posições
+1011₂ = 1×2³ + 0×2² + 1×2¹ + 1×2⁰ = 8 + 0 + 2 + 1 = 11₁₀</pre>
+<p>Cada posição tem um "peso", que é uma potência da base. Na base 2, os pesos são 1, 2, 4, 8, 16... Na base 16, são 1, 16, 256, 4096...</p>
+<h3><span class="tag tag-outline">2.5</span><span>Tabela de potências</span></h3>
+<div class="table-wrap"><table><thead><tr><th class="key">Expoente</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr></thead><tbody><tr><td class="key">2^n</td><td>1</td><td>2</td><td>4</td><td>8</td><td>16</td><td>32</td><td>64</td><td>128</td><td>256</td><td>512</td><td>1024</td></tr><tr><td class="key">8^n</td><td>1</td><td>8</td><td>64</td><td>512</td><td>4096</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="key">16^n</td><td>1</td><td>16</td><td>256</td><td>4096</td><td>65536</td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div>
+<p>Lembre: <strong>qualquer número elevado a 0 vale 1</strong>. Por isso o dígito mais à direita sempre vale ele mesmo.</p>
+<h3><span class="tag tag-outline">2.6</span><span>Tabela de referência de 0 a 15</span></h3>
+<div class="table-wrap"><table><thead><tr><th class="key">Decimal</th><th>Binário (4 bits)</th><th>Octal</th><th>Hexadecimal</th></tr></thead><tbody><tr><td class="key">0</td><td>0000</td><td>0</td><td>0</td></tr><tr><td class="key">1</td><td>0001</td><td>1</td><td>1</td></tr><tr><td class="key">2</td><td>0010</td><td>2</td><td>2</td></tr><tr><td class="key">3</td><td>0011</td><td>3</td><td>3</td></tr><tr><td class="key">4</td><td>0100</td><td>4</td><td>4</td></tr><tr><td class="key">5</td><td>0101</td><td>5</td><td>5</td></tr><tr><td class="key">6</td><td>0110</td><td>6</td><td>6</td></tr><tr><td class="key">7</td><td>0111</td><td>7</td><td>7</td></tr><tr><td class="key">8</td><td>1000</td><td>10</td><td>8</td></tr><tr><td class="key">9</td><td>1001</td><td>11</td><td>9</td></tr><tr><td class="key">10</td><td>1010</td><td>12</td><td>A</td></tr><tr><td class="key">11</td><td>1011</td><td>13</td><td>B</td></tr><tr><td class="key">12</td><td>1100</td><td>14</td><td>C</td></tr><tr><td class="key">13</td><td>1101</td><td>15</td><td>D</td></tr><tr><td class="key">14</td><td>1110</td><td>16</td><td>E</td></tr><tr><td class="key">15</td><td>1111</td><td>17</td><td>F</td></tr></tbody></table></div>
+<p>Para o octal, use só as linhas de 0 a 7 e os <strong>3 últimos bits</strong>: 0=000, 1=001, 2=010, 3=011, 4=100, 5=101, 6=110, 7=111.</p>
+<p>Quer montar a tabela de cabeça? Use os pesos <strong>8 4 2 1</strong> para os 4 bits. Exemplo: 1101 = 8 + 4 + 0 + 1 = 13 = D. Para 3 bits, os pesos são 4 2 1.</p>
+<h3><span class="tag tag-outline">2.7</span><span>Por que binário, octal e hexadecimal conversam direto</span></h3>
+<p>Como <strong>8 = 2³</strong>, cada dígito octal corresponde a exatamente <strong>3 bits</strong>. Como <strong>16 = 2⁴</strong>, cada dígito hexadecimal corresponde a exatamente <strong>4 bits</strong>.</p>
+<p>Veja por quê. Com 3 bits formamos 2³ = 8 combinações (000 a 111 = 0 a 7): são exatamente os 8 dígitos octais. Com 4 bits formamos 2⁴ = 16 combinações (0000 a 1111 = 0 a 15): são exatamente os 16 dígitos hexadecimais.</p>
+<p>Além disso, cada grupo de 3 bits tem peso 8^k (pois 2^(3k) = 8^k), e cada grupo de 4 bits tem peso 16^k (pois 2^(4k) = 16^k). Por isso dá para converter <strong>grupo a grupo</strong>, sem nenhuma conta grande.</p>
+<p><strong>Exemplo:</strong> <code>101 011₂</code> → 5 e 3 → <code>53₈</code>. Conferindo: 101011₂ = 32 + 8 + 2 + 1 = 43; 53₈ = 5×8 + 3 = 43. ✔</p>
+<h3><span class="tag tag-outline">2.8</span><span>Qual caminho usar em cada conversão</span></h3>
+<p>Às vezes não dá para converter direto. Aí passamos por uma base intermediária, que chamamos de <strong>pivô</strong>.</p>
+<div class="table-wrap text-table"><table><thead><tr><th class="key">De → Para</th><th>Caminho</th></tr></thead><tbody><tr><td class="key">Binário → octal / hexadecimal</td><td>Agrupamento direto (3 ou 4 bits, da direita para a esquerda)</td></tr><tr><td class="key">Octal / hexadecimal → binário</td><td>Cada dígito vira 3 ou 4 bits</td></tr><tr><td class="key"><strong>Octal ↔ hexadecimal</strong></td><td><strong>Sempre pelo binário:</strong> octal → binário (3 bits por dígito) → reagrupa de 4 em 4 → hexadecimal (e o inverso)</td></tr><tr><td class="key">Binário / octal / hexadecimal → decimal</td><td>Soma de potências (notação posicional)</td></tr><tr><td class="key">Decimal → binário / octal / hexadecimal</td><td>Divisões sucessivas pela base de destino (2, 8 ou 16), restos lidos de baixo para cima</td></tr></tbody></table></div>
+<h3><span class="tag tag-outline">2.9</span><span>Parte fracionária (avançado)</span></h3>
+<p>Depois da vírgula, as posições continuam com <strong>expoentes negativos</strong>: −1, −2, −3... Assim, 0,1₂ = 1×2⁻¹ = 0,5.</p>
+<p><strong>Exemplo:</strong> 0,101₂ = 1×2⁻¹ + 0×2⁻² + 1×2⁻³ = 0,5 + 0 + 0,125 = 0,625₁₀.</p>
+<p>Para sair do decimal e ir para outra base, a parte inteira usa divisões sucessivas. Já a parte fracionária usa <strong>multiplicações sucessivas</strong> pela base (veja a seção 3.6).</p>
+</section>
+<section id="s3">
+<h2><span class="tag">3</span><span>Métodos passo a passo</span></h2>
+<h3><span class="tag tag-outline">3.1</span><span>Binário, octal ou hexadecimal → decimal (soma de potências)</span></h3>
+<ol><li>Escreva os dígitos. Embaixo de cada um, anote a posição (da direita para a esquerda, começando em 0).</li><li>Troque as letras pelo valor delas (A=10, B=11, ..., F=15).</li><li>Multiplique cada dígito por base^posição.</li><li>Some tudo. O resultado está em decimal.</li></ol>
+<div class="box">
+<h4>Exemplo 1 — Binário → decimal: 110101₂</h4>
+<pre class="bits">dígitos:   1   1   0   1   0   1
+posições:  5   4   3   2   1   0</pre>
+<div class="table-wrap"><table><thead><tr><th class="key">Dígito</th><th>Potência</th><th>Conta</th><th>Valor</th></tr></thead><tbody><tr><td class="key">1</td><td>2⁵ = 32</td><td>1 × 32</td><td>32</td></tr><tr><td class="key">1</td><td>2⁴ = 16</td><td>1 × 16</td><td>16</td></tr><tr><td class="key">0</td><td>2³ = 8</td><td>0 × 8</td><td>0</td></tr><tr><td class="key">1</td><td>2² = 4</td><td>1 × 4</td><td>4</td></tr><tr><td class="key">0</td><td>2¹ = 2</td><td>0 × 2</td><td>0</td></tr><tr><td class="key">1</td><td>2⁰ = 1</td><td>1 × 1</td><td>1</td></tr></tbody></table></div>
+<p>Soma: 32 + 16 + 0 + 4 + 0 + 1 = <strong>53</strong>.</p><p class="result"><mark>Logo, 110101₂ = 53₁₀.</mark></p>
+<p class="conf-label">Conferência (volta para binário):</p>
+<pre class="bits">53 ÷ 2 = 26, resto 1
+26 ÷ 2 = 13, resto 0
+13 ÷ 2 =  6, resto 1
+ 6 ÷ 2 =  3, resto 0
+ 3 ÷ 2 =  1, resto 1
+ 1 ÷ 2 =  0, resto 1</pre>
+<p>Restos de baixo para cima: 1 1 0 1 0 1 → 110101₂. ✔</p>
+</div>
+<div class="box">
+<h4>Exemplo 2 — Hexadecimal → decimal: 2AF₁₆</h4>
+<pre class="bits">dígitos:   2   A   F       (A = 10, F = 15)
+posições:  2   1   0</pre>
+<div class="table-wrap"><table><thead><tr><th class="key">Dígito</th><th>Potência</th><th>Conta</th><th>Valor</th></tr></thead><tbody><tr><td class="key">2</td><td>16² = 256</td><td>2 × 256</td><td>512</td></tr><tr><td class="key">A = 10</td><td>16¹ = 16</td><td>10 × 16</td><td>160</td></tr><tr><td class="key">F = 15</td><td>16⁰ = 1</td><td>15 × 1</td><td>15</td></tr></tbody></table></div>
+<p>Soma: 512 + 160 + 15 = <strong>687</strong>.</p><p class="result"><mark>Logo, 2AF₁₆ = 687₁₀.</mark></p>
+<p class="conf-label">Conferência:</p>
+<pre class="bits">687 ÷ 16 = 42, resto 15 → F    (42 × 16 = 672; 687 − 672 = 15)
+ 42 ÷ 16 =  2, resto 10 → A    ( 2 × 16 =  32;  42 −  32 = 10)
+  2 ÷ 16 =  0, resto  2 → 2</pre>
+<p>Restos de baixo para cima: 2 A F → 2AF₁₆. ✔</p>
+</div>
+<h3><span class="tag tag-outline">3.2</span><span>Decimal → binário, octal ou hexadecimal (divisões sucessivas)</span></h3>
+<ol><li>Divida o número decimal pela base de destino (divisão inteira). Anote o <strong>quociente</strong> e o <strong>resto</strong>.</li><li>Divida o quociente de novo pela base. Anote quociente e resto.</li><li>Repita até o <strong>quociente dar 0</strong>.</li><li>Se algum resto for ≥ 10, troque pela letra (10=A, 11=B, ..., 15=F).</li><li>Leia os restos <strong>de baixo para cima</strong> (do último para o primeiro). Esse é o resultado.</li></ol>
+<p>Por que funciona? Cada divisão pela base "tira" o dígito da posição 0 (é o resto) e "empurra" o restante do número uma posição para a direita (é o quociente). O primeiro resto é o dígito menos significativo. Por isso ele fica no final.</p>
+<div class="box">
+<h4>Exemplo 3 — Decimal → binário: 45₁₀</h4>
+<pre class="bits">45 ÷ 2 = 22, resto 1    (22 × 2 = 44; 45 − 44 = 1)
+22 ÷ 2 = 11, resto 0
+11 ÷ 2 =  5, resto 1
+ 5 ÷ 2 =  2, resto 1
+ 2 ÷ 2 =  1, resto 0
+ 1 ÷ 2 =  0, resto 1    ← quociente 0: para</pre>
+<p>Restos de baixo para cima: 1 0 1 1 0 1 →</p><p class="result"><mark>45₁₀ = 101101₂.</mark></p>
+<p class="conf"><strong>Conferência:</strong> 101101₂ = 1×32 + 0×16 + 1×8 + 1×4 + 0×2 + 1×1 = 32 + 8 + 4 + 1 = 45. ✔</p>
+</div>
+<div class="box">
+<h4>Exemplo 4 — Decimal → hexadecimal: 1000₁₀</h4>
+<pre class="bits">1000 ÷ 16 = 62, resto  8         (62 × 16 = 992;  1000 − 992 = 8)
+  62 ÷ 16 =  3, resto 14 → E     ( 3 × 16 =  48;    62 −  48 = 14)
+   3 ÷ 16 =  0, resto  3         ← quociente 0: para</pre>
+<p>Restos de baixo para cima: 3 E 8 →</p><p class="result"><mark>1000₁₀ = 3E8₁₆.</mark></p>
+<p class="conf"><strong>Conferência:</strong> 3E8₁₆ = 3×256 + 14×16 + 8×1 = 768 + 224 + 8 = 1000. ✔</p>
+</div>
+<h3><span class="tag tag-outline">3.3</span><span>Binário ↔ octal (grupos de 3 bits)</span></h3>
+<p><strong>Binário → octal:</strong></p>
+<ol><li>Separe os bits em grupos de <strong>3, da direita para a esquerda</strong>.</li><li>Se o grupo da ponta esquerda ficar incompleto, <strong>complete com zeros à esquerda</strong>. Zeros à esquerda não mudam o valor.</li><li>Troque cada grupo pelo dígito octal correspondente (000=0 ... 111=7).</li></ol>
+<p><strong>Octal → binário:</strong></p>
+<ol><li>Troque cada dígito octal por <strong>exatamente 3 bits</strong>. Exemplo: 2 vira 010, e não "10".</li><li>Junte tudo. Os zeros à esquerda do número final podem sair.</li></ol>
+<div class="box">
+<h4>Exemplo 5 — Binário → octal: 1011101₂</h4>
+<pre class="bits">1011101  →  1 | 011 | 101       (da direita para a esquerda)
+         → 001 | 011 | 101      (completa com zeros à esquerda)
+            1     3     5</pre>
+<p class="result"><mark>Resultado: 1011101₂ = 135₈.</mark></p>
+<p class="conf-label">Conferência pelo decimal:</p>
+<ul><li>1011101₂ = 64 + 0 + 16 + 8 + 4 + 0 + 1 = 93</li><li>135₈ = 1×64 + 3×8 + 5×1 = 64 + 24 + 5 = 93 ✔</li></ul>
+</div>
+<div class="box">
+<h4>Exemplo 6 — Octal → binário: 472₈</h4>
+<pre class="bits"> 4     7     2
+100   111   010</pre>
+<p class="result"><mark>Resultado: 472₈ = 100111010₂.</mark></p>
+<p class="conf-label">Conferência pelo decimal:</p>
+<ul><li>472₈ = 4×64 + 7×8 + 2×1 = 256 + 56 + 2 = 314</li><li>100111010₂ = 256 + 0 + 0 + 32 + 16 + 8 + 0 + 2 + 0 = 314 ✔</li></ul>
+</div>
+<h3><span class="tag tag-outline">3.4</span><span>Binário ↔ hexadecimal (grupos de 4 bits)</span></h3>
+<p><strong>Binário → hexadecimal:</strong></p>
+<ol><li>Separe os bits em grupos de <strong>4, da direita para a esquerda</strong>.</li><li>Se precisar, complete o grupo da esquerda com zeros à esquerda.</li><li>Troque cada grupo pelo dígito hexadecimal (0000=0 ... 1111=F).</li></ol>
+<p><strong>Hexadecimal → binário:</strong></p>
+<ol><li>Troque cada dígito hexadecimal por <strong>exatamente 4 bits</strong>.</li><li>Junte tudo.</li></ol>
+<div class="box">
+<h4>Exemplo 7 — Binário → hexadecimal: 1101011110₂</h4>
+<pre class="bits">1101011110  →  11 | 0101 | 1110
+            → 0011 | 0101 | 1110      (completa com zeros)
+                3      5      E</pre>
+<p class="result"><mark>Resultado: 1101011110₂ = 35E₁₆.</mark></p>
+<p class="conf-label">Conferência pelo decimal:</p>
+<ul><li>1101011110₂ = 512 + 256 + 0 + 64 + 0 + 16 + 8 + 4 + 2 + 0 = 862</li><li>35E₁₆ = 3×256 + 5×16 + 14×1 = 768 + 80 + 14 = 862 ✔</li></ul>
+</div>
+<div class="box">
+<h4>Exemplo 8 — Hexadecimal → binário: B7₁₆</h4>
+<pre class="bits">  B      7
+ 1011   0111</pre>
+<p class="result"><mark>Resultado: B7₁₆ = 10110111₂.</mark></p>
+<p class="conf-label">Conferência pelo decimal:</p>
+<ul><li>B7₁₆ = 11×16 + 7 = 176 + 7 = 183</li><li>10110111₂ = 128 + 0 + 32 + 16 + 0 + 4 + 2 + 1 = 183 ✔</li></ul>
+</div>
+<h3><span class="tag tag-outline">3.5</span><span>Octal ↔ hexadecimal (sempre pelo binário)</span></h3>
+<p>Não dá para trocar dígito por dígito entre octal e hexadecimal. Por exemplo, 17₈ vale 15₁₀ = F₁₆, e não 17₁₆. O binário serve de "ponte" porque 8 e 16 são potências de 2.</p>
+<p><strong>Octal → hexadecimal:</strong></p>
+<ol><li>Converta cada dígito octal em <strong>3 bits</strong>.</li><li>Junte os bits numa sequência só.</li><li>Reagrupe em blocos de <strong>4 bits, da direita para a esquerda</strong>, completando com zeros à esquerda.</li><li>Troque cada bloco de 4 bits pelo dígito hexadecimal.</li></ol>
+<p><strong>Hexadecimal → octal:</strong></p>
+<ol><li>Converta cada dígito hexadecimal em <strong>4 bits</strong>.</li><li>Junte os bits.</li><li>Reagrupe em blocos de <strong>3 bits, da direita para a esquerda</strong>, completando com zeros à esquerda.</li><li>Troque cada bloco de 3 bits pelo dígito octal.</li></ol>
+<div class="important"><p><strong>Importante:</strong> nos exemplos abaixo, a "conferência pelo decimal" serve <strong>só para checar</strong> o resultado. A conversão em si <strong>nunca</strong> passa pelo decimal. O caminho é sempre octal → binário → hexadecimal (ou o inverso).</p></div>
+<div class="box">
+<h4>Exemplo 9 — Octal → hexadecimal: 765₈</h4>
+<p>Passo 1 — octal → binário (3 bits por dígito):</p>
+<pre class="bits"> 7     6     5
+111   110   101    →  111110101₂   (9 bits)</pre>
+<p>Passo 2 — reagrupe de 4 em 4, da direita para a esquerda:</p>
+<pre class="bits">111110101  →  1 | 1111 | 0101
+           → 0001 | 1111 | 0101    (completa com zeros à esquerda)
+               1      F      5</pre>
+<p class="result"><mark>Resultado: 765₈ = 1F5₁₆.</mark></p>
+<p class="conf-label">Conferência pelo decimal (só para checar):</p>
+<ul><li>765₈ = 7×64 + 6×8 + 5×1 = 448 + 48 + 5 = 501</li><li>1F5₁₆ = 1×256 + 15×16 + 5×1 = 256 + 240 + 5 = 501 ✔</li></ul>
+</div>
+<div class="box">
+<h4>Exemplo 10 — Hexadecimal → octal: 3AD₁₆</h4>
+<p>Passo 1 — hexadecimal → binário (4 bits por dígito):</p>
+<pre class="bits">  3      A      D
+ 0011   1010   1101    →  001110101101₂   (12 bits)</pre>
+<p>Passo 2 — reagrupe de 3 em 3, da direita para a esquerda:</p>
+<pre class="bits">001110101101  →  001 | 110 | 101 | 101
+                  1     6     5     5</pre>
+<p class="result"><mark>Resultado: 3AD₁₆ = 1655₈.</mark></p>
+<p>E se você tivesse tirado os zeros da esquerda antes? Ficaria 1110101101 (10 bits). Os grupos seriam 1 | 110 | 101 | 101 → 001 | 110 | 101 | 101, e o resultado seria o mesmo.</p>
+<p class="conf-label">Conferência pelo decimal (só para checar):</p>
+<ul><li>3AD₁₆ = 3×256 + 10×16 + 13×1 = 768 + 160 + 13 = 941</li><li>1655₈ = 1×512 + 6×64 + 5×8 + 5×1 = 512 + 384 + 40 + 5 = 941 ✔</li></ul>
+</div>
+<h3><span class="tag tag-outline">3.6</span><span>Parte fracionária: decimal → binário, octal ou hexadecimal (multiplicações sucessivas)</span></h3>
+<ol><li>Separe a parte inteira da parte fracionária. A parte inteira segue o método da seção 3.2.</li><li>Multiplique a parte fracionária pela base de destino.</li><li>A <strong>parte inteira</strong> do resultado é o próximo dígito depois da vírgula. Guarde só a parte fracionária.</li><li>Repita com a nova parte fracionária até ela virar <strong>0</strong>. Se a fração for periódica, pare quando tiver dígitos suficientes.</li><li>Leia os dígitos <strong>de cima para baixo</strong>, na ordem em que apareceram. É o contrário das divisões.</li></ol>
+<div class="box">
+<h4>Exemplo 11 — Decimal → binário: 10,375₁₀</h4>
+<p>Parte inteira (10):</p>
+<pre class="bits">10 ÷ 2 = 5, resto 0
+ 5 ÷ 2 = 2, resto 1
+ 2 ÷ 2 = 1, resto 0
+ 1 ÷ 2 = 0, resto 1     → de baixo para cima: 1010</pre>
+<p>Parte fracionária (0,375):</p>
+<pre class="bits">0,375 × 2 = 0,75  → dígito 0, sobra 0,75
+0,75  × 2 = 1,5   → dígito 1, sobra 0,5
+0,5   × 2 = 1,0   → dígito 1, sobra 0     ← para</pre>
+<p>De cima para baixo: 0 1 1 → 0,011.</p>
+<p class="result"><mark>Resultado: 10,375₁₀ = 1010,011₂.</mark></p>
+<p class="conf"><strong>Conferência:</strong> 1010,011₂ = 8 + 0 + 2 + 0 + 0×0,5 + 1×0,25 + 1×0,125 = 10 + 0,375 = 10,375. ✔</p>
+</div>
+<div class="box">
+<h4>Exemplo 12 — Decimal → octal: 25,6875₁₀</h4>
+<p>Parte inteira (25):</p>
+<pre class="bits">25 ÷ 8 = 3, resto 1    (3 × 8 = 24; 25 − 24 = 1)
+ 3 ÷ 8 = 0, resto 3     → de baixo para cima: 31</pre>
+<p>Parte fracionária (0,6875):</p>
+<pre class="bits">0,6875 × 8 = 5,5  → dígito 5, sobra 0,5
+0,5    × 8 = 4,0  → dígito 4, sobra 0     ← para</pre>
+<p>De cima para baixo: 5 4 → 0,54.</p>
+<p class="result"><mark>Resultado: 25,6875₁₀ = 31,54₈.</mark></p>
+<p class="conf"><strong>Conferência:</strong> 31,54₈ = 3×8 + 1×1 + 5×8⁻¹ + 4×8⁻² = 24 + 1 + 5/8 + 4/64 = 25 + 0,625 + 0,0625 = 25,6875. ✔</p>
+</div>
+<div class="box">
+<h4>Exemplo 13 — Decimal → hexadecimal: 0,75₁₀</h4>
+<pre class="bits">0,75 × 16 = 12,0 → dígito 12 = C, sobra 0  ← para</pre>
+<p class="result"><mark>Resultado: 0,75₁₀ = 0,C₁₆.</mark></p>
+<p class="conf"><strong>Conferência:</strong> C × 16⁻¹ = 12/16 = 0,75. ✔</p>
+</div>
+<h4 class="sub">Quando a fração não fecha</h4>
+<p>Nem toda fração decimal "fecha" em binário. Veja 0,1₁₀:</p>
+<pre class="bits">0,1 × 2 = 0,2 → 0
+0,2 × 2 = 0,4 → 0
+0,4 × 2 = 0,8 → 0
+0,8 × 2 = 1,6 → 1 (sobra 0,6)
+0,6 × 2 = 1,2 → 1 (sobra 0,2)  ← 0,2 já apareceu: o ciclo se repete</pre>
+<p>0,1₁₀ = 0,0001100110011...₂ (dízima periódica). Nesses casos, pare quando atingir o número de dígitos pedido no enunciado.</p>
+</section>
+<section id="s4">
+<h2><span class="tag">4</span><span>Erros comuns de prova</span></h2>
+<ol class="titled"><li><strong class="item-title">Ler os restos na ordem errada.</strong> Nas divisões sucessivas, leia <strong>de baixo para cima</strong>. Exemplo: 13₁₀ dá os restos 1, 0, 1, 1 (nessa ordem). O certo é <strong>1101₂</strong> (= 13). Lendo de cima para baixo, você teria 1011₂, que vale 11. Errado.</li><li><strong class="item-title">Parar a divisão antes da hora.</strong> Continue até o <strong>quociente dar 0</strong>. Muita gente esquece o último resto, que é o primeiro dígito do resultado.</li><li><strong class="item-title">Inverter a regra na parte fracionária.</strong> Nas multiplicações sucessivas, a leitura é <strong>de cima para baixo</strong> (o contrário das divisões).</li><li><strong class="item-title">Agrupar os bits a partir da esquerda.</strong> Na parte inteira, os grupos de 3 ou 4 bits começam <strong>pela direita</strong>. Exemplo: agrupando 1101011110₂ pela esquerda, você teria 1101 | 0111 | 10 → "D72" (errado). O certo é 0011 | 0101 | 1110 → <strong>35E₁₆</strong>. Na parte fracionária é diferente: agrupe a partir da vírgula <strong>para a direita</strong> e complete com zeros <strong>à direita</strong>. Exemplo: 0,11₂ → 0,110₂ → 0,6₈.</li><li><strong class="item-title">Esquecer de completar com zeros à esquerda.</strong> Aí você acaba lendo o grupo "11" como se fosse "110". Complete sempre com zeros <strong>à esquerda</strong> do grupo da ponta esquerda: 11 → 0011.</li><li><strong class="item-title">Escrever menos bits por dígito.</strong> Na conversão octal/hexa → binário, cada dígito vira <strong>exatamente</strong> 3 bits (octal) ou 4 bits (hexa). Exemplo: 72₈ = 111 <strong>010</strong>, e não 111 10.</li><li><strong class="item-title">Converter octal ↔ hexadecimal dígito a dígito.</strong> 17₈ ≠ 17₁₆. Na verdade, 17₈ = 15₁₀ = F₁₆. Use o binário como pivô.</li><li><strong class="item-title">Começar a contar as posições em 1.</strong> A posição mais à direita é a <strong>0</strong> (peso base⁰ = 1).</li><li><strong class="item-title">Pular os zeros na soma de potências.</strong> Um zero vale 0, mas <strong>ocupa posição</strong>. Se você pular um zero, todas as potências seguintes ficam deslocadas.</li><li><strong class="item-title">Usar dígito inválido.</strong> Se aparecer 8 ou 9 num número octal, ou 2 num binário, o número está errado (ou você leu a base errada). Na base 16, não existe "G".</li><li><strong class="item-title">Esquecer de trocar resto ≥ 10 por letra.</strong> Na divisão por 16, resto 14 vira <strong>E</strong>, e não "14". Escrever "14" geraria dois dígitos.</li><li><strong class="item-title">Confundir o valor das letras.</strong> A=10, B=11, C=12, D=13, E=14, F=15. Truque: F é a maior (15); conte para trás a partir dela.</li></ol>
+</section>
+<section id="s5">
+<h2><span class="tag">5</span><span>Atalhos</span></h2>
+<ul class="titled"><li><strong class="item-title">Paridade rápida</strong> Um número binário é par se, e somente se, termina em 0. Em hexadecimal, octal e decimal, o número é par se, e somente se, o último dígito for par. Isso vale porque as bases 16, 8 e 10 são pares. No hexadecimal, olhe o <strong>valor</strong> da letra: A (10), C (12) e E (14) são pares; B, D e F são ímpares.</li><li><strong class="item-title">Pesos 8-4-2-1</strong> Decore e você converte qualquer grupo de 4 bits de cabeça (para 3 bits, use 4-2-1).</li><li><strong class="item-title">Decimal → binário por subtração de potências</strong> Pegue a maior potência de 2 que cabe no número, subtraia e repita. Exemplo: 45 = 32 + 8 + 4 + 1 → posições 5, 3, 2, 0 → 101101₂.</li><li><strong class="item-title">Decimal → octal ou hexa com números grandes</strong> Dividir direto por 8 ou 16 é mais rápido do que passar pelo binário.</li></ul><div class="important"><p><strong class="item-title">Sempre confira</strong> Converta de volta ou passe os dois lados para decimal.</p></div>
+</section>
+<section id="s6">
+<h2><span class="tag">6</span><span>Exercícios</span></h2>
+<ol class="ruled"><li>Converta <strong>77₁₀</strong> para binário.</li><li>Converta <strong>11100110₂</strong> para decimal.</li><li>Converta <strong>500₁₀</strong> para hexadecimal.</li><li>Converta <strong>C0DE₁₆</strong> para decimal.</li><li>Converta <strong>10110110101₂</strong> para octal e para hexadecimal.</li><li>Converta <strong>1750₈</strong> para hexadecimal (use o binário como pivô).</li><li>Converta <strong>4B₁₆</strong> para octal (use o binário como pivô).</li></ol>
+</section>
+<section id="s7" class="page-break">
+<h2><span class="tag">7</span><span>Gabarito</span></h2>
+<div class="box">
+<p class="result"><mark>1. 77₁₀ = 1001101₂</mark></p>
+<pre class="bits">77 ÷ 2 = 38, resto 1
+38 ÷ 2 = 19, resto 0
+19 ÷ 2 =  9, resto 1
+ 9 ÷ 2 =  4, resto 1
+ 4 ÷ 2 =  2, resto 0
+ 2 ÷ 2 =  1, resto 0
+ 1 ÷ 2 =  0, resto 1</pre>
+<p>De baixo para cima: 1001101.<br>Conferência: 64 + 0 + 0 + 8 + 4 + 0 + 1 = 77. ✔</p>
+</div>
+<div class="box">
+<p class="result"><mark>2. 11100110₂ = 230₁₀</mark></p>
+<p>1×128 + 1×64 + 1×32 + 0×16 + 0×8 + 1×4 + 1×2 + 0×1 = 128 + 64 + 32 + 4 + 2 = 230.<br>Conferência: 230 ÷ 16 = 14, resto 6 (14×16 = 224); 14 ÷ 16 = 0, resto 14 = E → E6₁₆ = 1110 0110₂. ✔</p>
+</div>
+<div class="box">
+<p class="result"><mark>3. 500₁₀ = 1F4₁₆</mark></p>
+<pre class="bits">500 ÷ 16 = 31, resto  4        (31 × 16 = 496)
+ 31 ÷ 16 =  1, resto 15 → F    ( 1 × 16 =  16)
+  1 ÷ 16 =  0, resto  1</pre>
+<p class="conf">Conferência: 1×256 + 15×16 + 4 = 256 + 240 + 4 = 500. ✔</p>
+</div>
+<div class="box">
+<p class="result"><mark>4. C0DE₁₆ = 49374₁₀</mark></p>
+<p>12×4096 + 0×256 + 13×16 + 14×1 = 49152 + 0 + 208 + 14 = 49374.</p>
+<p class="conf">Conferência:</p>
+<pre class="bits">49374 ÷ 16 = 3085, resto 14 → E   (3085 × 16 = 49360)
+ 3085 ÷ 16 =  192, resto 13 → D   ( 192 × 16 =  3072)
+  192 ÷ 16 =   12, resto  0       (  12 × 16 =   192)
+   12 ÷ 16 =    0, resto 12 → C</pre>
+<p>De baixo para cima: C0DE. ✔</p>
+</div>
+<div class="box">
+<p class="result"><mark>5. 10110110101₂ = 2665₈ = 5B5₁₆</mark></p>
+<ul><li>Octal (grupos de 3 pela direita): 10 | 110 | 110 | 101 → 010 | 110 | 110 | 101 → 2 6 6 5.</li><li>Hexadecimal (grupos de 4 pela direita): 101 | 1011 | 0101 → 0101 | 1011 | 0101 → 5 B 5.</li></ul>
+<p class="conf">Conferência pelo decimal:</p>
+<ul><li>10110110101₂ = 1024 + 256 + 128 + 32 + 16 + 4 + 1 = 1461</li><li>2665₈ = 2×512 + 6×64 + 6×8 + 5 = 1024 + 384 + 48 + 5 = 1461</li><li>5B5₁₆ = 5×256 + 11×16 + 5 = 1280 + 176 + 5 = 1461 ✔</li></ul>
+</div>
+<div class="box">
+<p class="result"><mark>6. 1750₈ = 3E8₁₆</mark></p>
+<ul><li>Octal → binário: 1 = 001, 7 = 111, 5 = 101, 0 = 000 → 001111101000.</li><li>Reagrupando de 4 em 4: 0011 | 1110 | 1000 → 3 E 8.</li></ul>
+<p class="conf">Conferência pelo decimal (só para checar): 1750₈ = 1×512 + 7×64 + 5×8 + 0 = 512 + 448 + 40 = 1000; 3E8₁₆ = 768 + 224 + 8 = 1000. ✔</p>
+</div>
+<div class="box">
+<p class="result"><mark>7. 4B₁₆ = 113₈</mark></p>
+<ul><li>Hexa → binário: 4 = 0100, B = 1011 → 01001011 (sem zeros à esquerda: 1001011).</li><li>Reagrupando de 3 em 3 pela direita: 1 | 001 | 011 → 001 | 001 | 011 → 1 1 3.</li></ul>
+<p class="conf">Conferência pelo decimal (só para checar): 4B₁₆ = 4×16 + 11 = 75; 113₈ = 1×64 + 1×8 + 3 = 75. ✔</p>
+</div>
+</section>
+<section id="s8">
+<h2><span class="tag">8</span><span>Fontes consultadas</span></h2>
+<ul class="sources"><li><strong>Wikipédia (pt). "Sistema de numeração hexadecimal".</strong><a class="url" href="https://pt.wikipedia.org/wiki/Sistema_de_numeração_hexadecimal">https://pt.wikipedia.org/wiki/Sistema_de_numeração_hexadecimal</a><span>Conversão hexa ↔ binário (grupos de 4 bits), hexa → decimal por potências de 16, decimal → hexa por divisões sucessivas, tabela de equivalências.</span></li><li><strong>Wikipédia (pt). "Sistema octal".</strong><a class="url" href="https://pt.wikipedia.org/wiki/Sistema_octal">https://pt.wikipedia.org/wiki/Sistema_octal</a><span>Octal → decimal por potências de 8 (ex.: 764₈ = 500₁₀), octal → binário (3 bits por dígito), octal → hexadecimal passando pelo binário.</span></li><li><strong>ARAUJO, Fernando. "&lt;Direto ao Ponto 05&gt; Conversão entre bases de numeração". DIO, 18 jan. 2024.</strong><a class="url" href="https://www.dio.me/en/articles/direto-ao-ponto-05-conversao-entre-bases-de-numeracao">https://www.dio.me/en/articles/direto-ao-ponto-05-conversao-entre-bases-de-numeracao</a><span>Métodos gerais (soma de potências, divisões sucessivas, agrupamento de bits). Atenção: o artigo traz pelo menos um exemplo com erro (3C₁₆ deveria ser 00111100₂). Todos os exemplos deste resumo foram refeitos e conferidos aqui.</span></li><li><strong>LOPES, Evelin. "Conversão de bases numéricas". Evelin DEV (Substack), 9 mar. 2022.</strong><a class="url" href="https://evelindev.substack.com/p/conversao-de-bases-numericas">https://evelindev.substack.com/p/conversao-de-bases-numericas</a><span>Algoritmo de divisões sucessivas (restos invertidos no final).</span></li></ul>
+<div class="important"><p>Todos os exemplos e exercícios deste resumo são próprios e foram conferidos pela conversão inversa.</p></div>
+</section>
+</main>
+</body>
+</html>
