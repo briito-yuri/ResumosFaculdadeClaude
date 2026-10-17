@@ -38,6 +38,9 @@ ou abrir o arquivo deste resumo (ex.: "Resumo – <tema>").
 2. Mostre ao aluno e ajuste o que ele pedir, seção por seção.
 3. Quando o aluno aprovar, gere `resumos/<tema>/resumo.html` reproduzindo o design do Paper:
    arquivo único, CSS embutido, legível no celular e com `@media print` para imprimir/PDF.
+   Se o layout tiver gerador próprio em `templates/` (hoje: Sinalização), use-o:
+   `python3 templates/gerar_html.py resumos/<tema>` (lê o `rascunho.md` e aplica
+   `templates/sinalizacao.css`). Confira o resultado no navegador.
 4. Anote no topo de `rascunho.md`, num comentário HTML, qual layout foi usado
    (ex.: `<!-- layout: sinalizacao -->`).
 5. Faça commit e push, e avise o aluno.
