@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ultrassom Transvaginal — Roteiro do Exame segundo a ISUOG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout "Editorial suíço" — ver templates/editorial-suico.md */
+:root {
+  --tinta: #141414;
+  --papel: #FFFFFF;
+  --vermelho: #E2231A;
+  --vermelho-claro: #FDECEB;
+  --cinza-claro: #F2F2F2;
+  --cinza-linha: #D6D6D6;
+  --cinza-texto: #5C5C5C;
+  --sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --col: 152px;   /* coluna da margem (números de seção) */
+  --gap: 32px;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 24px;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "tnum" 1;
+}
+main {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 56px 48px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+p { margin: 0; }
+strong { font-weight: 700; }
+code { font-family: var(--mono); font-size: 0.9em; }
+a { color: inherit; }
+
+/* Cabeçalho: grade de duas colunas, régua grossa embaixo */
+header {
+  display: grid;
+  grid-template-columns: var(--col) 1fr;
+  column-gap: var(--gap);
+  row-gap: 16px;
+  padding-bottom: 32px;
+  border-bottom: 10px solid var(--tinta);
+}
+.kicker {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--tinta);
+}
+.kicker span { color: var(--vermelho); font-weight: 800; margin-right: 10px; }
+h1 {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 64px;
+  line-height: 64px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  max-width: 15ch;
+}
+.subtitle {
+  grid-column: 2;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 500;
+  max-width: 40em;
+}
+.intro {
+  margin-left: calc(var(--col) + var(--gap));
+  max-width: 44em;
+  color: var(--cinza-texto);
+}
+
+/* Seções: número grande na coluna da margem, conteúdo na coluna principal */
+section {
+  display: grid;
+  grid-template-columns: var(--col) minmax(0, 1fr);
+  column-gap: var(--gap);
+  row-gap: 14px;
+  align-items: start;
+}
+section > * { grid-column: 2; min-width: 0; }
+h2 {
+  grid-column: 1 / -1;
+  margin: 28px 0 6px;
+  display: grid;
+  grid-template-columns: var(--col) 1fr;
+  column-gap: var(--gap);
+  align-items: end;
+  padding-top: 14px;
+  border-top: 3px solid var(--tinta);
+  font-size: 34px;
+  line-height: 38px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+h2 .tag {
+  font-size: 88px;
+  line-height: 76px;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  color: var(--vermelho);
+}
+h3 {
+  margin: 14px 0 0;
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding-top: 10px;
+  border-top: 1px solid var(--tinta);
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+h3 .tag {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vermelho);
+}
+h4 { margin: 0; font-size: 17px; line-height: 24px; font-weight: 700; }
+h4.sub { padding-top: 6px; }
+section > p, section > ul, section > ol { max-width: 44em; }
+
+/* Etiquetas de origem */
+.origem {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0 6px;
+  border: 1px solid var(--tinta);
+  white-space: nowrap;
+  vertical-align: 1px;
+}
+.origem-isuog { background: var(--tinta); color: var(--papel); }
+.origem-consenso { background: var(--papel); color: var(--tinta); }
+.origem-outra { border-color: var(--cinza-texto); color: var(--cinza-texto); }
+.origem-pratica { border-style: dashed; border-color: var(--cinza-texto); color: var(--cinza-texto); }
+
+/* Aviso "⚠ ver seção 9" */
+.aviso {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  color: var(--vermelho);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--vermelho);
+  white-space: nowrap;
+}
+.aviso:hover { background: var(--vermelho-claro); }
+
+/* Listas */
+ol, ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+ol { counter-reset: item; }
+ol > li { counter-increment: item; position: relative; padding-left: 32px; }
+ol > li::before {
+  content: counter(item, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vermelho);
+}
+ul > li { position: relative; padding-left: 20px; }
+ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 8px;
+  height: 3px;
+  background: var(--tinta);
+}
+
+ol.titled, ul.titled { gap: 14px; }
+.item-title { display: block; }
+
+ol.ruled { gap: 0; border-top: 2px solid var(--tinta); }
+ol.ruled > li { padding: 12px 0 12px 32px; border-bottom: 1px solid var(--cinza-linha); }
+ol.ruled > li::before { top: 12px; }
+
+ul.sources { gap: 0; border-top: 2px solid var(--tinta); max-width: none; }
+ul.sources > li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--cinza-linha);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 22px;
+}
+ul.sources > li::before { content: none; }
+.url {
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--cinza-texto);
+  overflow-wrap: anywhere;
+}
+
+/* Exemplo resolvido / item do gabarito */
+.box {
+  border-top: 6px solid var(--tinta);
+  background: var(--cinza-claro);
+  padding: 20px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 22px;
+}
+.box > p, .box > ul, .box > ol { max-width: 46em; }
+.box ul, .box ol { gap: 4px; }
+
+pre.bits {
+  margin: 0;
+  background: var(--cinza-claro);
+  padding: 12px 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 19px;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Resultado */
+.result mark {
+  display: inline-block;
+  background: none;
+  color: var(--tinta);
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  padding: 2px 0 2px 12px;
+  border-left: 6px solid var(--vermelho);
+}
+
+.conf { color: var(--cinza-texto); font-size: 14px; line-height: 22px; }
+.conf-label { color: var(--cinza-texto); font-weight: 700; font-size: 13px; line-height: 20px; }
+
+/* Destaque */
+.important {
+  border-left: 6px solid var(--tinta);
+  padding: 4px 0 4px 18px;
+  font-size: 16px;
+  line-height: 25px;
+  font-weight: 500;
+  max-width: 44em;
+}
+
+/* Tabelas */
+.table-wrap { overflow-x: auto; }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+  line-height: 20px;
+  border-top: 2px solid var(--tinta);
+  border-bottom: 2px solid var(--tinta);
+}
+th {
+  text-align: left;
+  vertical-align: bottom;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 8px 14px 8px 0;
+  border-bottom: 1px solid var(--tinta);
+}
+td {
+  padding: 8px 14px 8px 0;
+  vertical-align: top;
+  border-top: 1px solid var(--cinza-linha);
+  font-family: var(--mono);
+}
+td.key { font-weight: 600; }
+.text-table td { font-family: var(--sans); font-size: 14px; line-height: 21px; }
+.text-table td.key { font-weight: 700; }
+
+/* Seção "o que não foi conferido": faixa vermelha, destaque máximo */
+section.limites { background: var(--vermelho-claro); padding: 0 24px 28px 0; margin: 12px 0; }
+section.limites h2 {
+  margin: 0 -24px 0 0;
+  padding: 18px 24px 18px 0;
+  border-top: none;
+  background: var(--vermelho);
+  color: var(--papel);
+}
+section.limites h2 .tag { color: var(--papel); padding-left: 24px; }
+section.limites h3 { border-top-color: var(--vermelho); }
+section.limites h3 .tag { color: var(--vermelho); }
+section.limites .important { border-left-color: var(--vermelho); }
+
+/* Tablet e celular: uma coluna só */
+@media (max-width: 760px) {
+  :root { --gap: 0px; }
+  main { padding: 28px 16px 48px; gap: 22px; }
+  header { grid-template-columns: 1fr; }
+  h1 { font-size: 40px; line-height: 42px; }
+  .subtitle { grid-column: 1; font-size: 17px; line-height: 25px; }
+  .intro { margin-left: 0; }
+  section { grid-template-columns: minmax(0, 1fr); }
+  section > * { grid-column: 1; }
+  h2 { grid-template-columns: 1fr; row-gap: 4px; font-size: 26px; line-height: 30px; }
+  h2 .tag { font-size: 56px; line-height: 52px; }
+  h3 { font-size: 18px; line-height: 24px; }
+  .box { padding: 16px 14px; }
+  section.limites { padding: 0 14px 22px; margin: 8px -16px; }
+  section.limites h2 { margin: 0 -14px; padding: 16px 14px; }
+  section.limites h2 .tag { padding-left: 0; }
+  th, td { padding-right: 10px; }
+}
+
+/* Impressão / PDF */
+@page {
+  size: A4;
+  margin: 14mm 16mm 18mm;
+  @bottom-left { content: "ULTRASSOM TRANSVAGINAL — ROTEIRO DO EXAME SEGUNDO A ISUOG"; font-family: var(--sans); font-size: 7.5pt; letter-spacing: 0.06em; color: #5C5C5C; }
+  @bottom-right { content: counter(page); font-family: var(--sans); font-size: 8pt; font-weight: 800; color: #E2231A; }
+}
+@media print {
+  :root { --col: 96px; --gap: 20px; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-size: 10pt; line-height: 15pt; }
+  main { max-width: none; padding: 0; }
+  h1 { font-size: 44pt; line-height: 44pt; }
+  h2 .tag { font-size: 54pt; line-height: 48pt; }
+  .box, table, pre.bits, .important, ol.titled > li, ul.titled > li, ul.sources > li, ol.ruled > li { break-inside: avoid; }
+  h2, h3, h4 { break-after: avoid; }
+  .page-break, section.limites { break-before: page; }
+  pre.bits, .table-wrap { overflow: visible; }
+  a { text-decoration: none; }
+}
+
+</style>
+</head>
+<body>
+<main>
+<header>
+<p class="kicker"><span>Resumo</span> Ultrassom Transvaginal · ISUOG</p>
+<h1>Ultrassom Transvaginal — Roteiro do Exame segundo a ISUOG</h1>
+<p class="subtitle">Resumo para quem nunca fez um ultrassom transvaginal (USG TV): do básico ao avançado, sem pular passos.</p>
+</header>
+<p class="intro">Este resumo é um roteiro. Ele mostra como fazer um USG TV ginecológico de rotina (útero, colo, ovários, anexos e fundo de saco) e o que documentar se houver gestação inicial. Ele não é um curso de diagnóstico. A meta é você fazer o exame de forma sistemática, segura e bem documentada, e saber quando chamar o supervisor.</p>
+<section id="s1">
+<h2><span class="tag">1</span><span>Antes de começar</span></h2>
+<h3><span class="tag tag-outline">1.1</span><span>O que você vai aprender</span></h3>
+<p>Ao terminar este resumo, você vai saber:</p>
+<ol><li>Explicar o que é o USG TV, quando ele é a via preferida, quando <strong>não</strong> deve ser feito e quais são as alternativas (transabdominal, transretal e transperineal).</li><li>Preparar sala, aparelho e sonda com segurança: capa, gel, limpeza + <strong>desinfecção de alto nível</strong>, ajuste de preset, profundidade, foco e ganho, e o princípio <strong>ALARA</strong> (incluindo as regras de Doppler no 1º trimestre).</li><li>Receber a paciente do jeito certo (identificação, história, consentimento, oferta de acompanhante, bexiga vazia, posição) e fazer uma <strong>varredura sistemática</strong>, sempre na mesma ordem.</li><li>Medir corretamente a <strong>espessura endometrial (dupla camada)</strong>, o <strong>volume ovariano e uterino pela fórmula do elipsoide (× 0,523)</strong> e, na gestação inicial, o <strong>DMSG</strong> e o <strong>CCN</strong>, conferindo cada conta.</li><li>Documentar o exame (imagens e laudo estruturado com a terminologia IETA, MUSA e IOTA) e reconhecer quando <strong>encaminhar ou chamar o supervisor</strong>.</li></ol>
+<h3><span class="tag tag-outline">1.2</span><span>De onde vem cada informação</span></h3>
+<p>Cada frase importante traz uma etiqueta de origem. Assim você sabe o peso de cada regra.</p>
+<div class="table-wrap text-table"><table><thead><tr><th class="key">Etiqueta</th><th>O que significa</th></tr></thead><tbody><tr><td class="key"><span class="origem origem-isuog">ISUOG</span></td><td>Está escrito num documento da ISUOG que foi lido: diretriz, consenso, declaração de segurança ou material do ISUOG Basic Training.</td></tr><tr><td class="key"><span class="origem origem-consenso">Consenso ISUOG/UOG</span></td><td>Consenso de grupos internacionais (IETA, IOTA, MUSA, IDEA) publicado na revista oficial da ISUOG, a <em>Ultrasound in Obstetrics &amp; Gynecology</em> (UOG).</td></tr><tr><td class="key"><span class="origem origem-outra">Outra fonte</span></td><td>Fonte de fora da ISUOG (WFUMB, AIUM, painel SRU/NEJM, livro-texto, artigo). Todas estão na seção 10.</td></tr><tr><td class="key"><span class="origem origem-pratica">Prática/ensino</span></td><td>Prática comum de serviço ou de ensino. <strong>Não</strong> foi achada como recomendação explícita nas fontes ISUOG consultadas. Siga o protocolo do seu serviço.</td></tr></tbody></table></div>
+<p>Todo número aparece com a fonte. Quando a fonte não dá número, este resumo também não dá.</p>
+<div class="important"><p>Quando aparecer <a class="aviso" href="#s9">⚠ ver seção 9</a>, a informação não pôde ser conferida por completo. A seção 9 explica o motivo de cada caso.</p></div>
+</section>
+<section id="s2">
+<h2><span class="tag">2</span><span>Conceitos básicos</span></h2>
+<h3><span class="tag tag-outline">2.1</span><span>O que é o USG transvaginal</span></h3>
+<p>No USG TV, a sonda (transdutor) entra na vagina e fica bem perto do útero e dos ovários. Por isso ela usa <strong>frequência mais alta</strong>. Frequência alta dá <strong>melhor resolução</strong>, mas enxerga <strong>menos profundidade</strong>.</p>
+<p><strong>Números (ISUOG Basic Training) <span class="origem origem-isuog">ISUOG</span>:</strong> a sonda transabdominal (TA) trabalha em 3,5–5,0 MHz; a sonda TV, em <strong>5,0–9,5 MHz</strong>. Na TV, o que estiver a <strong>mais de 4 cm</strong> da face da sonda fica fora do campo de visão.</p>
+<p><strong>Exemplo:</strong> um ovário bem perto da parede vaginal aparece com ótimo detalhe na TV. Já um mioma grande, que sobe até acima do umbigo, pode "sair" do campo da TV. Nesse caso, complemente com a via transabdominal.</p>
+<h3><span class="tag tag-outline">2.2</span><span>Transvaginal × transabdominal</span></h3>
+<div class="table-wrap text-table"><table><thead><tr><th class="key"></th><th>Transabdominal</th><th>Transvaginal</th></tr></thead><tbody><tr><td class="key">Frequência</td><td>baixa</td><td>alta</td></tr><tr><td class="key">Resolução</td><td>pior</td><td>"excelente"</td></tr><tr><td class="key">Visão geral</td><td>boa</td><td>pobre</td></tr><tr><td class="key">Abdome</td><td>é visto</td><td>não é visto</td></tr><tr><td class="key">Bexiga</td><td>cheia (se for o exame principal)</td><td><strong>vazia</strong></td></tr></tbody></table></div>
+<p>Fonte: ISUOG Basic Training, "Examining the Uterus, Cervix, Ovaries &amp; Adnexae". <span class="origem origem-isuog">ISUOG</span></p>
+<p>O consenso ISUOG de endométrio (2026) diz que a via <strong>transvaginal é a preferida sempre que possível</strong>. <span class="origem origem-isuog">ISUOG</span></p>
+<h3><span class="tag tag-outline">2.3</span><span>Quando fazer, quando não fazer e as alternativas</span></h3>
+<p><strong>Indicações:</strong> o consenso ISUOG de endométrio cita, por exemplo, sangramento uterino anormal, sangramento pós-menopausa, suspeita de endometriose, avaliação de lesões focais e DIU/SIU. <span class="origem origem-isuog">ISUOG</span> Na gravidez inicial, a diretriz de 1º trimestre lembra que a TV de alta frequência melhorou a resolução nesse período. <span class="origem origem-isuog">ISUOG</span></p>
+<p><strong>Contraindicações à via transvaginal (consenso ISUOG de endométrio, 2026) <span class="origem origem-isuog">ISUOG</span>:</strong></p>
+<ul><li>incapacidade de consentir;</li><li>estenose vaginal (atrofia, radioterapia);</li><li><em>virgo intacta</em> (paciente que nunca teve relação com penetração vaginal);</li><li>outras barreiras, como risco de sangramento intenso por câncer de colo exofítico ou cirurgia vaginal recente.</li></ul>
+<p>A paciente também pode simplesmente <strong>recusar</strong>. O consentimento é obrigatório (veja 2.10).</p>
+<p><strong>Alternativas:</strong></p>
+<ul><li><strong>Transabdominal (TA):</strong> com a bexiga cheia ou parcialmente cheia. Encher demais causa desconforto e piora a imagem. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Transretal:</strong> use <strong>com cautela</strong>. Evite em mulheres com saúde mental comprometida ou com patologia anal (ex.: fissura). <span class="origem origem-isuog">ISUOG</span></li><li><strong>Transperineal:</strong> pode ser considerada para avaliar <strong>tecidos perineais, vagina e colo</strong>. Em condições normais, <strong>raramente</strong> mostra bem o endométrio (exceções: hematometra importante ou prolapso uterino, por exemplo). <span class="origem origem-isuog">ISUOG</span> A técnica detalhada dessa via não aparece nas fontes lidas. <a class="aviso" href="#s9">⚠ ver seção 9</a></li></ul>
+<h3><span class="tag tag-outline">2.4</span><span>Sonda, marcador e planos</span></h3>
+<p><strong>Marcador (entalhe ou "notch"):</strong> toda sonda tem uma ou mais marcas que você vê e sente com os dedos. A marca corresponde sempre a <strong>um lado da tela</strong>. Confira a posição da sonda e da imagem antes de começar. <span class="origem origem-isuog">ISUOG</span> (Basic Training)</p>
+<p><strong>Planos:</strong></p>
+<ul><li><strong>Sagital (longitudinal):</strong> "corta" o corpo de frente para trás e mostra o útero no comprimento (do colo ao fundo).</li><li><strong>Transversal/coronal:</strong> você chega nele <strong>girando a sonda no sentido anti-horário</strong> a partir do sagital, tanto na TA quanto na TV. <span class="origem origem-isuog">ISUOG</span> (Basic Training, "Key points")</li></ul>
+<p><strong>Orientação na tela:</strong></p>
+<ul><li>No <strong>transversal</strong>, o lado <strong>direito</strong> da paciente aparece à <strong>esquerda</strong> da tela. <span class="origem origem-isuog">ISUOG</span> <a class="aviso" href="#s9">⚠ ver seção 9</a></li><li>No <strong>sagital TV</strong>, existe mais de uma convenção. O material ISUOG mostra imagens com a "pegada" da sonda em cima e outras com a pegada embaixo e a bexiga à direita. O consenso ISUOG de endométrio pede: <strong>mantenha a mesma orientação dentro do serviço e registre qualquer desvio do protocolo local</strong>. <span class="origem origem-isuog">ISUOG</span></li></ul>
+<h3><span class="tag tag-outline">2.5</span><span>Movimentos da sonda</span></h3>
+<p>Os nomes dos movimentos mudam de livro para livro. O material ISUOG mostra a rotação e as varreduras, mas não traz um glossário de movimentos. Por isso a tabela abaixo é <span class="origem origem-pratica">Prática/ensino</span>, exceto onde está marcado. <a class="aviso" href="#s9">⚠ ver seção 9</a></p>
+<div class="table-wrap text-table"><table><thead><tr><th class="key">Movimento</th><th>O que é</th><th>Para que serve</th></tr></thead><tbody><tr><td class="key"><strong>Deslizar (entrar/sair)</strong></td><td>avançar ou recuar a sonda no eixo da vagina</td><td>aproximar do colo (recuar) ou do fundo/fórnice (avançar)</td></tr><tr><td class="key"><strong>Angular / varrer</strong></td><td>inclinar a ponta para cima/baixo ou para os lados, sem mudar o plano</td><td><strong>varredura</strong>: passar pelo órgão inteiro, de um lado ao outro</td></tr><tr><td class="key"><strong>Girar (rodar)</strong></td><td>rodar a sonda em torno do próprio eixo</td><td>trocar de plano (sagital → transversal: anti-horário) <span class="origem origem-isuog">ISUOG</span></td></tr><tr><td class="key"><strong>Pressão suave / mão livre no abdome</strong></td><td>empurrar com delicadeza, com a sonda ou com a outra mão</td><td>ver a mobilidade dos órgãos, achar dor localizada, separar coágulo de lesão <span class="origem origem-isuog">ISUOG</span></td></tr></tbody></table></div>
+<p>O consenso ISUOG de endométrio define as varreduras: <strong>sagital de corno a corno</strong> e <strong>transversal (oblíqua) do colo ao fundo</strong>. <span class="origem origem-isuog">ISUOG</span></p>
+<h3><span class="tag tag-outline">2.6</span><span>Ajustes do aparelho ("knobology")</span></h3>
+<p>Fonte: ISUOG Basic Training, "Transducers, Image Production, Knobology and Scanning Planes". <span class="origem origem-isuog">ISUOG</span></p>
+<div class="table-wrap text-table"><table><thead><tr><th class="key">Controle</th><th>Regra prática</th></tr></thead><tbody><tr><td class="key"><strong>Preset</strong></td><td>escolha o preset ginecológico/obstétrico certo para a sonda TV</td></tr><tr><td class="key"><strong>Potência (power)</strong></td><td>é a energia enviada à paciente. <strong>Não</strong> deixe 100% como padrão: o material recomenda <strong>75% como padrão</strong> e manda otimizar a imagem pelo <strong>ganho</strong></td></tr><tr><td class="key"><strong>Profundidade e zoom</strong></td><td>a estrutura de interesse deve ocupar a maior parte da tela</td></tr><tr><td class="key"><strong>Foco</strong></td><td>coloque na altura da estrutura de interesse; é "frequentemente esquecido"</td></tr><tr><td class="key"><strong>Ganho 2D</strong></td><td>amplifica os ecos que voltam; com o ganho certo, <strong>líquido fica preto</strong></td></tr><tr><td class="key"><strong>TGC</strong></td><td>compensa o ganho por profundidade; busque ganho <strong>uniforme</strong> do topo ao fundo</td></tr><tr><td class="key"><strong>Largura do setor</strong></td><td>setor estreito melhora a resolução, mas reduz o campo de visão</td></tr><tr><td class="key"><strong>Freeze / cine-loop</strong></td><td>o cine-loop recupera a melhor imagem de uma estrutura em movimento, mas <strong>não</strong> serve para "caçar" uma imagem aceitável</td></tr></tbody></table></div>
+<p>Para o endométrio, o útero deve <strong>ocupar mais da metade da tela</strong> e mostrar toda a cavidade. O feixe deve chegar ao endométrio num ângulo de cerca de <strong>90°</strong>. <span class="origem origem-isuog">ISUOG</span> (consenso de endométrio)</p>
+<h3><span class="tag tag-outline">2.7</span><span>Segurança: ALARA, TI e MI</span></h3>
+<p><strong>ALARA</strong> (<em>As Low As Reasonably Achievable</em>, "tão baixo quanto razoavelmente possível"): use o <strong>menor tempo</strong> de varredura e a <strong>menor potência</strong> que ainda permitam o diagnóstico. <span class="origem origem-isuog">ISUOG</span> (diretriz de 1º trimestre, "boa prática clínica")</p>
+<p><strong>TI (índice térmico) e MI (índice mecânico):</strong> o aparelho deve mostrar os dois na tela e ter saída acústica ajustável. <span class="origem origem-isuog">ISUOG</span></p>
+<ul><li><strong>Modo B e modo M:</strong> há consenso de que, pela potência limitada, eles <strong>parecem seguros em todas as fases da gravidez</strong>. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Doppler:</strong> usa mais energia, principalmente numa região pequena. No 1º trimestre, use <strong>só se houver indicação clínica</strong>. <span class="origem origem-isuog">ISUOG</span></li></ul>
+<h4 class="sub">Declaração ISUOG 2021 sobre Doppler até 13+6 semanas</h4>
+<ul><li><strong>Período embrionário (até 10+6 semanas):</strong> Doppler espectral, colorido, power etc. <strong>não devem ser usados de rotina</strong>. Se houver indicação, a exposição deve ser <strong>mínima</strong>. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Período fetal (11+0 a 13+6 semanas; CCN ≥ 45 mm):</strong> pode ser usado de rotina para algumas indicações (ex.: rastreio de trissomias e cardiopatias), com <strong>TI exibido ≤ 1,0</strong> e a exposição mais curta possível (<strong>geralmente ≤ 5–10 min</strong>). <span class="origem origem-isuog">ISUOG</span></li><li><strong>Artérias uterinas maternas:</strong> implicações fetais são improváveis <strong>desde que o embrião ou feto esteja fora do feixe</strong>. <span class="origem origem-isuog">ISUOG</span></li></ul>
+<p>A diretriz ISUOG 2023 (11–14 semanas) repete as mesmas regras: modos B e M sem indicação de dano, <strong>ALARA</strong>, Doppler com mais bioefeitos potenciais <strong>antes de 11 semanas</strong> e, entre 11 e 14 semanas, <strong>TI exibido de 1,0</strong> com exposição <strong>geralmente ≤ 5–10 min</strong>. <span class="origem origem-isuog">ISUOG</span></p>
+<p>Atenção a um detalhe: a tradução em português da diretriz de 2023 diz "deve ser de 1,0", e a declaração de 2021 diz <strong>≤ 1,0</strong>. Leia como limite máximo. <a class="aviso" href="#s9">⚠ ver seção 9</a></p>
+<h3><span class="tag tag-outline">2.8</span><span>Limpeza e desinfecção da sonda</span></h3>
+<p>A classificação de <strong>Spaulding</strong> aparece tanto na diretriz de rotina da <strong>WFUMB 2024</strong> para sondas endocavitárias <span class="origem origem-outra">Outra fonte</span> quanto na declaração do Comitê de Segurança da ISUOG (2020) <span class="origem origem-isuog">ISUOG</span>:</p>
+<div class="table-wrap text-table"><table><thead><tr><th class="key">Classe</th><th>Contato</th><th>Exemplo</th><th>O que fazer</th></tr></thead><tbody><tr><td class="key">Não crítico</td><td>pele íntegra</td><td>sonda TA</td><td>desinfecção de baixo/intermediário nível</td></tr><tr><td class="key"><strong>Semicrítico</strong></td><td>mucosa ou pele não íntegra</td><td><strong>sonda TV</strong></td><td><strong>desinfecção de alto nível (DAN)</strong></td></tr><tr><td class="key">Crítico</td><td>procedimento invasivo</td><td>sonda em punção</td><td>esterilização (com ou sem capa), segundo a ISUOG 2020; a WFUMB 2024 lembra que a maioria das sondas <strong>não</strong> suporta esterilização tradicional, por isso: DAN correta + <strong>capa estéril</strong> nos procedimentos estéreis</td></tr></tbody></table></div>
+<p>O consenso ISUOG de endométrio reforça: a sonda TV é semicrítica. Use <strong>capa com gel</strong> e faça <strong>DAN após o uso</strong>. Em alguns países, sachês individuais de gel são obrigatórios. <span class="origem origem-isuog">ISUOG</span> O Basic Training manda usar <strong>capa sempre</strong>, perguntar sobre <strong>alergia ao látex</strong> e ter capa sem látex disponível. <span class="origem origem-isuog">ISUOG</span></p>
+<h4 class="sub">Por que a capa não basta</h4>
+<p>Estas recomendações são da WFUMB 2024, para a rotina (fora do contexto COVID). <span class="origem origem-outra">Outra fonte</span></p>
+<ul><li>Um estudo citado pela WFUMB (Basseal 2019) achou <strong>vazamento de 0,4% a 13% em preservativos</strong> e de <strong>0% a 5% em capas comerciais</strong>. Outro (Masood 2007) relatou <strong>9% de perfuração de preservativo</strong> em biópsia transretal. Por isso a <strong>DAN da sonda é obrigatória</strong>, mesmo com capa.</li><li>Use capas com <strong>poros &lt; 30 nm</strong>, <strong>capa nova a cada paciente</strong>, de preferência <strong>embaladas uma a uma</strong>. Se usar preservativo, ele deve ser <strong>sem lubrificante e sem medicamento</strong>. Preservativos e a maioria das capas de TV <strong>não são estéreis</strong>.</li><li><strong>Lenços com detergente doméstico e lenços com álcool não são DAN.</strong></li><li>Teclado, cabo, empunhadura da sonda, suporte da sonda e frasco de gel também precisam de limpeza regular (detergente ou desinfecção de baixo nível).</li></ul>
+<h4 class="sub">O que a AIUM acrescenta (revisão 2025)</h4>
+<p><span class="origem origem-outra">Outra fonte</span> Sondas internas exigem <strong>DAN de rotina obrigatória</strong> e <strong>capa descartável de boa qualidade em cada exame</strong>. O operador usa <strong>luvas durante todo o exame interno</strong>. Considere <strong>gel estéril ou bacteriostático</strong> em exames endocavitários. Frascos multidose <strong>não devem ser reabastecidos</strong>. Gel só pode ser aquecido em <strong>calor seco</strong>. Uma ruptura visível da capa <strong>não muda</strong> o protocolo, porque a DAN já é feita sempre.</p>
+<h3><span class="tag tag-outline">2.9</span><span>Terminologia padronizada</span></h3>
+<p>Aqui entra só o que foi realmente lido. Cada grupo internacional criou termos para um órgão.</p>
+<h4 class="sub">IETA — endométrio</h4>
+<p>Usada no consenso ISUOG de endométrio 2026. <span class="origem origem-consenso">Consenso ISUOG/UOG</span></p>
+<ul><li><strong>Ecogenicidade</strong> em relação ao miométrio: hiper, iso ou hipoecogênica; uniforme ou não uniforme.</li><li><strong>Linha média:</strong> linear, não linear, irregular ou não definida.</li><li><strong>Junção endométrio–miométrio:</strong> regular, irregular, interrompida ou não definida.</li><li><strong>Vascularização:</strong> vaso dominante, múltiplos vasos, vasos dispersos ou fluxo circular. <strong>Escore de cor de 1 a 4</strong> (1 = sem cor, 2 = mínima, 3 = moderada, 4 = abundante).</li><li><strong>Líquido intracavitário:</strong> presença e ecogenicidade.</li></ul>
+<h4 class="sub">MUSA — miométrio</h4>
+<p>Van den Bosch 2015. <span class="origem origem-consenso">Consenso ISUOG/UOG</span> Descreve: medida do corpo uterino, simetria das paredes, ecogenicidade homogênea ou heterogênea, lesão bem ou mal definida, localização FIGO 0–8 dos miomas, sombras, cistos, ilhas hiperecogênicas, zona juncional regular ou mal definida e escore de cor 1–4.</p>
+<h4 class="sub">IOTA — anexos</h4>
+<p>Timmerman 2000. <span class="origem origem-consenso">Consenso ISUOG/UOG</span></p>
+<ul><li>Ovários e lesões: meça os <strong>três maiores diâmetros em dois planos perpendiculares (em mm)</strong>.</li><li><strong>Líquido no fundo de saco:</strong> meça no <strong>plano sagital</strong>, pelo <strong>maior diâmetro anteroposterior (mm)</strong>.</li><li>Lesões: 6 categorias (unilocular, unilocular-sólido, multilocular, multilocular-sólido, sólido e não classificável).</li><li>Existe uma atualização de 2026 (DOI 10.1002/uog.70191), mas só a página-resumo dela foi lida. <a class="aviso" href="#s9">⚠ ver seção 9</a></li></ul>
+<h4 class="sub">IDEA — endometriose</h4>
+<p>Guerriero 2016. <span class="origem origem-consenso">Consenso ISUOG/UOG</span> O IDEA organiza o exame em 4 passos:</p>
+<ol><li>Avaliação de rotina do útero e dos anexos, incluindo presença ou ausência de <strong>endometrioma</strong>.</li><li>"Marcadores leves": <strong>dor localizada</strong> e <strong>mobilidade ovariana</strong>.</li><li><strong>Sinal de deslizamento</strong> ("sliding sign") para o fundo de saco.</li><li>Nódulos de endometriose profunda nos compartimentos anterior e posterior.</li></ol>
+<p>O texto completo do IDEA 2016 não foi lido. Os 4 passos foram conferidos em dois artigos abertos da própria UOG que o citam (McClenahan 2026 e Alcázar 2022). Detalhes do passo 1 além do endometrioma (por exemplo, sinais de adenomiose) não aparecem nesses artigos e ficaram de fora. <a class="aviso" href="#s9">⚠ ver seção 9</a></p>
+<h3><span class="tag tag-outline">2.10</span><span>Consentimento e acompanhante (chaperone)</span></h3>
+<ul><li><strong>Consentimento:</strong> informe a paciente por completo e obtenha o consentimento <strong>antes</strong> do exame. <span class="origem origem-isuog">ISUOG</span> As recomendações ISUOG de formação básica (2014) acrescentam: o consentimento deve ser <strong>verbal ou, de preferência, por escrito</strong>, e isso é "particularmente importante" na via <strong>transvaginal</strong>. Elas dizem ainda que, "em muitos países", é obrigatório haver <strong>acompanhante na sala</strong> no exame transvaginal. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Acompanhante (chaperone):</strong> é aconselhável para adolescentes, pacientes ansiosas, idosas e mulheres com experiência ginecológica negativa. É <strong>obrigatório no Reino Unido</strong> para crianças, adolescentes e mulheres incapazes de consentir. <span class="origem origem-isuog">ISUOG</span> No Brasil, siga a norma da instituição. <span class="origem origem-pratica">Prática/ensino</span></li><li><strong>Na gestação:</strong> antes de começar, um médico deve explicar à gestante os <strong>benefícios e as limitações</strong> do exame de 1º trimestre. <span class="origem origem-isuog">ISUOG</span></li></ul>
+<h3><span class="tag tag-outline">2.11</span><span>Medidas-chave</span></h3>
+<div class="table-wrap text-table"><table><thead><tr><th class="key">Medida</th><th>Como medir</th><th>Fonte</th></tr></thead><tbody><tr><td class="key"><strong>Espessura endometrial</strong></td><td><strong>dupla camada</strong>, no <strong>plano sagital</strong>, no ponto de <strong>maior espessura</strong>, perpendicular à linha média, com os cursores nas duas interfaces endométrio–miométrio opostas; em <strong>mm com 1 casa decimal</strong></td><td><span class="origem origem-isuog">ISUOG</span> consenso de endométrio</td></tr><tr><td class="key">Endométrio com líquido na cavidade</td><td>meça <strong>cada camada</strong> e <strong>some</strong> (o líquido não entra)</td><td><span class="origem origem-isuog">ISUOG</span></td></tr><tr><td class="key">Endométrio não totalmente visível</td><td>escreva <strong>"não mensurável"</strong> e <strong>não</strong> tente medir (vale também para DIU/SIU que faça sombra)</td><td><span class="origem origem-isuog">ISUOG</span></td></tr><tr><td class="key">Endométrio com lesão intracavitária (ex.: pólipo)</td><td>a espessura total <strong>inclui</strong> o diâmetro da lesão no sagital + as duas camadas de endométrio; um <strong>mioma intracavitário</strong> claramente identificado <strong>não</strong> entra; a lesão é medida em <strong>3 diâmetros perpendiculares</strong> (mm, 1 casa decimal)</td><td><span class="origem origem-isuog">ISUOG</span></td></tr><tr><td class="key"><strong>Volume (elipsoide)</strong></td><td>C × L × AP × <strong>0,523</strong> (0,523 ≈ π/6)</td><td><span class="origem origem-consenso">Consenso ISUOG/UOG</span> MUSA (útero e lesões); <span class="origem origem-outra">Outra fonte</span> Wehba 1996 (ovário)</td></tr><tr><td class="key"><strong>Corpo uterino (MUSA)</strong></td><td>d1 = comprimento do fundo + comprimento da cavidade; d2 = maior AP (sagital); d3 = maior transverso (transversal)</td><td><span class="origem origem-consenso">Consenso ISUOG/UOG</span></td></tr><tr><td class="key">Paredes miometriais</td><td>da serosa ao contorno externo do endométrio (inclui a zona juncional), no sagital, perpendicular ao endométrio, na mesma imagem, no ponto mais espesso; razão anterior/posterior ≈ 1 = simétricas</td><td><span class="origem origem-consenso">Consenso ISUOG/UOG</span></td></tr><tr><td class="key"><strong>DMSG</strong> (diâmetro médio do saco gestacional)</td><td><strong>média das 3 medidas ortogonais</strong> do espaço líquido dentro do saco</td><td><span class="origem origem-isuog">ISUOG</span> diretriz de 1º trimestre</td></tr><tr><td class="key"><strong>CCN</strong> (comprimento cabeça–nádega)</td><td>corte <strong>sagital mediano</strong> do embrião inteiro, de preferência <strong>horizontal na tela</strong>, imagem ampliada, linha de medida a ~<strong>90°</strong> do feixe, posição neutra, <strong>sem incluir a vesícula vitelínica</strong></td><td><span class="origem origem-isuog">ISUOG</span></td></tr></tbody></table></div>
+</section>
+<section id="s3">
+<h2><span class="tag">3</span><span>O roteiro do exame, passo a passo</span></h2>
+<p>A ordem é sempre a mesma: preparar tudo antes, examinar com método e, depois, limpar e documentar.</p>
+<h3><span class="tag tag-outline">3.1</span><span>Antes da paciente entrar: sala, aparelho e sonda</span></h3>
+<ol><li><strong>Sala:</strong> maca ginecológica (com perneiras, se houver), lençol ou papel descartável e privacidade (porta fechada, biombo, cobertura para a paciente). <span class="origem origem-pratica">Prática/ensino</span></li><li><strong>Arranjo típico:</strong> a mulher fica deitada à <strong>direita</strong> do examinador, de frente para ele. A sonda fica na <strong>mão direita</strong> e os controles, na <strong>mão esquerda</strong>. <span class="origem origem-isuog">ISUOG</span> (Basic Training, "Room set up")</li><li><strong>Sonda TV limpa e desinfetada:</strong> a DAN foi feita após o exame anterior e a sonda foi guardada em local limpo. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Material:</strong> capas de sonda (com opção <strong>sem látex</strong>), gel (de preferência em sachê individual) e luvas descartáveis (sem látex, se houver alergia). <span class="origem origem-isuog">ISUOG</span></li><li><strong>Aparelho:</strong> selecione a <strong>sonda TV</strong> e o <strong>preset</strong> ginecológico (ou obstétrico precoce). Não deixe a potência padrão em 100% (o Basic Training sugere 75%). Confira se <strong>TI e MI aparecem na tela</strong>. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Dados da paciente:</strong> digite no aparelho antes de salvar qualquer imagem. Inserir a identificação no aparelho está entre as competências das recomendações de formação básica 2014 <span class="origem origem-isuog">ISUOG</span>; fazer isso "antes de salvar qualquer imagem" é <span class="origem origem-pratica">Prática/ensino</span>.</li></ol>
+<h3><span class="tag tag-outline">3.2</span><span>Recebendo a paciente</span></h3>
+<ol><li><strong>Identificação:</strong> confirme o nome completo e um segundo identificador (ex.: data de nascimento) e compare com o pedido. <span class="origem origem-pratica">Prática/ensino</span> <a class="aviso" href="#s9">⚠ ver seção 9</a></li><li><strong>História (consenso ISUOG de endométrio) <span class="origem origem-isuog">ISUOG</span>:</strong> motivo do pedido, idade, IMC, medicações, comorbidades, exames prévios, <strong>alergia ao látex</strong>, <strong>data da última menstruação</strong>, idade da menopausa, contracepção ou terapia hormonal, história obstétrica e cirúrgica.</li><li><strong>Momento do ciclo (para o endométrio) <span class="origem origem-isuog">ISUOG</span>:</strong> na mulher com ciclo espontâneo, o ideal é a <strong>fase proliferativa inicial</strong>, logo após o fim do sangramento. Se a imagem ficar ruim (fim do ciclo ou durante a menstruação), você pode pedir que ela volte após o próximo sangramento.</li><li><strong>Explique o exame</strong> em linguagem simples, verifique se a via TV é adequada (veja as contraindicações em 2.3) e <strong>obtenha o consentimento</strong>. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Ofereça acompanhante (chaperone).</strong> <span class="origem origem-isuog">ISUOG</span></li><li><strong>Bexiga vazia:</strong> peça que ela urine antes. <span class="origem origem-isuog">ISUOG</span> Exceção: se for preciso avaliar a parede da bexiga (ex.: suspeita de endometriose), basta um enchimento <strong>mínimo</strong>; se estiver vazia, repita após ~30 min. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Posição de litotomia:</strong> deitada de costas, joelhos dobrados e afastados, pés apoiados. <span class="origem origem-isuog">ISUOG</span> Para melhorar o ângulo, peça que ela deslize até a borda da maca e incline a pelve ou flexione os quadris. <span class="origem origem-isuog">ISUOG</span> Se a maca não tiver parte retrátil e/ou perneiras, o livro-texto <em>Ultrasound in Obstetrics &amp; Gynecology: A Practical Approach</em> (cap. 3, GLOWM) descreve <strong>elevar as nádegas com travesseiros ou com uma comadre invertida</strong> (a figura do livro usa um <strong>lençol dobrado</strong>). <span class="origem origem-outra">Outra fonte</span> Não há recomendação ISUOG sobre isso. <a class="aviso" href="#s9">⚠ ver seção 9</a></li><li><strong>Inspecione vulva e períneo</strong> por fora antes de introduzir a sonda. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Combine a comunicação:</strong> peça que ela avise <strong>ansiedade, dor ou desconforto</strong> a qualquer momento <span class="origem origem-isuog">ISUOG</span>. Avise antes de cada passo ("agora vou introduzir", "vou fazer uma pressão leve") <span class="origem origem-pratica">Prática/ensino</span>.</li></ol>
+<h3><span class="tag tag-outline">3.3</span><span>Preparar e introduzir a sonda</span></h3>
+<ol><li><strong>Lave as mãos e calce luvas.</strong> A higiene das mãos antes e depois do contato e as luvas descartáveis sem látex, trocadas a cada paciente, vêm da parte da declaração ISUOG 2020 escrita para o contexto COVID-19 <span class="origem origem-isuog">ISUOG</span>. A AIUM manda usar luvas durante todo o exame interno <span class="origem origem-outra">Outra fonte</span>.</li><li><strong>Vista a capa:</strong> ponha <strong>gel dentro da capa</strong> (na ponta), vista a capa na sonda sem bolhas de ar na ponta e ponha <strong>gel por fora</strong>. A capa com gel é <span class="origem origem-isuog">ISUOG</span>; o detalhe "sem bolhas" é <span class="origem origem-pratica">Prática/ensino</span>.</li><li><strong>Segure a sonda com o marcador para cima</strong> (anterior, em direção ao teto). Assim você tem o plano <strong>sagital</strong>. <span class="origem origem-pratica">Prática/ensino</span> O Basic Training mostra o marcador na posição sagital e a rotação anti-horária para o transversal. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Introduza devagar e com delicadeza</strong>, seguindo o eixo da vagina, até a sonda chegar perto do colo/fórnice. <span class="origem origem-pratica">Prática/ensino</span> <a class="aviso" href="#s9">⚠ ver seção 9</a></li><li><strong>Primeiro, oriente-se:</strong> no sagital, ache a <strong>bexiga</strong> (estrutura anecoica anterior, pequena se vazia) e o <strong>colo</strong>. "Toda avaliação do útero deve começar pela identificação da bexiga e do colo." <span class="origem origem-isuog">ISUOG</span></li></ol>
+<h3><span class="tag tag-outline">3.4</span><span>Varredura sistemática ("sempre o mesmo procedimento")</span></h3>
+<p>O Basic Training resume em três ideias: <strong>oriente-se na imagem, otimize a imagem e use sempre uma técnica sistemática</strong>. <span class="origem origem-isuog">ISUOG</span></p>
+<p>O consenso de endométrio define a sequência do útero. Ele <strong>não</strong> fixa a ordem de ovários, anexos e fundo de saco: essa parte da ordem abaixo é de ensino.</p>
+<h4 class="sub">D1. Útero: posição</h4>
+<p>No sagital, veja se o corpo do útero aponta para a frente (<strong>anteversão</strong>, às vezes com <strong>anteflexão</strong>) ou para trás (<strong>retroversão</strong>). O Basic Training mostra o útero "em anteversão (e leve anteflexão)", com bexiga e reto como referências. <span class="origem origem-isuog">ISUOG</span></p>
+<h4 class="sub">D2. Útero: varreduras</h4>
+<ol><li><strong>Sagital de corno a corno:</strong> angule de um lado ao outro. <span class="origem origem-isuog">ISUOG</span></li><li>Gire <strong>anti-horário</strong> para o transversal e faça a <strong>varredura transversal (oblíqua) do colo ao fundo</strong>. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Amplie</strong> o corpo uterino: use o maior aumento que ainda mostre a área de interesse. <span class="origem origem-isuog">ISUOG</span></li></ol>
+<h4 class="sub">D3. Útero: medidas (MUSA)</h4>
+<p>Tudo neste passo é <span class="origem origem-consenso">Consenso ISUOG/UOG</span>.</p>
+<ol><li>No sagital: <strong>comprimento do fundo</strong> (serosa do fundo → ponta da cavidade) + <strong>comprimento da cavidade</strong> (ponta da cavidade → orifício interno) = <strong>d1</strong>. O <strong>maior AP</strong> é o <strong>d2</strong>.</li><li>No transversal: o <strong>maior diâmetro transverso</strong> é o <strong>d3</strong>.</li><li>Se precisar do comprimento total, some d1 + <strong>comprimento do colo</strong>.</li><li>Volume (se pedido): d1 × d2 × d3 × 0,523 (cm → cm³).</li><li><strong>Miométrio:</strong> paredes simétricas ou assimétricas; ecogenicidade homogênea ou heterogênea; lesões bem ou mal definidas (número, localização, tamanho).</li></ol>
+<h4 class="sub">D4. Endométrio</h4>
+<p>Tudo neste passo é <span class="origem origem-isuog">ISUOG</span>.</p>
+<ol><li>Faça um sagital mediano que mostre <strong>toda a cavidade</strong>, com o útero ocupando <strong>mais da metade da tela</strong> e o feixe a ~90°.</li><li>Meça a <strong>dupla camada</strong> no ponto de maior espessura, perpendicular à linha média (cursores nas interfaces endométrio–miométrio).</li><li>Se houver líquido, meça as duas camadas e <strong>some</strong>. Descreva o líquido (anecoico, com ecos de baixa intensidade, hemorrágico).</li><li>Se o endométrio não aparecer por inteiro, escreva <strong>"não mensurável"</strong>.</li><li>Descreva com a terminologia <strong>IETA</strong> (ecogenicidade, linha média, junção).</li><li><strong>Doppler colorido/power</strong> (inclua de rotina se possível, fora da gestação): PRF <strong>0,3–0,6 kHz</strong>, escala de velocidade <strong>3,0–6,0 cm/s</strong>. Inclua o miométrio vizinho na caixa de cor e dê o escore de cor 1–4.</li><li><strong>Manobras dinâmicas:</strong> uma pressão suave pelo fórnice anterior, posterior ou lateral (ou bimanual) ajuda a separar <strong>coágulo</strong> (se move e não tem fluxo) de <strong>pólipo</strong>. A pressão dirigida também avalia <strong>dor localizada</strong>.</li></ol>
+<h4 class="sub">D5. Colo</h4>
+<ul><li>Recue a sonda para ver o colo inteiro no sagital e no transversal. Se o endométrio estiver difícil de achar, "siga-o" a partir do canal endocervical. <span class="origem origem-isuog">ISUOG</span></li><li>Na gestação, o Basic Training indica a via TV (5,0–9,5 MHz) para a <strong>avaliação precisa</strong> do comprimento do colo e da placenta baixa. <span class="origem origem-isuog">ISUOG</span> A técnica dessa medida não está detalhada nas fontes lidas. No 1º trimestre, a medida do colo <strong>não</strong> é recomendada de rotina (veja 3.5). <a class="aviso" href="#s9">⚠ ver seção 9</a></li></ul>
+<h4 class="sub">D6. Ovários (direito e esquerdo)</h4>
+<ol><li>A partir do transversal do fundo uterino, <strong>angule para o lado</strong>, um lado de cada vez. <span class="origem origem-pratica">Prática/ensino</span></li><li><strong>Use uma referência:</strong> o ovário costuma ficar entre o útero (linha média) e os <strong>vasos ilíacos</strong>, na parede lateral da pelve. Isso vem de material educativo da WFUMB para a via TA <span class="origem origem-outra">Outra fonte</span>; usar os vasos ilíacos como "farol" na TV é <span class="origem origem-pratica">Prática/ensino</span>. Os vasos aparecem como tubos anecoicos longos, e o Doppler confirma o fluxo (fora do período embrionário da gestação).</li><li><strong>Meça</strong> os três maiores diâmetros em dois planos perpendiculares (mm). <span class="origem origem-consenso">Consenso ISUOG/UOG</span> (IOTA)</li><li>Calcule o <strong>volume</strong> (× 0,523), se pedido.</li><li>Observe os <strong>folículos</strong> (pequenas imagens anecoicas) e, na fase lútea, o <strong>corpo lúteo</strong>, que "pode ter aparências diferentes". <span class="origem origem-isuog">ISUOG</span> (Basic Training)</li><li>Verifique a <strong>mobilidade</strong> do ovário com pressão suave. Ovário fixo sugere aderência. <span class="origem origem-isuog">ISUOG</span></li></ol>
+<p><strong>Valores citados no Basic Training ISUOG <span class="origem origem-isuog">ISUOG</span>.</strong> São dados de estudos, não limites de diagnóstico:</p>
+<ul><li>Ovário em idade fértil (Jokubkiene 2012; 303 mulheres de 20–39 anos, dias 4–8 do ciclo): <strong>mediana 7 mL</strong>, faixa <strong>2–17 mL</strong>.</li><li>Ovário pós-menopausa (Sladkevicius 1995; 144 mulheres de 45–64 anos): <strong>mediana 1 mL</strong>, faixa <strong>0,4–4 mL</strong>.</li><li>Endométrio pós-menopausa: mediana <strong>3 mm</strong> (p10–p90: <strong>2–5 mm</strong>); "&gt;5 mm <strong>não</strong> é necessariamente patológico".</li></ul>
+<h4 class="sub">D7. Anexos e trompas</h4>
+<ul><li>Trompas normais <strong>podem</strong> ser vistas quando há líquido no fundo de saco. <span class="origem origem-isuog">ISUOG</span> (Basic Training)</li><li>Achou uma massa? Meça 3 diâmetros, descreva com a terminologia <strong>IOTA</strong> e chame o supervisor. <span class="origem origem-consenso">Consenso ISUOG/UOG</span></li></ul>
+<h4 class="sub">D8. Fundo de saco (de Douglas): líquido livre</h4>
+<ul><li>Fica no sagital, atrás do útero. <strong>Um pouco de líquido é NORMAL antes da menopausa.</strong> <span class="origem origem-isuog">ISUOG</span></li><li>Se houver líquido, meça o <strong>maior diâmetro AP no plano sagital (mm)</strong>. <span class="origem origem-consenso">Consenso ISUOG/UOG</span> (IOTA)</li><li>Ascite é líquido <strong>fora</strong> do fundo de saco. <span class="origem origem-consenso">Consenso ISUOG/UOG</span> (IOTA)</li></ul>
+<h4 class="sub">D9. Exame dinâmico: mobilidade, dor e sinal de deslizamento</h4>
+<p>O USG TV é "<strong>dinâmico e interativo</strong>". Verifique a <strong>mobilidade</strong> dos órgãos (órgão fixo sugere aderência) e a <strong>dor localizada</strong> (quais órgãos participam da dor). <span class="origem origem-isuog">ISUOG</span></p>
+<p><strong>Sinal de deslizamento posterior (passo 3 do IDEA).</strong> A definição abaixo vem da metanálise de Alcázar et al. (UOG 2022, acesso aberto), que cita o IDEA. É um artigo publicado na UOG, não um consenso. <span class="origem origem-outra">Outra fonte</span> <a class="aviso" href="#s9">⚠ ver seção 9</a></p>
+<ul><li><strong>O que você avalia:</strong> se o <strong>reto anterior desliza livremente</strong> sobre a <strong>face posterior do colo</strong> e a <strong>parede vaginal posterior</strong> (útero em anteversão) <strong>ou sobre o fundo uterino</strong> (útero em retroversão).</li><li><strong>Deslizamento presente ("sinal positivo"):</strong> as estruturas estão <strong>completamente livres</strong> uma da outra. Isso é <strong>normal</strong>.</li><li><strong>Deslizamento ausente ("sinal negativo"):</strong> <strong>não há deslizamento</strong> entre o reto anterior e a serosa da face posterior do colo/parede vaginal posterior (útero em anteversão) ou do fundo uterino (útero em retroversão). O fundo de saco está <strong>obliterado</strong>. É considerado um <strong>"marcador forte"</strong> de infiltração do reto/sigmoide por endometriose profunda.</li><li><strong>Desempenho na metanálise:</strong> obliteração do fundo de saco, <strong>sensibilidade 88% e especificidade 94%</strong>; acometimento intestinal, <strong>sensibilidade 81% e especificidade 95%</strong>.</li></ul>
+<p><strong>Sinal de deslizamento anterior (bexiga).</strong> Técnica de Min et al. (UOG 2025, acesso aberto). <span class="origem origem-outra">Outra fonte</span> Coloque a sonda no <strong>fórnice vaginal anterior</strong> e a <strong>mão livre no abdome inferior</strong>. No sagital mediano, faça <strong>pressão leve repetida</strong> com a sonda e/ou com a mão. O sinal é <strong>positivo (normal)</strong> se a parede anterior do útero <strong>desliza livremente</strong> em relação à bexiga. É <strong>negativo</strong> se a bexiga parece <strong>fixa ao útero em mais de 1 cm</strong> entre as pregas vesicovaginal e vesicouterina. Os autores atribuem a técnica a Hudelist 2009, não ao IDEA.</p>
+<p><strong>Como um estudo aplicou o IDEA.</strong> No estudo de McClenahan et al. (UOG 2026), o <strong>passo 2</strong> foi considerado positivo quando havia <strong>fixação ovariana</strong> de um ou dos dois lados. A dor localizada <strong>não</strong> entrou, porque não foi registrada de forma consistente. O <strong>passo 3</strong> foi positivo quando o <strong>deslizamento posterior era negativo</strong>. Essa é a definição operacional do estudo, não um texto do consenso IDEA. <span class="origem origem-outra">Outra fonte</span></p>
+<div class="important"><p><strong>Cuidado com o nome:</strong> "sinal de deslizamento <strong>positivo</strong>" = <strong>normal</strong>. No laudo, escreva "deslizamento presente" ou "deslizamento ausente" para evitar confusão. <span class="origem origem-pratica">Prática/ensino</span></p></div>
+<h4 class="sub">D10. Bexiga e estruturas vizinhas</h4>
+<p>Avalie também bexiga e reto quando fizer sentido. Exemplo: no sangramento uterino anormal, em que se pensa em causas fora do endométrio. <span class="origem origem-isuog">ISUOG</span></p>
+<h3><span class="tag tag-outline">3.5</span><span>Se houver gestação inicial</span></h3>
+<h4 class="sub">Fontes desta etapa</h4>
+<ul><li><strong>ISUOG 2023 (atualizada):</strong> Bilardo et al., UOG 2023;61:127–143. Foi <strong>lida na íntegra</strong> na tradução oficial ISUOG para o português (Barmpas &amp; Barmpas; revisão Rezende). Cobre o exame de <strong>11+0 a 14+0 semanas</strong>. <span class="origem origem-isuog">ISUOG</span> <a class="aviso" href="#s9">⚠ ver seção 9</a></li><li><strong>ISUOG 2013:</strong> diretriz anterior de 1º trimestre. Continua útil para a fase <strong>antes de 11 semanas</strong> (definições de viabilidade, DMSG, CCN muito precoce), porque a de 2023 trata só de 11–14 semanas. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Painel SRU (Doubilet et al., NEJM 2013):</strong> critérios de perda gestacional por TV, lidos na íntegra (cópia de acesso aberto). <span class="origem origem-outra">Outra fonte</span></li></ul>
+<h4 class="sub">O que mudou de 2013 para 2023</h4>
+<p>A comparação foi feita pelo pesquisador, lendo as duas diretrizes.</p>
+<div class="table-wrap text-table"><table><thead><tr><th class="key">Tema</th><th>2013</th><th>2023</th></tr></thead><tbody><tr><td class="key">Momento do 1º exame</td><td>11+0 a 13+6 sem; não há motivo para exame de rotina só para confirmar gravidez sem indicação</td><td>se não houve exame prévio, oferecer entre <strong>11 e 14 semanas</strong></td></tr><tr><td class="key">Equipamento mínimo</td><td>2D, sondas TA e TV, TI/MI, freeze/zoom, cursores, armazenar imagens</td><td>acrescenta <strong>Doppler colorido/power e espectral</strong> e <strong>modo M</strong></td></tr><tr><td class="key">Frequência cardíaca</td><td>só "atividade cardíaca"</td><td>a FC <strong>deve ser registrada</strong>, medida por <strong>modo M ou Doppler espectral</strong>, de preferência em <strong>vários ciclos</strong>; costuma ser visível a partir de <strong>5–6 semanas</strong>; sobe até <strong>10 sem (média 171 bpm)</strong> e cai até <strong>14 sem (média 156 bpm)</strong>; FC fora do normal → reavaliar mais tarde no mesmo exame</td></tr><tr><td class="key">Intrauterina</td><td>saco intrauterino; aguardar o embrião se assintomática</td><td>o saco deve estar <strong>completamente delimitado pelo miométrio</strong>; avaliar com <strong>varredura de todo o útero</strong>; a integridade pode estar comprometida em <strong>cicatriz de cesárea</strong> ou <strong>corno rudimentar</strong></td></tr><tr><td class="key">Datação</td><td>CCN até 84 mm; ideal de 8 a 13+6 sem</td><td>CCN em <strong>todos os casos, exceto FIV</strong>; com várias medidas, usar o CCN de <strong>melhor qualidade entre 45 e 84 mm</strong>; preferir gráficos internacionais recentes</td></tr><tr><td class="key">Anatomia</td><td>tabela de avaliação sugerida</td><td>dois níveis: <strong>requisitos mínimos</strong> (Tabela 1) e <strong>exame detalhado/"melhores práticas"</strong> (Tabela 2); a TV <strong>não é obrigatória</strong>, mas pode melhorar a imagem (IMC alto, miomas, útero retrovertido)</td></tr><tr><td class="key">Laudo</td><td>exemplo de relatório</td><td><strong>modelos de laudo</strong> básico e detalhado (Apêndices 2 e 3)</td></tr><tr><td class="key">Rastreios</td><td>TN, bioquímica</td><td>acrescenta <strong>cfDNA</strong> como 2º nível e <strong>rastreio de pré-eclâmpsia</strong> (IP das artérias uterinas, PlGF, PAM); fora do escopo de um aluno</td></tr></tbody></table></div>
+<h4 class="sub">Roteiro na gestação inicial</h4>
+<ol><li><strong>Objetivos <span class="origem origem-isuog">ISUOG</span> (2013 e 2023):</strong> confirmar a <strong>viabilidade</strong>, estabelecer a <strong>idade gestacional</strong>, determinar o <strong>número de fetos</strong> e, se a gestação for múltipla, a <strong>corionicidade e a amnionicidade</strong>. Antes de começar, o profissional orienta a mulher/casal sobre <strong>benefícios e limitações</strong> do exame (ponto de boa prática).</li><li><strong>Saco gestacional intrauterino <span class="origem origem-isuog">ISUOG 2023</span>:</strong> confirme que ele está <strong>completamente envolto por miométrio</strong>, varrendo <strong>todo o útero</strong>.</li><li><strong>Sequência normal vista na TV <span class="origem origem-outra">Outra fonte — SRU/NEJM</span>:</strong> saco gestacional por volta de <strong>5 semanas</strong>; <strong>vesícula vitelínica</strong> (estrutura circular de cerca de <strong>3 a 5 mm</strong>) por volta de <strong>5½ semanas</strong>; <strong>embrião com batimento</strong> ao lado da vesícula por volta de <strong>6 semanas</strong> (variação de cerca de <strong>± ½ semana</strong>).</li><li><strong>Viabilidade <span class="origem origem-isuog">ISUOG 2013</span>:</strong> viabilidade é ter embrião com <strong>atividade cardíaca</strong> no momento do exame. A atividade já foi documentada a partir de <strong>37 dias</strong>. Ela costuma ser visível com embrião <strong>≥ 2 mm</strong>, mas pode não aparecer em <strong>~5–10%</strong> dos embriões viáveis de <strong>2–4 mm</strong>.</li><li><strong>Frequência cardíaca:</strong> registre a <strong>FC</strong> por modo M ou Doppler espectral <span class="origem origem-isuog">ISUOG 2023</span>. Mas, <strong>antes de 11 semanas</strong>, a declaração de segurança de 2021 diz que o Doppler <strong>não deve ser usado de rotina</strong> (exposição mínima se indicado) <span class="origem origem-isuog">ISUOG</span>. Por isso, no período embrionário, o <strong>modo M</strong> é a escolha coerente com as duas recomendações. Essa combinação é interpretação do pesquisador. <a class="aviso" href="#s9">⚠ ver seção 9</a></li><li><strong>DMSG <span class="origem origem-isuog">ISUOG 2013</span>:</strong> média das 3 medidas ortogonais do espaço líquido. Com embrião presente, o <strong>CCN é mais preciso</strong>. O painel SRU define o DMSG como a média dos diâmetros <strong>sagital, transverso e anteroposterior</strong>. <span class="origem origem-outra">Outra fonte</span></li><li><strong>CCN <span class="origem origem-isuog">ISUOG 2013/2023</span>:</strong> técnica na tabela 2.11. Entre 6 e 9 semanas, o embrião é muito fletido (na prática, mede-se pescoço–nádega). Bem no início, meça o <strong>maior comprimento</strong>. O erro é de até <strong>± 5 dias em 95%</strong> (2013). A variação entre observadores é de <strong>± 15%</strong> no CCN e de <strong>± 19%</strong> no DMSG (SRU/NEJM). <span class="origem origem-outra">Outra fonte</span></li><li><strong>Número de embriões e corionicidade <span class="origem origem-isuog">ISUOG 2023</span>:</strong> determine e <strong>documente</strong> a corionicidade e a amnionicidade. Use o <strong>sinal lambda</strong> ou o <strong>sinal T</strong>. Faça isso <strong>cedo</strong>, quando é mais confiável.</li><li><strong>Outras estruturas <span class="origem origem-isuog">ISUOG 2013/2023</span>:</strong> coleção subcoriônica grande (<strong>&gt; 5 cm</strong>) → registre e acompanhe. <strong>Não relate placenta prévia</strong> nesta fase. Em <strong>cesárea prévia</strong>, examine a região entre a bexiga e o istmo (cicatriz); se houver suspeita, <strong>encaminhe a especialista</strong>. Descreva anomalias da forma do útero e massas anexiais. A medida do <strong>colo no 1º trimestre ainda não é recomendada de rotina</strong> (2023).</li></ol>
+<h4 class="sub">Critérios de perda gestacional por TV (painel SRU)</h4>
+<p>Doubilet et al., NEJM 2013. <span class="origem origem-outra">Outra fonte</span> Valem para mulher com gestação intrauterina de viabilidade incerta. Quem decide é o médico.</p>
+<div class="table-wrap text-table"><table><thead><tr><th class="key">Achados <strong>diagnósticos</strong> de perda gestacional</th><th>Achados <strong>suspeitos, mas não diagnósticos</strong></th></tr></thead><tbody><tr><td class="key">CCN <strong>≥ 7 mm</strong> e sem batimento</td><td>CCN <strong>&lt; 7 mm</strong> e sem batimento</td></tr><tr><td class="key">DMSG <strong>≥ 25 mm</strong> e sem embrião</td><td>DMSG <strong>16–24 mm</strong> e sem embrião</td></tr><tr><td class="key">Sem embrião com batimento <strong>≥ 2 semanas</strong> após exame que mostrou saco <strong>sem</strong> vesícula vitelínica</td><td>Sem embrião com batimento <strong>7–13 dias</strong> após exame que mostrou saco <strong>sem</strong> vesícula</td></tr><tr><td class="key">Sem embrião com batimento <strong>≥ 11 dias</strong> após exame que mostrou saco <strong>com</strong> vesícula vitelínica</td><td>Sem embrião com batimento <strong>7–10 dias</strong> após exame que mostrou saco <strong>com</strong> vesícula</td></tr><tr><td class="key"></td><td>Sem embrião <strong>≥ 6 semanas</strong> após a DUM</td></tr><tr><td class="key"></td><td><strong>Âmnio vazio</strong> (âmnio ao lado da vesícula, sem embrião visível)</td></tr><tr><td class="key"></td><td><strong>Vesícula vitelínica aumentada (&gt; 7 mm)</strong></td></tr><tr><td class="key"></td><td>Saco pequeno para o embrião (<strong>diferença DMSG − CCN &lt; 5 mm</strong>)</td></tr></tbody></table></div>
+<p>Com achados suspeitos, o painel considera em geral apropriado <strong>repetir a ultrassonografia em 7 a 10 dias</strong>. O painel também lembra que <strong>um único valor de hCG não determina</strong> de forma confiável a localização nem a viabilidade. <span class="origem origem-outra">Outra fonte</span></p>
+<p>A diretriz britânica NICE NG126 não foi consultada. <a class="aviso" href="#s9">⚠ ver seção 9</a></p>
+<h3><span class="tag tag-outline">3.6</span><span>Retirar a sonda e encerrar</span></h3>
+<ol><li>Retire a sonda devagar, ofereça papel ou lenço, ajude a paciente a sentar e garanta privacidade para ela se vestir. <span class="origem origem-pratica">Prática/ensino</span></li><li><strong>Explique o próximo passo</strong> (quem vai dar o resultado). Você, como aluno, <strong>não</strong> dá diagnóstico: o resultado é comunicado pelo responsável. <span class="origem origem-pratica">Prática/ensino</span></li></ol>
+<h3><span class="tag tag-outline">3.7</span><span>Limpar a sonda entre pacientes</span></h3>
+<p>A base principal é a <strong>WFUMB 2024</strong>, "Recommendations for the Cleaning of Endocavity Ultrasound Transducers Between Patients" (Westerway, Basseal, Abramowicz, Moran). Ela atualiza a diretriz WFUMB 2017 e vale para a <strong>rotina</strong>. <span class="origem origem-outra">Outra fonte</span> Os complementos vêm da <strong>AIUM (revisão 2025)</strong> <span class="origem origem-outra">Outra fonte</span> e dos passos da declaração <strong>ISUOG 2020</strong> <span class="origem origem-isuog">ISUOG</span> (a parte de limpeza de rotina, baseada nas diretrizes WFUMB 2017 e AIUM).</p>
+<h4 class="sub">Os 4 passos obrigatórios (WFUMB 2024)</h4>
+<p><span class="origem origem-outra">Outra fonte</span> Entre uma paciente e outra:</p>
+<ol><li><strong>Retire e descarte</strong> com segurança a capa usada.</li><li><strong>Limpe</strong> a sonda para remover a sujeira grosseira, como o gel.</li><li>Faça a <strong>desinfecção de alto nível (DAN)</strong> e <strong>guarde a sonda coberta</strong>.</li><li><strong>Coloque uma capa nova</strong> adequada antes de usar na próxima paciente.</li></ol>
+<h4 class="sub">Cada passo em detalhe (com luvas descartáveis)</h4>
+<ol><li>Desconecte o transdutor, se for o caso. Retire a capa e descarte em <strong>lixo infectante</strong>. <span class="origem origem-isuog">ISUOG</span></li><li>Limpe com <strong>lenço/pano ou água corrente</strong> para tirar o gel. Use <strong>produto de limpeza de grau médico</strong> e limpe <strong>ranhuras e fendas</strong>, porque resíduo orgânico pode <strong>inativar</strong> o desinfetante <span class="origem origem-outra">Outra fonte — WFUMB 2024</span>. Use escova macia e detergente não abrasivo, <strong>não</strong> molhe a ponta do conector eletrônico e enxágue <span class="origem origem-isuog">ISUOG</span>.</li><li>Limpe o <strong>cabo</strong> com lenço de desinfetante de baixo nível. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Seque</strong> com papel-toalha ou pano macio, porque água residual <strong>dilui</strong> o desinfetante. <span class="origem origem-isuog">ISUOG</span> <span class="origem origem-outra">Outra fonte — AIUM</span> A WFUMB 2024 também manda secar antes do desinfetante, mas justifica de outro jeito: secar reduz ainda mais a carga microbiana.</li><li>Faça a <strong>DAN</strong> com produto <strong>compatível com a sonda</strong>, aprovado pela autoridade reguladora nacional, seguindo as <strong>instruções do fabricante</strong>. <span class="origem origem-outra">Outra fonte — WFUMB 2024</span> Métodos citados pela WFUMB: glutaraldeído 2,4–3,2% (DAN em <strong>20 min a 20 °C</strong>, hoje pouco usado pela toxicidade), ácido peracético/orto-ftalaldeído (<strong>5–10 min a 20 °C</strong>), dióxido de cloro, peróxido de hidrogênio (inclusive sistemas automatizados) e <strong>UV-C</strong> (exposição de <strong>75 a 180 s</strong> após a limpeza). Citar um produto não é recomendar marca.</li><li>Enxágue e seque depois da DAN <strong>se o produto exigir</strong>, com água potável. <span class="origem origem-outra">Outra fonte — AIUM</span></li><li>Guarde conforme o nível de desinfecção: em armário limpo ou estojo próprio, <strong>coberta</strong>. <span class="origem origem-isuog">ISUOG</span> <span class="origem origem-outra">Outra fonte</span></li><li>Tire as luvas, descarte e <strong>lave as mãos</strong>. <span class="origem origem-outra">Outra fonte — AIUM</span></li></ol>
+<p><strong>Por que limpar antes de desinfetar?</strong> O gel que sobra funciona como <strong>barreira</strong> e reduz a eficácia do desinfetante. <span class="origem origem-isuog">ISUOG</span> <span class="origem origem-outra">Outra fonte — WFUMB 2024</span></p>
+<p><strong>E no Brasil?</strong> Não foi encontrada nota técnica da ANVISA específica para sondas endocavitárias. Uma nota da Prefeitura de Belo Horizonte (2021), vista só em resumo de busca, cita a <strong>RDC 15/2012</strong>: produtos semicríticos exigem no mínimo <strong>DAN após a limpeza</strong>. O texto da RDC não foi lido. Siga a Comissão de Controle de Infecção do seu serviço. <a class="aviso" href="#s9">⚠ ver seção 9</a></p>
+<h3><span class="tag tag-outline">3.8</span><span>Documentação e laudo</span></h3>
+<h4 class="sub">O que o exame ginecológico básico deve obter</h4>
+<p>Fonte: recomendações ISUOG de formação básica (2014, Tabela 2). <span class="origem origem-isuog">ISUOG</span></p>
+<ol><li>Visualização do útero em planos <strong>longitudinais e transversais</strong>.</li><li><strong>Medida da espessura endometrial</strong>.</li><li><strong>Tamanho e morfologia dos ovários</strong>.</li><li>Presença ou ausência de <strong>líquido na pelve</strong>.</li><li><strong>Descrição de qualquer anormalidade</strong>.</li></ol>
+<p>O mesmo documento pede que o aluno mantenha um <strong>livro de registro</strong> com história clínica, indicação, achados, um <strong>"conjunto padronizado de imagens"</strong> e o laudo formal. Como referência para certificação, sugere <strong>mínimo de 100 horas</strong> de exames supervisionados, com <strong>≥ 100 exames obstétricos</strong> e <strong>≥ 100 ginecológicos</strong>. <span class="origem origem-isuog">ISUOG</span> O documento <strong>não</strong> diz quais imagens formam esse conjunto.</p>
+<p><strong>Imagens propostas pelo MUSA para o miométrio <span class="origem origem-consenso">Consenso ISUOG/UOG</span>:</strong> pelo menos <strong>um corte sagital mediano do útero (em escala de cinza e com power Doppler)</strong>; de preferência também um <strong>transversal</strong> e/ou uma reconstrução <strong>coronal 3D</strong>. Se houver lesão, pelo menos um corte com a lesão e, de preferência, uma imagem ampliada (cinza + power Doppler).</p>
+<p><strong>Gestação de 11–14 semanas:</strong> a diretriz ISUOG 2023 lista os <strong>planos obrigatórios</strong> do exame básico (Tabela 1 e Figura 2) e traz <strong>modelos de laudo</strong> (Apêndices 2 e 3). <span class="origem origem-isuog">ISUOG</span></p>
+<h4 class="sub">Conjunto de imagens sugerido para o aluno</h4>
+<p><span class="origem origem-pratica">Prática/ensino</span> Esta lista organiza em imagens a Tabela 2 da ISUOG 2014 e o MUSA. Não é uma lista oficial. <a class="aviso" href="#s9">⚠ ver seção 9</a></p>
+<ol><li>Útero sagital mediano com medidas (d1, d2).</li><li>Útero transversal com d3.</li><li>Endométrio ampliado com a medida da dupla camada (ou o registro "não mensurável").</li><li>Ovário direito em dois planos, com medidas.</li><li>Ovário esquerdo em dois planos, com medidas.</li><li>Fundo de saco (com a medida AP, se houver líquido).</li><li>Qualquer achado anormal em dois planos (+ Doppler, se permitido).</li><li>Gestação: saco intrauterino (todo o útero), embrião, CCN, FC registrada (modo M), número de sacos/embriões e corionicidade, se múltipla.</li></ol>
+<h4 class="sub">Laudo estruturado</h4>
+<p>Elementos do consenso ISUOG de endométrio. <span class="origem origem-isuog">ISUOG</span></p>
+<ul><li>indicação e história clínica relevante; dia do ciclo; terapia hormonal; DIU/SIU;</li><li>posição e medidas do útero;</li><li>espessura endometrial (dupla camada, mm) <strong>ou</strong> "não mensurável";</li><li>ecogenicidade, linha média e junção endométrio–miométrio (IETA); líquido intracavitário e sua ecogenicidade;</li><li>lesões focais (três diâmetros) e suas características; padrão vascular e escore de cor; sombras e sua causa;</li><li>estruturas vizinhas (miométrio, ovários, trompas, bexiga, colo, reto);</li><li><strong>limitações</strong> do exame (má visualização, obesidade, cicatrizes);</li><li>em achado incerto: <strong>pior hipótese primeiro</strong>, depois o diagnóstico diferencial.</li></ul>
+<p>Na gestação, o relatório deve ser eletrônico e/ou impresso, ficar armazenado no serviço e ser entregue à gestante e ao serviço que encaminhou. <span class="origem origem-isuog">ISUOG</span> Se o exame não puder ser feito como manda a diretriz, <strong>documente o motivo</strong> e, em geral, repita ou encaminhe o quanto antes. <span class="origem origem-isuog">ISUOG</span></p>
+<p><strong>Princípio geral:</strong> o ultrassom <strong>não substitui a histologia</strong>. A conduta é uma decisão compartilhada. <span class="origem origem-isuog">ISUOG</span></p>
+<h3><span class="tag tag-outline">3.9</span><span>Quando encaminhar ou chamar o supervisor</span></h3>
+<ul><li><strong>Achado suspeito ou anormal:</strong> a diretriz ISUOG pede que quem faz o exame tenha um <strong>sistema de encaminhamento</strong> estabelecido. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Exame que não pôde ser completado</strong> conforme a diretriz: documente e repita ou encaminhe. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Suspeita de gestação em cicatriz de cesárea ou de acretismo:</strong> encaminhe a especialista. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Espessamento da nuca</strong> percebido, mesmo sem programa de rastreio: considere especialista. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Regra da formação básica (ISUOG 2014):</strong> um <strong>achado anormal em exame básico</strong> deve normalmente ser <strong>encaminhado</strong> a um exame mais completo por especialista, e o ensino do aluno deve <strong>sempre ser supervisionado</strong> por especialista experiente. <span class="origem origem-isuog">ISUOG</span></li><li><strong>Para você, aluno, chame sempre que houver <span class="origem origem-pratica">Prática/ensino</span>:</strong> dor intensa ou piora durante o exame; sangramento ativo; teste de gravidez positivo <strong>sem</strong> saco intrauterino claro; ausência de atividade cardíaca em embrião visível; líquido livre com ecos (possível sangue) ou em grande quantidade; qualquer massa anexial; dúvida de orientação ou de medida; paciente que pede para parar (<strong>pare imediatamente</strong>).</li></ul>
+</section>
+<section id="s4">
+<h2><span class="tag">4</span><span>Exemplos resolvidos</span></h2>
+<div class="box">
+<h4>Exemplo 1 — Espessura endometrial (dupla camada)</h4>
+<p><strong>Situação:</strong> mulher de 34 anos, ciclo espontâneo, exame no 7º dia do ciclo.</p>
+<p><strong>Passo a passo:</strong></p>
+<ol><li>Faça um sagital mediano que mostre o endométrio do fundo ao canal cervical. Amplie até o útero ocupar mais da metade da tela, com o feixe a ~90° do endométrio. <span class="origem origem-isuog">ISUOG</span></li><li>Congele a imagem (freeze).</li><li>Procure o ponto de <strong>maior espessura</strong>.</li><li>Ponha o 1º cursor na interface endométrio–miométrio <strong>anterior</strong> e o 2º na interface <strong>posterior</strong>, numa linha <strong>perpendicular</strong> à linha média.</li><li>Leia o valor: <strong>6,4 mm</strong>. No laudo: "endométrio com espessura de 6,4 mm (dupla camada)".</li></ol>
+<p><strong>Variação: com líquido na cavidade</strong></p>
+<ul><li>Camada anterior = 3,2 mm; camada posterior = 2,9 mm. O líquido entre elas <strong>não</strong> entra.</li><li>Soma: 3,2 + 2,9 = <strong>6,1 mm</strong>.</li><li><strong>Conferência (inversa):</strong> 6,1 − 2,9 = 3,2 ✔ e 6,1 − 3,2 = 2,9 ✔.</li><li>Laudo: "espessura endometrial 6,1 mm (soma das duas camadas), com líquido intracavitário anecoico".</li></ul>
+<p><strong>Interpretação (só o que tem fonte):</strong> na pré-menopausa, <strong>não há um único valor de corte</strong> de espessura; avaliam-se outras características. <span class="origem origem-isuog">ISUOG</span> Na pós-menopausa, endométrio <strong>&gt; 4 mm</strong> é considerado espessado. No sangramento pós-menopausa, endométrio totalmente visível, <strong>≤ 4 mm</strong>, sem vascularização interna e com colo e outras causas excluídos não exige mais testes. <span class="origem origem-isuog">ISUOG</span></p>
+<p>Não confunda com o Basic Training, que diz que "&gt; 5 mm <strong>não</strong> é necessariamente patológico" em mulheres pós-menopausa. "Espessado" é um critério para decidir se investiga, não um diagnóstico de doença.</p>
+</div>
+<div class="box">
+<h4>Exemplo 2 — Volume do ovário pela fórmula do elipsoide</h4>
+<p><strong>Situação:</strong> ovário direito medido em dois planos perpendiculares (IOTA): <strong>32 mm × 21 mm × 18 mm</strong>.</p>
+<p><strong>Fórmula:</strong> V = C × L × AP × 0,523 (0,523 ≈ π/6 = 0,5236). Wehba 1996 usa essa fórmula para o ovário <span class="origem origem-outra">Outra fonte</span>, e o MUSA, para útero e lesões <span class="origem origem-consenso">Consenso ISUOG/UOG</span>.</p>
+<p><strong>Passo 1 — Converta para cm</strong> (1 cm = 10 mm):</p>
+<ul><li>32 mm = 3,2 cm; 21 mm = 2,1 cm; 18 mm = 1,8 cm.</li></ul>
+<p><strong>Passo 2 — Multiplique as três medidas:</strong></p>
+<ul><li>3,2 × 2,1 = 6,72</li><li>6,72 × 1,8 = 12,096 cm³</li></ul>
+<p><strong>Passo 3 — Multiplique por 0,523:</strong></p>
+<ul><li>12,096 × 0,5 = 6,048</li><li>12,096 × 0,023 = 0,278208</li><li>6,048 + 0,278208 = 6,326208 cm³ ≈ <strong>6,3 cm³ = 6,3 mL</strong> (1 cm³ = 1 mL)</li></ul>
+<p class="conf-label">Conferência (inversa):</p>
+<ul><li>6,326208 ÷ 0,523 = 12,096 ✔</li><li>12,096 ÷ 1,8 = 6,72 ✔</li><li>6,72 ÷ 2,1 = 3,2 ✔</li></ul>
+<p class="conf"><strong>Conferência pelo caminho em mm:</strong> 32 × 21 = 672; 672 × 18 = 12 096 mm³; × 0,523 = 6 326,2 mm³; ÷ 1000 = 6,3 cm³ ✔ (1 cm³ = 1000 mm³).</p>
+<p><strong>Contexto:</strong> o Basic Training ISUOG mostra, para mulheres de 20–39 anos (Jokubkiene 2012), mediana de 7 mL e faixa de 2–17 mL. O valor de 6,3 mL está dentro dessa faixa. <span class="origem origem-isuog">ISUOG</span> Lembre: são dados de um estudo; a interpretação clínica é do médico responsável.</p>
+</div>
+<div class="box">
+<h4>Exemplo 3 — Volume do corpo uterino (MUSA)</h4>
+<p><strong>Medidas:</strong> comprimento do fundo = 1,4 cm; comprimento da cavidade = 5,2 cm; AP (d2) = 3,8 cm; transverso (d3) = 4,5 cm.</p>
+<p><strong>Passo 1 — d1:</strong> 1,4 + 5,2 = <strong>6,6 cm</strong> (conferência: 6,6 − 5,2 = 1,4 ✔).</p>
+<p><strong>Passo 2 — Produto:</strong></p>
+<ul><li>6,6 × 3,8 = 25,08</li><li>25,08 × 4,5 = 112,86 cm³</li></ul>
+<p><strong>Passo 3 — × 0,523:</strong></p>
+<ul><li>112,86 × 0,5 = 56,43</li><li>112,86 × 0,023 = 2,59578</li><li>56,43 + 2,59578 = 59,02578 ≈ <strong>59,0 cm³</strong></li></ul>
+<p class="conf"><strong>Conferência (inversa):</strong> 59,02578 ÷ 0,523 = 112,86 ✔; 112,86 ÷ 4,5 = 25,08 ✔; 25,08 ÷ 3,8 = 6,6 ✔.</p>
+<p><strong>Observação:</strong> o MUSA <strong>exclui o colo</strong> do volume quando o objetivo é avaliar o miométrio. <span class="origem origem-consenso">Consenso ISUOG/UOG</span> Nenhuma fonte consultada traz valor de referência de volume uterino. Não interprete o número sozinho. <a class="aviso" href="#s9">⚠ ver seção 9</a></p>
+</div>
+<div class="box">
+<h4>Exemplo 4 — DMSG (gestação inicial)</h4>
+<p><strong>Medidas do espaço líquido do saco:</strong> 12 mm (longitudinal), 9 mm (AP), 10 mm (transverso).</p>
+<ul><li>Soma: 12 + 9 + 10 = 31 mm</li><li>Média: 31 ÷ 3 = 10,333… ≈ <strong>10,3 mm</strong></li><li><strong>Conferência:</strong> 10,333… × 3 = 31 ✔</li></ul>
+<p>A idade gestacional sai de um <strong>nomograma</strong> (a diretriz cita nomogramas, mas não reproduz tabela de DMSG). Se houver embrião, prefira o <strong>CCN</strong>. <span class="origem origem-isuog">ISUOG</span></p>
+<p><strong>Como ler esse número com o critério SRU <span class="origem origem-outra">Outra fonte</span>:</strong> se <strong>não</strong> houver embrião, 10,3 mm está <strong>abaixo</strong> da faixa "suspeita" (16–24 mm) e muito abaixo do limite "diagnóstico" (≥ 25 mm). O DMSG, sozinho, <strong>não</strong> indica perda. Os critérios de tempo da tabela da seção 3.5 continuam valendo. Interpretar é tarefa do médico responsável.</p>
+</div>
+</section>
+<section id="s5">
+<h2><span class="tag">5</span><span>Erros comuns (pegadinhas)</span></h2>
+<ol class="titled"><li><strong class="item-title">Bexiga cheia na TV.</strong> A TV pede bexiga <strong>vazia</strong>. Bexiga cheia é para a TA como exame principal. <span class="origem origem-isuog">ISUOG</span></li><li><strong class="item-title">Esquecer de perguntar sobre látex</strong> antes de vestir a capa. <span class="origem origem-isuog">ISUOG</span></li><li><strong class="item-title">Achar que a capa basta.</strong> A sonda TV é semicrítica: <strong>limpeza + DAN</strong> após cada paciente, mesmo com capa. <span class="origem origem-isuog">ISUOG</span></li><li><strong class="item-title">Desinfetar sem limpar antes.</strong> Gel residual bloqueia o desinfetante. <span class="origem origem-isuog">ISUOG</span></li><li><strong class="item-title">Girar a sonda para o lado errado</strong> ou mais de ~100°. A regra é <strong>anti-horário</strong> do sagital para o transversal. <span class="origem origem-isuog">ISUOG</span> (O limite "&gt; 100°, volte ao início" aparece no Basic Training para a sonda TA.)</li><li><strong class="item-title">Trocar direita e esquerda.</strong> No transversal, direita da paciente = <strong>esquerda da tela</strong>. <span class="origem origem-isuog">ISUOG</span> Se a sonda girar 180°, tudo fica invertido.</li><li><strong class="item-title">Medir o endométrio no transversal</strong> ou medir "só uma camada". O certo é <strong>dupla camada no sagital</strong>, no ponto mais espesso. <span class="origem origem-isuog">ISUOG</span></li><li><strong class="item-title">Somar o líquido na espessura endometrial.</strong> Meça as duas camadas e <strong>some só as camadas</strong>. <span class="origem origem-isuog">ISUOG</span></li><li><strong class="item-title">"Chutar" a medida</strong> de um endométrio que não aparece inteiro. Escreva <strong>"não mensurável"</strong>. <span class="origem origem-isuog">ISUOG</span></li><li><strong class="item-title">Usar Doppler de rotina em embrião de 7 semanas.</strong> Não use de rotina no período embrionário (<strong>até 10+6 sem</strong>); se houver indicação, exposição mínima. <span class="origem origem-isuog">ISUOG</span></li><li><strong class="item-title">Esquecer o foco</strong> e deixar a potência em 100%. <span class="origem origem-isuog">ISUOG</span></li><li><strong class="item-title">Ganho alto demais.</strong> Líquido deve ficar <strong>preto</strong>. <span class="origem origem-isuog">ISUOG</span></li><li><strong class="item-title">Usar o cine-loop para "caçar"</strong> uma imagem aceitável. <span class="origem origem-isuog">ISUOG</span></li><li><strong class="item-title">Esquecer de converter mm → cm</strong> na fórmula de volume (o resultado fica 1000× maior), ou converter só uma das medidas. <span class="origem origem-pratica">Prática/ensino</span></li><li><strong class="item-title">Usar 0,52 em vez de 0,523 sem avisar.</strong> Arredondar a constante muda a última casa. Use 0,523, como no MUSA. <span class="origem origem-pratica">Prática/ensino</span></li><li><strong class="item-title">Incluir a vesícula vitelínica no CCN.</strong> <span class="origem origem-isuog">ISUOG</span></li><li><strong class="item-title">Chamar de patológico um pouco de líquido no fundo de saco</strong> na pré-menopausa. Pode ser normal. <span class="origem origem-isuog">ISUOG</span></li><li><strong class="item-title">Confundir "sinal de deslizamento negativo"</strong> (anormal: os órgãos não deslizam) com "exame negativo" (normal). Escreva "presente/ausente". <span class="origem origem-pratica">Prática/ensino</span></li><li><strong class="item-title">Diagnosticar placenta prévia no 1º trimestre.</strong> A diretriz diz que não. <span class="origem origem-isuog">ISUOG</span></li><li><strong class="item-title">Dar diagnóstico à paciente</strong> sendo aluno. <span class="origem origem-pratica">Prática/ensino</span></li><li><strong class="item-title">Usar critérios antigos de perda gestacional</strong> (CCN 5 mm ou DMSG 16 mm). O painel SRU elevou os limites diagnósticos para <strong>CCN ≥ 7 mm sem batimento</strong> e <strong>DMSG ≥ 25 mm sem embrião</strong>, porque os antigos davam falso-positivo. <span class="origem origem-outra">Outra fonte</span></li><li><strong class="item-title">Usar lenço com álcool ou detergente comum como se fosse DAN.</strong> Não é. <span class="origem origem-outra">Outra fonte — WFUMB 2024</span></li><li><strong class="item-title">Usar preservativo lubrificado ou com espermicida</strong> como capa. Se usar preservativo, ele deve ser <strong>sem lubrificante e sem medicamento</strong>. <span class="origem origem-outra">Outra fonte — WFUMB 2024</span></li></ol>
+</section>
+<section id="s6">
+<h2><span class="tag">6</span><span>Checklist final</span></h2>
+<h4 class="sub">Antes</h4>
+<ul><li>Sonda TV com DAN feita e guardada limpa; capa (com opção sem látex), gel e luvas.</li><li>Preset correto, potência fora de 100%, TI/MI visíveis.</li><li>Paciente identificada (2 identificadores) e dados no aparelho.</li><li>História (DUM, menopausa, hormônios, DIU, cirurgias, <strong>látex</strong>).</li><li>Exame explicado, sem contraindicação, <strong>consentimento</strong> obtido; acompanhante oferecido.</li><li>Bexiga vazia; litotomia; privacidade; vulva e períneo inspecionados.</li></ul>
+<h4 class="sub">Durante</h4>
+<ul><li>Marcador orientado; achei bexiga e colo primeiro.</li><li>Útero: posição; sagital de corno a corno; transversal do colo ao fundo; d1, d2, d3.</li><li>Endométrio: dupla camada no sagital (ou "não mensurável"); IETA; Doppler se indicado e permitido.</li><li>Colo.</li><li>Ovários D e E: 3 diâmetros em 2 planos; folículos/corpo lúteo; mobilidade.</li><li>Anexos; fundo de saco (AP no sagital, se houver líquido).</li><li>Mobilidade, dor localizada, sinal de deslizamento (se indicado).</li><li>Gestação: saco intrauterino envolto por miométrio (varri todo o útero), vesícula, embrião, CCN, <strong>FC registrada</strong> (modo M), número, corionicidade; <strong>sem Doppler de rotina &lt; 11 sem</strong>.</li><li>Imagens salvas (conjunto sugerido na seção 3.8). <a class="aviso" href="#s9">⚠ ver seção 9</a></li></ul>
+<h4 class="sub">Depois</h4>
+<ul><li>Sonda retirada com cuidado; paciente amparada.</li><li>Capa descartada → limpeza (gel fora, fendas) → secar → DAN → guardar coberta → lavar as mãos.</li><li>Laudo estruturado, com as limitações; achado anormal → supervisor.</li></ul>
+</section>
+<section id="s7">
+<h2><span class="tag">7</span><span>Exercícios</span></h2>
+<ol class="ruled"><li>Um ovário mede 28 mm × 20 mm × 15 mm. Calcule o volume (cm³) pela fórmula do elipsoide e confira no sentido inverso.</li><li>O endométrio tem líquido na cavidade: camada anterior 2,4 mm, posterior 3,1 mm. Qual espessura você deve relatar?</li><li>O saco gestacional mede 18 mm, 14 mm e 16 mm (espaço líquido). Calcule o DMSG.</li><li>No corte transversal TV, uma estrutura aparece à <strong>esquerda</strong> da tela. Em que lado da paciente ela está?</li><li>Gestante de 8 semanas: o colega quer "ver o fluxo do coração com Doppler colorido para ficar mais bonito". O que a ISUOG recomenda? E com 12 semanas?</li><li>Pela classificação de Spaulding, em que classe está a sonda TV e qual é o nível de reprocessamento? A capa dispensa esse processo?</li><li>Útero: fundo 1,2 cm; cavidade 4,8 cm; AP 3,5 cm; transverso 4,0 cm. Calcule d1 e o volume do corpo uterino (MUSA).</li><li>Paredes miometriais: anterior 15 mm, posterior 10 mm. Calcule a razão e diga se são simétricas segundo o MUSA.</li></ol>
+</section>
+<section id="s8" class="page-break">
+<h2><span class="tag">8</span><span>Gabarito</span></h2>
+<div class="box">
+<p class="result"><mark>1. Volume ≈ 4,4 cm³ (mL)</mark></p>
+<p>2,8 × 2,0 = 5,6; 5,6 × 1,5 = 8,4 cm³; 8,4 × 0,523 = <strong>4,3932 ≈ 4,4 cm³ (mL)</strong>.<br>Inversa: 4,3932 ÷ 0,523 = 8,4 ✔; 8,4 ÷ 1,5 = 5,6 ✔; 5,6 ÷ 2,0 = 2,8 ✔.<br>Em mm: 28 × 20 × 15 = 8400 mm³; × 0,523 = 4393,2 mm³ = 4,4 cm³ ✔.</p>
+</div>
+<div class="box">
+<p class="result"><mark>2. Espessura = 5,5 mm</mark></p>
+<p>2,4 + 3,1 = <strong>5,5 mm</strong> (soma das camadas, sem o líquido).<br>Inversa: 5,5 − 3,1 = 2,4 ✔.</p>
+</div>
+<div class="box">
+<p class="result"><mark>3. DMSG = 16,0 mm</mark></p>
+<p>18 + 14 + 16 = 48; 48 ÷ 3 = <strong>16,0 mm</strong>.<br>Inversa: 16 × 3 = 48 ✔.<br>Se não houver embrião, 16,0 mm cai na faixa <strong>16–24 mm = suspeita, mas não diagnóstica</strong> do painel SRU. Em geral, repete-se em 7–10 dias; a decisão é do médico. <span class="origem origem-outra">Outra fonte</span></p>
+</div>
+<div class="box">
+<p class="result"><mark>4. Lado direito da paciente</mark></p>
+<p>Direita da paciente = esquerda da tela. <span class="origem origem-isuog">ISUOG</span> <a class="aviso" href="#s9">⚠ ver seção 9</a></p>
+</div>
+<div class="box">
+<p class="result"><mark>5. Com 8 semanas, não; com 12 semanas, só com indicação</mark></p>
+<p>Com 8 semanas (período embrionário, até 10+6), o Doppler <strong>não</strong> deve ser usado de rotina; se houver indicação clínica, exposição mínima. <span class="origem origem-isuog">ISUOG</span> Para registrar a FC, o <strong>modo M</strong> é a opção coerente (interpretação do pesquisador; veja a seção 3.5, item 5).<br>Com 12 semanas (11+0 a 13+6), pode ser usado de rotina <strong>para certas indicações clínicas</strong> (ex.: rastreio de trissomias e cardiopatias), com <strong>TI exibido ≤ 1,0</strong> e exposição geralmente <strong>≤ 5–10 min</strong>. "Ficar mais bonito" não é indicação clínica. <span class="origem origem-isuog">ISUOG</span></p>
+</div>
+<div class="box">
+<p class="result"><mark>6. Semicrítica: desinfecção de alto nível</mark></p>
+<p><strong>Semicrítica</strong> → <strong>desinfecção de alto nível</strong>, após a limpeza. A capa <strong>não</strong> dispensa a DAN. <span class="origem origem-isuog">ISUOG</span></p>
+</div>
+<div class="box">
+<p class="result"><mark>7. d1 = 6,0 cm; volume ≈ 43,9 cm³</mark></p>
+<p>d1 = 1,2 + 4,8 = <strong>6,0 cm</strong>; 6,0 × 3,5 = 21; 21 × 4,0 = 84 cm³; 84 × 0,523 = <strong>43,932 ≈ 43,9 cm³</strong>.<br>Inversa: 43,932 ÷ 0,523 = 84 ✔; 84 ÷ 4,0 = 21 ✔; 21 ÷ 3,5 = 6,0 ✔.</p>
+</div>
+<div class="box">
+<p class="result"><mark>8. Razão = 1,5: paredes assimétricas</mark></p>
+<p>15 ÷ 10 = <strong>1,5</strong>. Inversa: 1,5 × 10 = 15 ✔.<br>Uma razão "bem acima de 1" indica <strong>assimetria</strong> (MUSA). <span class="origem origem-consenso">Consenso ISUOG/UOG</span></p>
+</div>
+</section>
+<section id="s9" class="limites">
+<h2><span class="tag">9</span><span>O que este resumo não conseguiu conferir — e por quê</span></h2>
+<p>Você pediu transparência, então aqui está tudo o que ficou sem conferência completa. Nenhum desses pontos traz número inventado: quando faltou fonte, o número ficou de fora. Nos pontos do texto marcados com <a class="aviso" href="#s9">⚠ ver seção 9</a>, leve isto em conta.</p>
+<h3><span class="tag tag-outline">9.1</span><span>Fontes lidas só em parte</span></h3>
+<ul><li><strong>Diretriz ISUOG de 1º trimestre 2023 (11–14 semanas).</strong> Motivo: foi lida na íntegra, mas só na tradução oficial em português. O original em inglês não foi conferido. Efeito prático: na tradução, o TI no Doppler "deve ser de 1,0"; a declaração ISUOG de 2021 diz "≤ 1,0". Leia como limite máximo (seção 2.7).</li><li><strong>IDEA 2016 (endometriose profunda).</strong> Motivo: o texto completo é de acesso pago (Unpaywall e Europe PMC indicaram acesso fechado; Wiley e repositórios devolveram erro 403). Os 4 passos e o sinal de deslizamento vêm de artigos abertos da UOG que citam o IDEA (Alcázar 2022 e McClenahan 2026). Detalhes do passo 1 além do endometrioma, como sinais de adenomiose, ficaram de fora porque não aparecem nesses artigos (seções 2.9 e 3.4, D9).</li><li><strong>Atualização IOTA 2026 (anexos).</strong> Motivo: só a página-resumo da ISUOG foi lida. As regras de medida deste resumo vêm do consenso IOTA de 2000 (seção 2.9).</li><li><strong>Diretriz WFUMB 2017 de limpeza de sondas.</strong> Motivo: o texto completo não foi acessado. Ela foi substituída pela WFUMB 2024, lida na íntegra, que a atualiza explicitamente (seção 3.7).</li></ul>
+<h3><span class="tag tag-outline">9.2</span><span>Figuras que não puderam ser vistas</span></h3>
+<ul><li><strong>Figuras do ISUOG Basic Training sobre a orientação da imagem TV.</strong> Motivo: não foi possível visualizar as figuras dos slides. A orientação foi inferida do texto; os rótulos extraídos dos slides concordam com "direita da paciente = esquerda da tela" no transversal (seção 2.4 e gabarito 4).</li></ul>
+<h3><span class="tag tag-outline">9.3</span><span>Itens sem recomendação explícita da ISUOG</span></h3>
+<p>Estes pontos são prática de ensino ou vêm de livro-texto. Siga o protocolo do seu serviço.</p>
+<ul><li><strong>Lista mínima de imagens a salvar.</strong> Motivo: a ISUOG 2014 diz o que o exame deve obter (Tabela 2) e pede um "conjunto padronizado de imagens", mas não lista quais. A lista da seção 3.8 é de ensino. O AIUM/ACR Practice Parameter de US pélvico, que poderia ajudar, não abriu (veja 9.4).</li><li><strong>Almofada sob o quadril (elevar as nádegas).</strong> Motivo: só há fonte de livro-texto (<em>Ultrasound in Obstetrics &amp; Gynecology: A Practical Approach</em>, cap. 3, GLOWM), nenhuma diretriz. Além disso, a autoria do livro não foi confirmada: as páginas lidas não trazem os nomes, e a atribuição a Abuhamad vem só da busca (seção 3.2, item 7).</li><li><strong>Glossário dos movimentos da sonda.</strong> Motivo: o material ISUOG mostra rotação e varreduras, mas não dá nomes padronizados aos movimentos (seção 2.5).</li><li><strong>Técnica detalhada de introdução da sonda.</strong> Motivo: não foi encontrada nas fontes ISUOG lidas (seção 3.3, item 4).</li><li><strong>Dupla identificação da paciente.</strong> Motivo: é prática de serviço; não aparece nas fontes lidas (seção 3.2, item 1).</li><li><strong>Técnica detalhada da via transperineal.</strong> Motivo: o consenso de endométrio só diz para que ela serve (seção 2.3).</li><li><strong>Técnica de medida do colo na gestação.</strong> Motivo: as fontes lidas indicam a via TV para essa avaliação, mas não detalham como medir (seção 3.4, D5).</li></ul>
+<h3><span class="tag tag-outline">9.4</span><span>Valores e documentos sem fonte, por isso omitidos</span></h3>
+<ul><li><strong>Volume uterino normal.</strong> Motivo: nenhuma fonte consultada traz valor de referência. Por isso o Exemplo 3 não interpreta o resultado.</li><li><strong>NICE NG126 (gestação ectópica e perda gestacional inicial, Reino Unido).</strong> Motivo: o site devolveu erro de acesso (403). Só apareceram resumos de protocolos de hospitais do NHS, que não foram usados (seção 3.5).</li><li><strong>AIUM/ACR Practice Parameter de US pélvico.</strong> Motivo: o PDF não abriu.</li><li><strong>Norma ANVISA específica para sondas endocavitárias.</strong> Motivo: não foi encontrada. A RDC 15/2012 aparece só citada de segunda mão, numa nota da Prefeitura de Belo Horizonte (2021) vista em resumo de busca; o texto da RDC não foi lido (seção 3.7).</li></ul>
+<h3><span class="tag tag-outline">9.5</span><span>Conclusões que são interpretação do pesquisador</span></h3>
+<ul><li><strong>Usar o modo M para registrar a FC antes de 11 semanas.</strong> Motivo: nenhuma fonte diz isso com essas palavras. É a combinação de duas regras ISUOG: a de 2023 manda registrar a FC por modo M ou Doppler espectral, e a de 2021 diz que o Doppler não deve ser usado de rotina no período embrionário (seção 3.5, item 5, e gabarito 5).</li><li><strong>Comparação entre as diretrizes de 2013 e 2023.</strong> Motivo: a tabela da seção 3.5 foi montada pelo pesquisador lendo as duas; não é um texto da ISUOG.</li></ul>
+</section>
+<section id="s10">
+<h2><span class="tag">10</span><span>Fontes consultadas</span></h2>
+<h3><span class="tag tag-outline">10.1</span><span>Documentos ISUOG (recomendações explícitas)</span></h3>
+<ul class="sources"><li><strong>Van den Bosch T, Heremans R, Landolfo C, Epstein E, Leone FPG, Bourne T, Timmerman D, et al. ISUOG Consensus Statement on sonographic assessment of the endometrium: how to perform a gynecological ultrasound scan and report the findings. <em>Ultrasound Obstet Gynecol</em> 2026;67(2):241–258. DOI 10.1002/uog.70163.</strong><a class="url" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12865526/">https://pmc.ncbi.nlm.nih.gov/articles/PMC12865526/</a><span>História, consentimento, chaperone, contraindicações, bexiga, posição, preparo da sonda, orientação, sequência do útero, medida do endométrio, IETA, Doppler, limiares de 4 mm e laudo.</span></li><li><strong>ISUOG — Salomon LJ, Alfirevic Z, Chalouhi GE, et al. Orientações práticas da ISUOG: realização do exame de ultrassonografia de primeiro trimestre (tradução de Wellington P. Martins, FMRP-USP). Original: <em>Ultrasound Obstet Gynecol</em> 2013;41:102–113.</strong><a class="url" href="https://www.isuog.org/asset/FF24F883-4C54-407F-A646E67D6F7B3094">https://www.isuog.org/asset/FF24F883-4C54-407F-A646E67D6F7B3094</a><span>Objetivos, viabilidade, gestação intrauterina, DMSG, CCN, corionicidade, ALARA, TI/MI, Doppler, documentação e encaminhamento.</span></li><li><strong>ISUOG Bioeffects and Safety Committee (Salvesen K, Abramowicz J, ter Haar G, et al.). ISUOG statement on the safe use of Doppler for fetal ultrasound examination in the first 13+6 weeks of pregnancy (updated). <em>Ultrasound Obstet Gynecol</em> 2021;57:1020. DOI 10.1002/uog.23610.</strong><a class="url" href="https://www.isuog.org/asset/50EE8D91-0264-4343-970B33F730B6508E">https://www.isuog.org/asset/50EE8D91-0264-4343-970B33F730B6508E</a><span>Regras de Doppler nos períodos embrionário e fetal.</span></li><li><strong>Poon LC, Abramowicz JS, Dall'Asta A, et al. (ISUOG Safety Committee). ISUOG Safety Committee Position Statement on safe performance of obstetric and gynecological scans and equipment cleaning in context of COVID-19. <em>Ultrasound Obstet Gynecol</em> 2020;55:709–712. DOI 10.1002/uog.22027.</strong><a class="url" href="https://isuog.org/asset/18D42263%2D4C7E%2D419B%2DACA08F70CC89B6C5">https://isuog.org/asset/18D42263%2D4C7E%2D419B%2DACA08F70CC89B6C5</a><span>Spaulding, passos de limpeza e DAN. Algumas recomendações são específicas da COVID-19; aqui foram usadas as de limpeza e desinfecção de rotina (a higiene das mãos e as luvas vêm da parte COVID).</span></li><li><strong>ISUOG Basic Training. "Transducers, Image Production, Knobology and Scanning Planes" (slides, licença CC BY-NC-ND 4.0).</strong><a class="url" href="https://isuog.org/static/uploaded/1337e6bb-fa6c-40cc-95dc9e6253be6955.pdf">https://isuog.org/static/uploaded/1337e6bb-fa6c-40cc-95dc9e6253be6955.pdf</a><span>Frequências, capa e látex, ajustes do aparelho, arranjo da sala, orientação e rotação.</span></li><li><strong>ISUOG Basic Training. "Examining the Uterus, Cervix, Ovaries &amp; Adnexae: Normal Findings" (slides).</strong><a class="url" href="https://isuog.org/asset/A043FAF7%2DB1F1%2D4C5E%2DAA46F8474AAA4556">https://isuog.org/asset/A043FAF7%2DB1F1%2D4C5E%2DAA46F8474AAA4556</a><span>TV × TA, técnica sistemática, exame dinâmico, líquido no fundo de saco, volumes ovarianos (Jokubkiene 2012; Sladkevicius 1995) e endométrio pós-menopausa.</span></li><li><strong>Bilardo CM, Chaoui R, Hyett JA, Kagan KO, Karim JN, Papageorghiou AT, Poon LC, Salomon LJ, Syngelaki A, Nicolaides KH (ISUOG). ISUOG Practice Guidelines (updated): performance of 11–14-week ultrasound scan. <em>Ultrasound Obstet Gynecol</em> 2023;61:127–143. DOI 10.1002/uog.26106. Lida na íntegra na tradução oficial ISUOG para o português ("Protocolos de Prática ISUOG (atualizado): performance da ultrassonografia de 11–14 semanas", trad. Danielle Sodré Barmpas e Michail Barmpas; rev. Karina Bilda de Castro Rezende).</strong><a class="url" href="https://www.isuog.org/asset/AEAF2177%2DE9E7%2D4DAB%2DAC810B33A282A543/">https://www.isuog.org/asset/AEAF2177%2DE9E7%2D4DAB%2DAC810B33A282A543/</a><span>Equipamento, segurança, viabilidade e FC, saco intrauterino, CCN, corionicidade, placenta, cesárea prévia, laudo e comparação com 2013.</span></li><li><strong>ISUOG Education Committee. Recomendações do Comitê de Educação da ISUOG para formação básica em ultrassonografia obstétrica e ginecológica (tradução de Wellington P. Martins; documento de 2014).</strong><a class="url" href="https://www.isuog.org/asset/53D0AF9C%2DB3B9%2D43B9%2DA30E282561C39B06/">https://www.isuog.org/asset/53D0AF9C%2DB3B9%2D43B9%2DA30E282561C39B06/</a><span>Consentimento verbal/escrito, acompanhante, lista do exame ginecológico básico (Tabela 2), livro de registro, supervisão, números para certificação e encaminhamento.</span></li></ul>
+<h3><span class="tag tag-outline">10.2</span><span>Consensos publicados na revista da ISUOG (UOG)</span></h3>
+<ul class="sources"><li><strong>Van den Bosch T, Dueholm M, Leone FPG, et al. Terms, definitions and measurements to describe sonographic features of myometrium and uterine masses: a consensus opinion from the MUSA group. <em>Ultrasound Obstet Gynecol</em> 2015;46:284–298. DOI 10.1002/uog.14806.</strong><a class="url" href="https://ftp.esat.kuleuven.be/pub/stadius/ida/reports/CP_15-127.pdf">https://ftp.esat.kuleuven.be/pub/stadius/ida/reports/CP_15-127.pdf</a><span>Medidas uterinas, fórmula × 0,523 e imagens propostas.</span></li><li><strong>Timmerman D, Valentin L, Bourne TH, Collins WP, Verrelst H, Vergote I. Terms, definitions and measurements to describe the sonographic features of adnexal tumors: a consensus opinion from the IOTA group. <em>Ultrasound Obstet Gynecol</em> 2000;16:500–505.</strong><a class="url" href="https://www.birmingham.ac.uk/documents/college-mds/trials/bctu/a-neuroscience/rockets/term-definitions-and.....pdf">https://www.birmingham.ac.uk/documents/college-mds/trials/bctu/a-neuroscience/rockets/term-definitions-and.....pdf</a><span>Medidas de ovários, lesões e líquido no fundo de saco; categorias de lesão.</span></li><li><strong>IOTA Group. Updated consensus opinion on the terms, definitions and measurements to describe the sonographic features of adnexal tumors. <em>Ultrasound Obstet Gynecol</em> 2026; DOI 10.1002/uog.70191.</strong><a class="url" href="https://www.isuog.org/resource/updated-consensus-opinion-on-the-terms-definitions-and-measurements-to-describe-the-sonographic-features-of-adnexal-tumors.html">https://www.isuog.org/resource/updated-consensus-opinion-on-the-terms-definitions-and-measurements-to-describe-the-sonographic-features-of-adnexal-tumors.html</a><span>Só a página-resumo da ISUOG foi consultada.</span></li><li><span>Guerriero S, Condous G, van den Bosch T, et al. (IDEA). Systematic approach to sonographic evaluation of the pelvis in women with suspected endometriosis… <em>Ultrasound Obstet Gynecol</em> 2016;48:318–332. DOI 10.1002/uog.15955. Texto completo NÃO acessado (acesso fechado; erro 403). Os 4 passos e a técnica do deslizamento vêm de Alcázar 2022 e McClenahan 2026, que citam o IDEA.</span></li></ul>
+<h3><span class="tag tag-outline">10.3</span><span>Outras fontes</span></h3>
+<ul class="sources"><li><strong>Westerway SC, Basseal JM, Abramowicz J, Moran C (WFUMB Safety Committee). Recommendations for the Cleaning of Endocavity Ultrasound Transducers Between Patients. <em>Ultrasound Med Biol</em> 2024. DOI 10.1016/j.ultrasmedbio.2024.02.011. Lido na íntegra.</strong><a class="url" href="https://wfumb.org/wp-content/uploads/2024/05/UMB-Endocavity-recommendations.pdf">https://wfumb.org/wp-content/uploads/2024/05/UMB-Endocavity-recommendations.pdf</a><span>Atualiza a diretriz WFUMB 2017; Spaulding, 4 passos, vazamento de capas, DAN, métodos e precauções. Página do documento: https://wfumb.org/2024/03/21/recommendations-for-the-cleaning-of-endocavity-ultrasound-transducers-between-patients/</span></li><li><strong>AIUM. Guidelines for Cleaning and Preparing External- and Internal-Use Ultrasound Transducers and Equipment Between Patients as well as Safe Handling and Use of Ultrasound Coupling Gel (revisão de 2 jul. 2025).</strong><a class="url" href="https://www.aium.org/resources/official-statements/view/guidelines-for-cleaning-and-preparing-external--and-internal-use-ultrasound-transducers-and-equipment-between-patients-as-well-as-safe-handling-and-use-of-ultrasound-coupling-gel">https://www.aium.org/resources/official-statements/view/guidelines-for-cleaning-and-preparing-external--and-internal-use-ultrasound-transducers-and-equipment-between-patients-as-well-as-safe-handling-and-use-of-ultrasound-coupling-gel</a><span>Luvas, DAN obrigatória, capa, gel e armazenamento.</span></li><li><strong>Doubilet PM, Benson CB, Bourne T, Blaivas M, et al. (Society of Radiologists in Ultrasound Multispecialty Panel). Diagnostic criteria for nonviable pregnancy early in the first trimester. <em>N Engl J Med</em> 2013;369:1443–1451. DOI 10.1056/NEJMra1302417. Lido na íntegra (cópia de acesso aberto da UC).</strong><a class="url" href="https://escholarship.org/uc/item/3g86q83k">https://escholarship.org/uc/item/3g86q83k</a><span>Sequência saco/vesícula/embrião, tamanho da vesícula, critérios de perda gestacional, variação entre observadores e hCG.</span></li><li><strong><em>Ultrasound in Obstetrics &amp; Gynecology: A Practical Approach</em>, cap. 3 "Technical Aspects of the Ultrasound Examination", p. 43–65 (e-book gratuito, GLOWM).</strong><a class="url" href="https://www.glowm.com/pdf/Ultrasound_in_obstetrics_and_gynecology-chapter3.pdf">https://www.glowm.com/pdf/Ultrasound_in_obstetrics_and_gynecology-chapter3.pdf</a><span>Elevar as nádegas com travesseiros, comadre invertida ou lençol dobrado quando a maca não tem perneiras. Autoria não confirmada: as páginas lidas não trazem os nomes dos autores/editores; confira antes de citar o autor.</span></li><li><strong>Alcázar JL, Eguez PM, Forcada P, et al. Diagnostic accuracy of sliding sign for detecting pouch of Douglas obliteration and bowel involvement in women with suspected endometriosis: systematic review and meta-analysis. <em>Ultrasound Obstet Gynecol</em> 2022;60(4):477–486. DOI 10.1002/uog.24900.</strong><a class="url" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9825886/">https://pmc.ncbi.nlm.nih.gov/articles/PMC9825886/</a><span>Definição e interpretação do sinal de deslizamento posterior; sensibilidade e especificidade.</span></li><li><strong>McClenahan P, Mak J, Uzuner C, et al. Diagnostic test accuracy of each of the four IDEA ultrasound steps in predicting presence of deep endometriosis. <em>Ultrasound Obstet Gynecol</em> 2026;67(5):679–683. DOI 10.1002/uog.70208.</strong><a class="url" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13136050/">https://pmc.ncbi.nlm.nih.gov/articles/PMC13136050/</a><span>Descrição dos 4 passos IDEA e de quando cada um é "positivo".</span></li><li><strong>Min N, van Keizerswaard J, Visser RH, et al. Prediction of vesicouterine adhesions by transvaginal sonographic sliding sign technique: validation study. <em>Ultrasound Obstet Gynecol</em> 2025;65(1):114–121. DOI 10.1002/uog.29128.</strong><a class="url" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11693815/">https://pmc.ncbi.nlm.nih.gov/articles/PMC11693815/</a><span>Técnica do deslizamento anterior (bexiga).</span></li><li><strong>Wehba S, Fernandes CE, Ferreira JAS, et al. Transvaginal ultrasonography assessment of ovarian volumes in postmenopausal women. <em>São Paulo Med J</em> 1996;114(3). DOI 10.1590/S1516-31801996000300002.</strong><a class="url" href="https://scielo.br/j/spmj/a/7FzyKsqRCvj4jSnhg4M9t8y/?lang=en">https://scielo.br/j/spmj/a/7FzyKsqRCvj4jSnhg4M9t8y/?lang=en</a><span>Fórmula "comprimento × altura × profundidade × 0,523" para o ovário.</span></li><li><strong>WFUMB e-learning. "Finding the Uterus" (USG transabdominal da pelve feminina).</strong><a class="url" href="https://wfumb.info/wp-content/obsgyn/Admin_tutorial/www.anu-tech.com/WFUMB_01_01-Transabdominal_Ultrasound_Female_Pelvis/d/ELFH_Session/19/tab_5925.html">https://wfumb.info/wp-content/obsgyn/Admin_tutorial/www.anu-tech.com/WFUMB_01_01-Transabdominal_Ultrasound_Female_Pelvis/d/ELFH_Session/19/tab_5925.html</a><span>O ovário é procurado entre o fundo uterino e os vasos ilíacos da parede pélvica.</span></li><li><span>Abramowicz JS, Evans DH, Fowlkes JB, Maršal K, ter Haar G (WFUMB Safety Committee). Guidelines for Cleaning Transvaginal Ultrasound Transducers Between Patients. <em>Ultrasound Med Biol</em> 2017;43:1076–1079. Texto completo não acessado; substituído pela atualização WFUMB 2024.</span></li></ul>
+</section>
+</main>
+</body>
+</html>

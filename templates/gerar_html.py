@@ -1,12 +1,15 @@
-"""Converte resumos/<tema>/rascunho.md em resumo.html no layout "Sinalização".
+"""Converte resumos/<tema>/rascunho.md em resumo.html.
 
-Uso: python3 templates/gerar_html.py resumos/<tema>
+Uso: python3 templates/gerar_html.py resumos/<tema> [layout]
 
-O layout está descrito em templates/sinalizacao.md e o CSS em templates/sinalizacao.css.
+layout: "sinalizacao" (padrão) ou "editorial-suico". Cada layout está descrito em
+templates/<layout>.md e o CSS em templates/<layout>.css.
+O cabeçalho pode ser trocado no rascunho com <!-- kicker: Texto do cabeçalho -->.
 O rascunho deve seguir a estrutura padrão: "# Título", subtítulo, parágrafo(s) de abertura,
 seções "## N. Nome", subseções "### N.M Nome" e exemplos "#### Exemplo ...".
 Seções com nome especial ganham estilo próprio: "Erros comuns", "Atalhos", "Exercícios",
-"Gabarito" (começa em página nova) e "Fontes".
+"Gabarito" (começa em página nova), "Fontes" e "não conseguiu conferir" (destaque de limitações).
+Etiquetas de origem ([ISUOG], [Outra fonte]...) e avisos "⚠ ver seção N" viram selos e links.
 """
 import html
 import os
@@ -16,15 +19,28 @@ import sys
 pasta = sys.argv[1]
 src = os.path.join(pasta, "rascunho.md")
 dst = os.path.join(pasta, "resumo.html")
-css_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sinalizacao.css")
+layout = sys.argv[2] if len(sys.argv) > 2 else "sinalizacao"
+css_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), layout + ".css")
+FONTS = {
+    "sinalizacao": "JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700",
+    "editorial-suico": "IBM+Plex+Mono:wght@400;600&family=Inter:wght@400;500;700;800",
+}
 md = open(src, encoding="utf-8").read()
+m = re.search(r"<!--\s*kicker:\s*(.*?)\s*-->", md)
+kicker = m.group(1) if m else "Sistemas de Informação · CESMAC"
 md = md.split("<!-- STATUS")[0].rstrip().rstrip("-").rstrip()
 md = re.sub(r"<!--.*?-->\n?", "", md, flags=re.S)  # comentários (ex.: <!-- layout: ... -->)
 lines = md.split("\n")
 
 
+ORIGEM = {"ISUOG": "isuog", "Consenso ISUOG": "consenso", "Outra fonte": "outra", "Prática/ensino": "pratica"}
+
+
 def inline(t):
     t = html.escape(t, quote=False).replace(" ✔", "\u00a0✔")
+    t = re.sub(r"(?:\*\*)?\[((ISUOG|Consenso ISUOG|Outra fonte|Prática/ensino)[^\]]*)\](?:\*\*)?",
+               lambda m: f'<span class="origem origem-{ORIGEM[m.group(2)]}">{m.group(1)}</span>', t)
+    t = re.sub(r"(?:\*\*)?⚠ ver seção (\d+)(?:\*\*)?", r'<a class="aviso" href="#s\1">⚠ ver seção \1</a>', t)
     t = re.sub(r"`([^`]+)`", r"<code>\1</code>", t)
     t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
     t = re.sub(r"(?<![\w*])\*([^*]+)\*(?!\w)", r"<em>\1</em>", t)
@@ -89,7 +105,7 @@ while i < len(lines):
 
 # ---------- 2. renderizar ----------
 SPECIAL = [("erros", "erros"), ("atalhos", "atalhos"), ("exercicios", "exercícios"),
-           ("gabarito", "gabarito"), ("fontes", "fontes")]
+           ("gabarito", "gabarito"), ("fontes", "fontes"), ("limites", "conferir")]
 KEY = ' class="key"'
 out = []
 section = None          # número da seção "##" atual
@@ -153,7 +169,7 @@ for kind, data in blocks[first_h2:]:
         section = m.group(1)
         nome = m.group(2).lower()
         kind_of = next((k for k, chave in SPECIAL if chave in nome), "")
-        extra = ' class="page-break"' if kind_of == "gabarito" else ""
+        extra = {"gabarito": ' class="page-break"', "limites": ' class="limites"'}.get(kind_of, "")
         out.append(f'<section id="s{section}"{extra}>')
         out.append(f'<h2><span class="tag">{section}</span><span>{inline(m.group(2))}</span></h2>')
         continue
@@ -265,7 +281,7 @@ page = f"""<!doctype html>
 <title>{html.escape(doc_title)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family={FONTS[layout]}&display=swap" rel="stylesheet">
 <style>
 {css}
 </style>
@@ -273,7 +289,7 @@ page = f"""<!doctype html>
 <body>
 <main>
 <header>
-<p class="kicker"><span>Resumo</span> Sistemas de Informação · CESMAC</p>
+<p class="kicker"><span>Resumo</span> {html.escape(kicker)}</p>
 <h1>{inline(doc_title)}</h1>
 <p class="subtitle">{inline(subtitle)}</p>
 </header>
