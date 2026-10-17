@@ -10,6 +10,7 @@ Cada resumo é produzido por uma squad de subagentes em `.claude/agents/`.
   - `rascunho.md` — conteúdo revisado (QA + polimento)
   - `resumo.html` — versão final diagramada
 - `templates/layout-escolhido.md` — layout aprovado no Paper (o designer reutiliza nos próximos resumos)
+- `templates/gerar_html.py` + `templates/sinalizacao.css` — geram o `resumo.html` a partir do `rascunho.md` no layout aprovado
 
 ## Fluxo de um resumo
 

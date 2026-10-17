@@ -31,4 +31,6 @@ Se `templates/layout-escolhido.md` já existir, siga esse layout e pule para a E
 3. Mostre ao aluno e ajuste o que ele pedir, seção por seção.
 4. Quando o aluno aprovar, gere `resumos/<tema>/resumo.html` reproduzindo o design do Paper:
    arquivo único, CSS embutido, legível no celular e com `@media print` para imprimir/PDF.
+   Para o layout Sinalização, use o gerador: `python3 templates/gerar_html.py resumos/<tema>`
+   (lê o `rascunho.md` e aplica `templates/sinalizacao.css`). Confira o resultado no navegador.
 5. Faça commit e avise o aluno.
