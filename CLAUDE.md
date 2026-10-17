@@ -9,7 +9,8 @@ Cada resumo é produzido por uma squad de subagentes em `.claude/agents/`.
   - `pesquisa.md` — saída do pesquisador
   - `rascunho.md` — conteúdo revisado (QA + polimento)
   - `resumo.html` — versão final diagramada
-- `templates/` — layouts aprovados (o designer reutiliza o escolhido)
+- `templates/<nome>.md` — coleção de layouts aprovados no Paper (um arquivo por estilo; o designer pergunta qual usar)
+- `templates/gerar_html.py` + `templates/sinalizacao.css` — geram o `resumo.html` a partir do `rascunho.md` no layout Sinalização
 
 ## Fluxo de um resumo
 
@@ -18,9 +19,11 @@ Trabalhe sempre num branch próprio (`resumo/<tema>`), nunca direto na `main`.
 1. **pesquisador** → cria `pesquisa.md` com conceitos, exemplos resolvidos e fontes.
 2. **revisor-qa** → confere cada conceito, conta e exemplo; corrige erros em `pesquisa.md` e lista o que mudou.
 3. **polidor-texto** → transforma em `rascunho.md`: linguagem didática, português correto, ordem lógica.
-4. **designer** → gera opções de layout, ESPERA o aluno escolher, e só então monta `resumo.html`.
+4. **designer** → pergunta se o aluno quer reusar um layout salvo em `templates/` ou ver 3 opções novas no Paper; ESPERA a escolha, desenha o resumo completo e, aprovado, gera `resumo.html`. Requer o app Paper Desktop aberto, com um arquivo próprio para cada resumo.
 
-Ao fim de cada etapa: commit pequeno com mensagem clara (ex.: `pesquisa: conversão de bases`).
+Ao fim de cada etapa: commit pequeno com mensagem clara (ex.: `pesquisa: conversão de bases`)
+e **push imediato do branch para o GitHub** (`git push -u origin <branch>`), para o trabalho ficar salvo na nuvem.
+Ao pausar o trabalho, também faça commit e push do que estiver pronto.
 Pare e mostre o resultado ao aluno antes de passar para a próxima etapa.
 
 ## Regras gerais
